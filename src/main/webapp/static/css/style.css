@@ -1,0 +1,13 @@
+.invisible-at-first {
+	display: none;
+}
+
+.dropdown-thin a {
+    height: 25px;
+    padding-top: 2px;
+     min-width: 60px !important;
+}
+
+.form-horizontal .control-label{
+    text-align: right;
+}
