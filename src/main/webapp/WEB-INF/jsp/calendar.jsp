@@ -175,7 +175,7 @@ function putCalData(type)
 	{
 
 	calObject.fullCalendar( 'removeEvents',oldeventid )
-	
+	oldeventid=0;
 	}
 		calObject.fullCalendar('renderEvent', data, true);
 		
@@ -209,7 +209,7 @@ function removeEvent()
 
        
 function getEvents(date){
-	var eventid=null;
+	var eventid=0;
 	initialEvents.forEach(function(entry) {
         if (entry['start'] == date.format()){
                         
