@@ -108,7 +108,7 @@ public class PDFDownload {
 	private void addSpace(Document document) throws DocumentException {
 		Paragraph space = new Paragraph();
 		
-		addEmptyLine(space, 3);
+		addEmptyLine(space, 2);
 		
 		document.add(space);
 		

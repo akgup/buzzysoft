@@ -11,3 +11,26 @@
 .form-horizontal .control-label{
     text-align: right;
 }
+
+.tweaked-margin {
+    margin-left: 160px; // or whatever you need
+}
+
+.navbar-login
+{
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size
+{
+    font-size: 87px;
+}

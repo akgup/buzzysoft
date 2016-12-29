@@ -24,8 +24,7 @@ public class TaskController {
 
 		task.setStatus(request.getParameter("status").toString());
 
-		System.out.println(task.getTaskDate());
-		if(task.getTaskDate()!=null)
+			if(task.getTaskDate()!=null)
 		{
 			taskRepository.save(task);
 		}
@@ -37,13 +36,13 @@ public class TaskController {
 	
 		request.setAttribute("tasks", taskRepository.findTaskListByuserId(task.getUserId()));
 		request.setAttribute("mode", "MODE_TASKS");
-		return "index";
+		return "task";
 	}
 
 	@GetMapping("/new-task")
 	public String newTask(@ModelAttribute Task task, HttpServletRequest request) {
 		request.setAttribute("mode", "MODE_NEW");
-		return "index";
+		return "task";
 	}
 
 	@GetMapping("/update-task")
@@ -51,7 +50,7 @@ public class TaskController {
 
 		request.setAttribute("task", taskRepository.findOne(id));
 		request.setAttribute("mode", "MODE_UPDATE");
-		return "index";
+		return "task";
 	}
 
 	@GetMapping("/delete-task")
@@ -65,6 +64,6 @@ public class TaskController {
 	public String allTasks(HttpServletRequest request, int userid) {
 		request.setAttribute("tasks", taskRepository.findTaskListByuserId(userid));
 		request.setAttribute("mode", "MODE_TASKS");
-		return "index";
+		return "task";
 	}
 }

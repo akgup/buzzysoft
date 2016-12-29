@@ -21,6 +21,9 @@
 	<![endif]-->
 </head>
 <body>
+
+	<c:choose>
+		<c:when test="${mode == 'MODE_LOGIN'}">	
         <div class="container col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4">
             <br />
             <div class="panel panel-default">
@@ -52,6 +55,12 @@
                 </form>
             </div>
         </div>
+         </c:when>
+       
+        
+        
+        
+        </c:choose>
 	<script src="static/js/jquery-1.11.1.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
 </body>

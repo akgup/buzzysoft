@@ -26,16 +26,19 @@
 		<c:when test="${mode == 'MODE_NEW' || mode == 'MODE_UPDATE'}">
 			<div class="container text-center">
 
-				<h3>Expense Reimbursement</h3>
+				<h4>Expense Reimbursement</h4>
 				<hr>
-				<form class="form-horizontal" method="POST" action="create-claim">
+					 <div id="errorDiv"> 
+                        <p id="error"  style="color:red;font-size:20px;"></p></div> 
+                        
+				<form class="form-horizontal" method="POST" action="create-claim" id="claim-form" onsubmit="return validateForm()">
 					<input type="hidden" name="id" value="${claim.claimId}" /> <input
 						type="hidden" name="userId" value="<%=userId%>" />
 
 					<div class="form-group">
 						<label class="control-label col-md-3">From Date</label>
 						<div class="col-md-5">
-							<input class="form-control" id="date" name="start"
+							<input class="form-control" id="start-date" name="start"
 								placeholder="MM/DD/YYY" type="text"
 								value="<fmt:formatDate pattern="yyyy-MM-dd"
 											value="${claim.start}" />" />
@@ -45,7 +48,7 @@
 					<div class="form-group">
 						<label class="control-label col-md-3">End Date</label>
 						<div class="col-md-5">
-							<input class="form-control" id="date" name="end"
+							<input class="form-control" id="end-date" name="end"
 								placeholder="MM/DD/YYY" type="text"
 								value="<fmt:formatDate pattern="yyyy-MM-dd"
 											value="${claim.end}" />" />
@@ -55,7 +58,7 @@
 					<div class="form-group">
 						<label class="control-label col-md-3">Manager</label>
 						<div class="col-md-5">
-							<input type="text" name="manager" class="form-control"
+							<input type="text" name="manager" id="manager" class="form-control"
 								value="${claim.manager}" />
 						</div>
 					</div>
@@ -63,7 +66,7 @@
 					<div class="form-group">
 						<label class="control-label col-md-3">Business Purpose</label>
 						<div class="col-md-5">
-							<input type="text" name="purpose" class="form-control"
+							<input type="text" name="purpose" id="purpose" class="form-control"
 								value="${claim.purpose}" />
 						</div>
 					</div>
@@ -72,19 +75,15 @@
 					<div class="form-group">
 						<label class="control-label col-md-3">Advance</label>
 						<div class="col-md-5">
-							<input type="number" name="advance" class="form-control"
+							<input type="number" name="advance" id="advance" class="form-control"
 								value="${claim.advance}" />
 						</div>
 					</div>
 
-
-					<div class="dropdown">
-
+					<div class="dropdown form-group">
 						<label class="control-label col-md-3">Department</label>
 						<div class="col-md-5">
-
-							<select class="selectpicker show-tick" name="department"
-								data-style="btn-primary">
+							<select class="selectpicker form-control" name="department">
 								<option value="Engineering">Engineering</option>
 								<option value="HR">HR</option>
 								<option value="Finance">Finance</option>
@@ -92,15 +91,13 @@
 							</select>
 
 						</div>
-
 					</div>
 
-
-					<div class="container">
+					<div class="container form-group">
 
 						<div class="row clearfix">
 							<br>
-							<div class="col-md-7 column">
+							<div class="col-md-7 column tweaked-margin">
 								<br>
 								<table class="table table-bordered table-hover" id="item_table">
 									<col width="80">
@@ -136,12 +133,12 @@
 								</table>
 							</div>
 
-							<div class="col-md-12">
+							<div class="col-md-6">
 								<div class="col-md-3"></div>
 								<div class="col-md-3">
 									<a id="add_row" class="btn btn-default ">Add Row</a>
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-3  " >
 									<a id='delete_row' class="btn btn-default pull-right">Delete
 										Row</a>
 								</div>
@@ -174,9 +171,9 @@
 							<col width="100">
 							<thead>
 								<tr>
-									<th>Claim Id</th>
-									<th>Period</th>
-									<th>Download</th>
+									<th class="text-center">Claim Id</th>
+									<th class="text-center">Period</th>
+									<th class="text-center">Download</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -206,13 +203,8 @@
 
 	</c:choose>
 
-	<script src="static/js/jquery-1.11.1.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
-
-	<!-- Include jQuery -->
-	<script type="text/javascript"
-		src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
+	
 	<!-- Include Date Range Picker -->
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
@@ -314,5 +306,20 @@
 	</script>
 
 
+	<script>
+		function validateForm() {
+
+			var startdate = document.forms["claim-form"]["start-date"].value;
+			var enddate = document.forms["claim-form"]["end-date"].value;
+			var manager = document.forms["claim-form"]["manager"].value;
+			var advance = document.forms["claim-form"]["advance"].value;
+			var purpose = document.forms["claim-form"]["purpose"].value;
+			
+			if (startdate.trim() == "" || enddate.trim() == "" || manager.trim() == "" || advance.trim() == "" || purpose.trim() == "") {
+			     document.getElementById("error").innerHTML ="All fields are mandatory! Kindly fill.";
+				return false;
+			}
+		}
+	</script>
 </body>
 </html>

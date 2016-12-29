@@ -23,15 +23,39 @@ public class LoginController {
 	@GetMapping("/")
 	public String home(HttpServletRequest request) {
 
-		return "login";
+		String uname = null;
+		int uid=0;
+		String redirect = "login";
+
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null)
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("username"))
+					uname = cookie.getValue();
+				if (cookie.getName().equals("userid"))
+				{
+					uid= Integer.parseInt(cookie.getValue());
+					
+				}
+
+			}
+		if (uname != null) {
+			redirect = "redirect:home?userid="+uid;
+		} else {
+			request.setAttribute("mode", "MODE_LOGIN");
+		}
+
+		return redirect;
 	}
 
+
+
 	@PostMapping("/validate")
-	public String validateLoginDetails(@ModelAttribute UserCredentials userCredentials, BindingResult bindingResult, HttpServletRequest request,
-			HttpServletResponse response) {
+	public String validateLoginDetails(@ModelAttribute UserCredentials userCredentials, BindingResult bindingResult,
+			HttpServletRequest request, HttpServletResponse response) {
 		String username = userCredentials.getUserName();
 		String password = userCredentials.getPassword();
-		String redirect="";
+		String redirect = "";
 
 		UserCredentials userObject = userCredentialsRepository.findByUserName(username);
 
@@ -42,40 +66,34 @@ public class LoginController {
 				response.addCookie(usernameCookie);
 				response.addCookie(useridCookie);
 				request.setAttribute("mode", "MODE_HOME");
-				redirect= "redirect:" + "/home";
+				redirect = "redirect:" + "/home?userid="+userObject.getUserId();
 			}
-			
-			else
-			{
-				redirect=  "redirect:" + "/";
+
+			else {
+				redirect = "redirect:/";
 			}
 		}
-return redirect;
+		else
+		{
+			redirect = "redirect:/";
+			
+		}
+		return redirect;
 	}
 
 
-
-	@GetMapping("/home")
-	public String homepage(HttpServletRequest request) {
-		request.setAttribute("mode", "MODE_HOME");
-		return "index";
-	}
-	
-	
 	@GetMapping("/logout")
 	private String eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
-	    Cookie[] cookies = req.getCookies();
-	    if (cookies != null)
-	        for (int i = 0; i < cookies.length; i++) {
-	            cookies[i].setValue("");
-	            cookies[i].setPath("/");
-	            cookies[i].setMaxAge(0);
-	            resp.addCookie(cookies[i]);
-	        }
-	    
-	   	    return  "redirect:" + "/";
+		Cookie[] cookies = req.getCookies();
+		if (cookies != null)
+			for (int i = 0; i < cookies.length; i++) {
+				cookies[i].setValue("");
+				cookies[i].setPath("/");
+				cookies[i].setMaxAge(0);
+				resp.addCookie(cookies[i]);
+			}
+
+		return "redirect:" + "/";
 	}
-
-
 
 }

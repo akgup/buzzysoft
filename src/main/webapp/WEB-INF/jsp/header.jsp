@@ -11,17 +11,12 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Expires" content="Sat, 01 Dec 2001 00:00:00 GMT">
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="static/css/bootstrap.min.css">
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
 <link href="static/css/bootstrap.min.css" rel="stylesheet">
 <link href="static/css/style.css" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
-<!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+
 <link rel="stylesheet"
 	href="https://formden.com/static/cdn/bootstrap-iso.css" />
 </head>
@@ -43,18 +38,17 @@
 			response.sendRedirect("/");
 	%>
 
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
+
+
+	<nav class="navbar navbar-inverse ">
+		<div class="container-fluid ">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/home">BuzzyBrains</a>
+				<a class="navbar-brand" href="/home?userid=<%=userId%>">BuzzyBrains</a>
 			</div>
 
 
 			<ul class="nav navbar-nav">
-				<li><a href="#">Attendance</a></li>
-				<li><a href="/myProfile?userid=<%=userId%>">My Profile</a></li>
-
-				<li class="dropdown"><a class="dropdown-toggle"
+					<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#">Task<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="new-task">New Task</a></li>
@@ -66,14 +60,54 @@
 					data-toggle="dropdown" href="#">Claim<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="/claim-form">New Claim</a></li>
-						<li><a href="/claim-list?userid=<%=userId%>">Claim History</a></li>
+						<li><a href="/claim-list?userid=<%=userId%>">Claim
+								History</a></li>
 					</ul></li>
-				<li><a href="logout">Logout</a></li>
+
+			</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> 
+						<strong><%=userName%></strong> <span
+						class="glyphicon glyphicon-chevron-down"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li>
+							<div class="navbar-login">
+								<div class="row">
+									<div class="col-lg-5">
+									<p>
+											<a href="/myProfile?userid=<%=userId%>" class="btn btn-primary btn-block">My Profile</a>
+										</p>
+									</div>
+									
+										<div class="col-lg-7">
+									<p>
+											<a href="/change-password" class="btn btn-info btn-block">Change Password</a>
+										</p>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<div class="navbar-login navbar-login-session">
+								<div class="row">
+									<div class="col-lg-12">
+										<p>
+											<a href="/logout" class="btn btn-danger btn-block">Logout</a>
+										</p>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul></li>
 			</ul>
 		</div>
 	</nav>
 
-	<script src="static/js/jquery-1.11.1.min.js"></script>
+	<script src='static/js/jquery.min.js'></script>
 	<script src="static/js/bootstrap.min.js"></script>
 
 </body>
