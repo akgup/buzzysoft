@@ -3,6 +3,7 @@ package com.buzzybrains.controller;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,32 +24,30 @@ public class LoginController {
 	@GetMapping("/")
 	public String home(HttpServletRequest request) {
 
-		String uname = null;
-		int uid=0;
 		String redirect = "login";
+		int uid = 0;
+		String uname = null;
 
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null)
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals("username"))
 					uname = cookie.getValue();
-				if (cookie.getName().equals("userid"))
-				{
-					uid= Integer.parseInt(cookie.getValue());
-					
+				if (cookie.getName().equals("userid")) {
+					uid = Integer.parseInt(cookie.getValue());
+
 				}
 
 			}
 		if (uname != null) {
-			redirect = "redirect:home?userid="+uid;
+			redirect = "redirect:home?userid=" + uid;
 		} else {
 			request.setAttribute("mode", "MODE_LOGIN");
+
 		}
 
 		return redirect;
 	}
-
-
 
 	@PostMapping("/validate")
 	public String validateLoginDetails(@ModelAttribute UserCredentials userCredentials, BindingResult bindingResult,
@@ -61,29 +60,36 @@ public class LoginController {
 
 		if (userObject != null) {
 			if (userObject.getPassword().equals(password)) {
+
+				// creating a session
+				HttpSession session = request.getSession();
+				session.setAttribute("username", username);
+				session.setAttribute("userid", Integer.toString(userObject.getUserId()));
+
 				Cookie usernameCookie = new Cookie("username", username);
 				Cookie useridCookie = new Cookie("userid", Integer.toString(userObject.getUserId()));
 				response.addCookie(usernameCookie);
 				response.addCookie(useridCookie);
 				request.setAttribute("mode", "MODE_HOME");
-				redirect = "redirect:" + "/home?userid="+userObject.getUserId();
+				redirect = "redirect:" + "/home?userid=" + userObject.getUserId();
 			}
 
 			else {
 				redirect = "redirect:/";
 			}
-		}
-		else
-		{
+		} else {
 			redirect = "redirect:/";
-			
+
 		}
 		return redirect;
 	}
 
-
 	@GetMapping("/logout")
 	private String eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
+
+		HttpSession session = req.getSession();
+		session.invalidate();
+
 		Cookie[] cookies = req.getCookies();
 		if (cookies != null)
 			for (int i = 0; i < cookies.length; i++) {

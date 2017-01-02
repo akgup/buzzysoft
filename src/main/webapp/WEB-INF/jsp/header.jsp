@@ -40,20 +40,20 @@
 
 
 
-	<nav class="navbar navbar-inverse ">
+	<nav class="navbar navbar-inverse  ">
 		<div class="container-fluid ">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="/home?userid=<%=userId%>">BuzzyBrains</a>
+			<div class="navbar-header ">
+				<a class="navbar-brand" href="/home?userid=<%=userId%>"><img src="/static/image/bb-logo.png"></img></a>
 			</div>
 
 
 			<ul class="nav navbar-nav">
-					<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">Task<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="new-task">New Task</a></li>
-						<li><a href="all-tasks?userid=<%=userId%>">Task History</a></li>
-					</ul></li>
+					<!-- <li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#">Task<span class="caret"></span></a> -->
+				
+						
+						<li><a href="all-tasks?userid=<%=userId%>">Work Log</a></li>
+				
 
 
 				<li class="dropdown"><a class="dropdown-toggle"
@@ -109,6 +109,21 @@
 
 	<script src='static/js/jquery.min.js'></script>
 	<script src="static/js/bootstrap.min.js"></script>
-
+<script>
+$(function(){
+    $(".dropdown").hover(            
+            function() {
+                $('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
+                $(this).toggleClass('open');
+                $('b', this).toggleClass("caret caret-up");                
+            },
+            function() {
+                $('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
+                $(this).toggleClass('open');
+                $('b', this).toggleClass("caret caret-up");                
+            });
+    });
+    
+</script>
 </body>
 </html>

@@ -34,3 +34,7 @@
 {
     font-size: 87px;
 }
+
+.navbar-fixed-top {
+    min-height: 80px;
+}

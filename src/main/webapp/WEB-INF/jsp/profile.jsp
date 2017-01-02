@@ -37,12 +37,11 @@
 						type="hidden" name="userProfileId"
 						value="${userProfile.userProfileId}" />
 					<div class="form-group">
-						<label class="control-label col-md-3">Name</label>
-						<div class="col-md-5">
-
+						<label class="control-label col-md-3 ">Name</label>
+						<div class="col-md-5 col-sm-6 ">
 							<input type="text" name="employeeName" class="form-control"
 								value="${userProfile.employeeName}" />
-						</div>
+							</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-md-3">Employee Id</label>

@@ -13,25 +13,33 @@
 
 <title>My Calendar</title>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
 
-
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 <link href='static/css/fullcalendar.min.css' rel='stylesheet' />
 
 <link href='static/css/bootstrap-timepicker.css' rel='stylesheet' />
-<link href='static/css/fullcalendar.print.min.css' rel='stylesheet'	media='print' />
+<link href='static/css/fullcalendar.print.min.css' rel='stylesheet'
+	media='print' />
 <script src='static/js/lib/moment.min.js'></script>
 
 <script src='static/js/fullcalendar.min.js'></script>
 <script src='static/js/bootstrap-timepicker.js'></script>
+<script src='static/js/custom/calendar.js'></script>
 
 <script type="text/javascript">
-	 $(function() {
-		   $('#timepicker1').timepicker();
-		 });
-        </script>
+	$(function() {
+		$('#timepicker1').timepicker();
+	});
+</script>
 
 
 
@@ -48,18 +56,16 @@ body {
 }
 </style>
 </head>
-<body>
-
+<body  onload="myTasks()">
 	<c:set var="cal-data" value="${caldata}" />
 	<%
-    String d1 = (String)pageContext.getAttribute("cal-data");
-     
-  %>
-
+		String d1 = (String) pageContext.getAttribute("cal-data");
+	%>
 	<div id='calendar'></div>
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog modal-sm">
+	
+	<!--Primary Modal -->
+	<div class="modal fade" id="primaryModal" role="dialog">
+		<div class="modal-dialog modal-sm-4">
 
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -78,9 +84,11 @@ body {
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal"
-						onclick="putCalData('Leave')">Leave</button>
+						onclick="addTask()">Add Task</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal"
-						onclick="putCalData('present')">Present</button>
+						onclick="putCalData('Leave','<%=userId%>')">Leave</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+						onclick="putCalData('present','<%=userId%>')">Present</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 
@@ -104,7 +112,87 @@ body {
 					<button type="button" class="btn btn-default" data-dismiss="modal"
 						onclick="removeEvent()">Remove</button>
 				</div>
+			</div>
 
+		</div>
+	</div>
+
+	<!-- Add Task Modal -->
+	<div class="modal fade" id="taskModal" role="dialog">
+		<div class="modal-dialog modal-sm-6">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">New Task</h4>
+					<hr>
+					<div id="errorDiv">
+						<p id="error" style="color: red; font-size: 20px;"></p>
+					</div>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" name="taskForm" action="save-task"
+						onsubmit="return validateForm()" method="post">
+						<input type="hidden" name="id" value="${task.id}" /> <input
+							type="hidden" name="userId" value="<%=userId%>" />
+						<div class="form-group">
+							<label class="control-label col-md-3">Task Name*</label>
+							<div class="col-md-5">
+
+								<input type="text" name="name" class="form-control"
+									placeholder="Task Name*" value="${task.name}" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3">Description</label>
+							<div class="col-md-5">
+								<input type="text" name="description"
+									placeholder="Task Description" class="form-control"
+									value="${task.description}" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-3">Date*</label>
+							<div class="col-md-5">
+								<input class="form-control" id="date" name="taskDate"
+									placeholder="YYYY/MM/DD*" type="text"
+									value="<fmt:formatDate pattern="yyyy-MM-dd" value="${task.taskDate}" />" />
+
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-3">Comments</label>
+							<div class="col-md-5">
+								<input type="text" name="comments"
+									placeholder="Comments if any!" class="form-control"
+									value="${task.comments}" />
+							</div>
+						</div>
+
+
+						<div class="dropdown form-group">
+							<label class="control-label col-md-3">Status</label>
+							<div class="col-md-5">
+								<select class="selectpicker form-control" name="status">
+									<option value="Not Started">Not Started</option>
+									<option value="In Progress">In Progress</option>
+									<option value="Done">Done</option>
+								</select>
+
+							</div>
+						</div>
+
+						<div class="form-group">
+							<input type="submit" class="btn btn-primary" value="Save" />
+
+						</div>
+					</form>
+
+				</div>
 
 			</div>
 
@@ -112,116 +200,216 @@ body {
 	</div>
 
 
+
+<!--  Task Details Modal -->
+	<div class="modal fade" id="taskDetailsModal" role="dialog">
+		<div class="modal-dialog ">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="task_title"></h4>
+								
+				</div>
+				<div class="modal-body">
+					<table class="table table-stripped table-bordered text-left  table2excel"
+						id="task-history">
+
+						<col width="300">
+						<col width="100">
+						<col width="200">
+					
+						<thead>
+							<tr>
+								<th>Description</th>
+								<th>Status</th>
+								<th>Comments</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+
+								<tr id="${task.id}">
+									<td id="task_desc"></td>
+									<td id="task_status"></td>
+									<td id="task_comment"></td>							
+								</tr>
+						</tbody>
+
+					</table>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
 </body>
 
 <script>
+	var inDate;
+	var oldevent;
+	var initialEvents =<%=d1%>;
+	
+	var calObject = $('#calendar');
 
- var inDate;
- var oldevent;
- var initialEvents = <%=d1%>; 
- var calObject=$('#calendar');
- 
- calObject.fullCalendar({
-	  height: 500,
-	defaultDate: '2016-12-12',
-	editable: true,
-	eventLimit: false, // allow "more" link when too many events
-	events: initialEvents ,
-	
-    dayClick: function(date, jsEvent, view) {	    	
-    	   oldeventid=getEvents(date);
-    	      	  
-         inDate=new Date(date.format());
-        // change the day's background color just for fun
-        //$(this).css('background-color', 'gray');
-        jQuery.noConflict() ;
-    	$('#myModal').modal();
-
-    },
-    
-    eventRender: function(event, element) {
-        if(event.title == "Leave") {
-            element.css('background-color', '#FFA07A');
-        }
-    },
-	
-	eventClick: function(calEvent, jsEvent, view) {
-		removingeventid=calEvent.id;
-		  jQuery.noConflict() ;
-	    	$('#removeModal').modal();
-       
-      } 
-});
- 
-	var intime=document.getElementById("timepicker1").value;
-	
-function putCalData(type)
-{ 
-	var data=null;
-	var calid=null;
-	
-	if(type == "Leave" )
-		{
-		data ={"start":inDate,"title":"Leave","userId":<%=userId%>,"id":oldeventid};	
+	calObject.fullCalendar({
+		height : 550,
 		
+		editable : true,
+		eventLimit : false, // allow "more" link when too many events
+		events : initialEvents,
+		displayEventTime: false,
+		
+		dayClick : function(date, jsEvent, view) {
+			oldeventid = getEvents(date);
+
+			inDate = new Date(date.format());
+			// change the day's background color just for fun
+			//$(this).css('background-color', 'gray');
+			jQuery.noConflict();
+			$('#primaryModal').modal();
+
+		},
+
+		eventRender : function(event, element) {
+			if (event.title == "Leave") {
+				element.css('background-color', '#ff0000');
+			}
+			
+			if (event.type == "task") {
+				element.css('background-color', '#c2acac');
+			}
+		},
+
+		eventClick : function(calEvent, jsEvent, view) {
+			removingeventid = calEvent.id;
+			jQuery.noConflict();
+			if(calEvent.type=="task")
+				{
+				$('#taskDetailsModal').modal();
+				document.getElementById("task_title").innerHTML = calEvent.title;
+				document.getElementById("task_desc").innerHTML = calEvent.description;
+				document.getElementById("task_status").innerHTML = calEvent.status;
+				document.getElementById("task_comment").innerHTML = calEvent.comments;
+				
+				}
+			else
+				{
+			//$('#removeModal').modal();
+				}
+
 		}
-	else
-		{
-		 data ={"start":inDate,"title":intime,"userId":<%=userId%>,"id":oldeventid};	
-	
-		}	
+	});
 
-	if(oldeventid!=0)
-	{
 
-	calObject.fullCalendar( 'removeEvents',oldeventid )
-	oldeventid=0;
-	}
-		calObject.fullCalendar('renderEvent', data, true);
-		
-$.ajax({
-		  type: "POST",
-		  url: "calendar-data",
-		  data: data,
-		  success: null,
-		  dataType: "html",
-			  beforeSend: function(xhr){xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');}, 
+	function  myTasks()
+	{	
+		$.ajax({
+			type : "GET",
+			url : "task-list",
+			data : "userid="+"<%=userId%>",
+			success : function(data) {
+				var json = JSON.parse(data);				
+				for( x in json)
+				{			
+					var date = new Date(json[x]["taskDate"]);					
+					var title = json[x]["name"];
+					var id = json[x]["id"];
+								
+					var newdata = {
+						"start" : date,
+						"title" : title,
+						"userId" : "<%=userId%>",
+						"id" : id ,
+						"description" : json[x]["description"] ,
+						"status" : json[x]["status"] ,
+						"comments" : json[x]["comments"],
+						"type":"task"
+					};
+					
+					calObject.fullCalendar('renderEvent', newdata, true);
+					
+					}
+				
+			},
+			dataType : "html",
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader('Content-Type',
+						'application/x-www-form-urlencoded');
+			},
 		});
-       }
- 
- var removingeventid=0;
-function removeEvent() 
-{ 
-	if(removingeventid!=0)
-	{
-	calObject.fullCalendar( 'removeEvents',removingeventid )
-	
-	$.ajax({
-		  type: "GET",
-		  url: "calendar-data-remove?id="+removingeventid,
-		  data: null,
-		  success: null,			  
-		});	
-	}
 		
-}
+		
+	}
+	
+	function putCalData(type, userid) {
+		
+		var intime = document.getElementById("timepicker1").value;
+		var data = null;
+		var calid = null;
 
+		if (type == "Leave") {
+			data = {
+				"start" : inDate,
+				"title" : "Leave",
+				"userId" : userid,
+				"id" : oldeventid
+			};
 
-       
-function getEvents(date){
-	var eventid=0;
-	initialEvents.forEach(function(entry) {
-        if (entry['start'] == date.format()){
-                        
-        	eventid= entry['id'];
-                        
-        }
-        
-        
-     });
-return eventid;
-}
- </script>
+		} else {
+			data = {
+				"start" : inDate,
+				"title" : intime,
+				"userId" : userid,
+				"id" : oldeventid
+			};
 
+		}
 
+		if (oldeventid != 0) {
+			calObject.fullCalendar('removeEvents', oldeventid)
+			oldeventid = 0;
+		}
+		//calObject.fullCalendar('renderEvent', data, true);
+
+		$.ajax({
+			type : "POST",
+			url : "calendar-data",
+			data : data,
+			success : function(data) {
+				var json = JSON.parse(data);
+				var date = new Date(json["start"]);
+				var title = json["title"];
+				var id = json["id"];
+				var newdata = {
+					"start" : date,
+					"title" : title,
+					"userId" : userid,
+					"id" : id
+				};
+				calObject.fullCalendar('renderEvent', newdata, true);
+			},
+			dataType : "html",
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader('Content-Type',
+						'application/x-www-form-urlencoded');
+			},
+		});
+	}
+
+	$(document).ready(
+			function() {
+				var date_input = $('input[name="taskDate"]'); //our date input has the name "date"
+				var container = $('.bootstrap-iso form').length > 0 ? $(
+						'.bootstrap-iso form').parent() : "body";
+				date_input.datepicker({
+					format : 'yyyy/MM/dd',
+					container : container,
+					todayHighlight : true,
+					autoclose : true,
+				})
+			})
+</script>
 </html>

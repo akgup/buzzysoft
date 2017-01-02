@@ -28,10 +28,12 @@
 
 				<h4>Expense Reimbursement</h4>
 				<hr>
-					 <div id="errorDiv"> 
-                        <p id="error"  style="color:red;font-size:20px;"></p></div> 
-                        
-				<form class="form-horizontal" method="POST" action="create-claim" id="claim-form" onsubmit="return validateForm()">
+				<div id="errorDiv">
+					<p id="error" style="color: red; font-size: 20px;"></p>
+				</div>
+
+				<form class="form-horizontal" method="POST" action="create-claim"
+					id="claim-form" onsubmit="return validateForm()">
 					<input type="hidden" name="id" value="${claim.claimId}" /> <input
 						type="hidden" name="userId" value="<%=userId%>" />
 
@@ -58,16 +60,16 @@
 					<div class="form-group">
 						<label class="control-label col-md-3">Manager</label>
 						<div class="col-md-5">
-							<input type="text" name="manager" id="manager" class="form-control"
-								value="${claim.manager}" />
+							<input type="text" name="manager" id="manager"
+								class="form-control" value="${claim.manager}" />
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="control-label col-md-3">Business Purpose</label>
 						<div class="col-md-5">
-							<input type="text" name="purpose" id="purpose" class="form-control"
-								value="${claim.purpose}" />
+							<input type="text" name="purpose" id="purpose"
+								class="form-control" value="${claim.purpose}" />
 						</div>
 					</div>
 
@@ -75,8 +77,8 @@
 					<div class="form-group">
 						<label class="control-label col-md-3">Advance</label>
 						<div class="col-md-5">
-							<input type="number" name="advance" id="advance" class="form-control"
-								value="${claim.advance}" />
+							<input type="number" name="advance" id="advance"
+								class="form-control" value="${claim.advance}" />
 						</div>
 					</div>
 
@@ -97,7 +99,7 @@
 
 						<div class="row clearfix">
 							<br>
-							<div class="col-md-7 column tweaked-margin">
+							<div class="col-md-9 column tweaked-margin">
 								<br>
 								<table class="table table-bordered table-hover" id="item_table">
 									<col width="80">
@@ -105,6 +107,7 @@
 									<col width="200">
 									<col width="120">
 									<col width="100">
+									<col width="150">
 
 									<thead>
 										<tr>
@@ -113,6 +116,7 @@
 											<th class="text-center">Description</th>
 											<th class="text-center">Category</th>
 											<th class="text-center">Cost</th>
+											<th class="text-center">attachment</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -123,10 +127,18 @@
 												class="form-control picker" /></td>
 											<td><input type="text" name='claimItems[0].description'
 												placeholder='Description' class="form-control" /></td>
-											<td><input type="text" name='claimItems[0].category'
-												placeholder='Category' class="form-control" /></td>
+											<td><select class="selectpicker form-control"
+												name='claimItems[0].category'>
+													<option value="travel">Travel</option>
+													<option value="food">Food</option>
+													<option value="admin">Admin</option>
+													<option value="product">Product</option>
+													<option value="other">Other</option>
+											</select></td>
 											<td><input type="number" name='claimItems[0].cost'
 												placeholder='Cost' class="form-control" /></td>
+											<td><input type='file' name='files[]'
+												id='js-upload-files' multiple></td>
 										</tr>
 										<tr id='addr1'></tr>
 									</tbody>
@@ -138,7 +150,7 @@
 								<div class="col-md-3">
 									<a id="add_row" class="btn btn-default ">Add Row</a>
 								</div>
-								<div class="col-md-3  " >
+								<div class="col-md-3  ">
 									<a id='delete_row' class="btn btn-default pull-right">Delete
 										Row</a>
 								</div>
@@ -180,7 +192,7 @@
 								<c:forEach var="claim" items="${claimList}">
 									<tr>
 										<td>${claim.claimId}</td>
-										<td ><fmt:formatDate pattern="yyyy-MM-dd"
+										<td><fmt:formatDate pattern="yyyy-MM-dd"
 												value="${claim.start}" /> to <fmt:formatDate
 												pattern="yyyy-MM-dd" value="${claim.end}" /></td>
 										<td><a href="/claim-download?claimid=${claim.claimId}"><span
@@ -204,7 +216,7 @@
 	</c:choose>
 
 	<script src="static/js/bootstrap.min.js"></script>
-	
+
 	<!-- Include Date Range Picker -->
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
@@ -247,17 +259,14 @@
 				.ready(
 						function() {
 							var i = 1;
-							$("#add_row")
-									.click(
-											function() {
+							$("#add_row").click(function() {
 												$('#addr' + i)
-														.html(
-																"<td>"
+														.html("<td>"
 																		+ (i + 1)
 																		+ "</td><td><input name='claimItems["
 																		+ i
-																		+ "].expenseDate' type='text' placeholder='Date' class='form-control input-md picker' onblur='showDatePicker(this)'  /> </td><td><input  name='claimItems["+i+"].description' type='text' placeholder='Description'  class='form-control input-md'></td><td><input  name='claimItems["+i+"].category' type='text' placeholder='Category'  class='form-control input-md'></td><td><input  name='claimItems["+i+"].cost' type='number' placeholder='Cost'  class='form-control input-md'></td>");
-
+																		+ "].expenseDate' type='text' placeholder='Date' class='form-control input-md picker' onblur='showDatePicker(this)'  /> </td><td><input  name='claimItems["+i+"].description' type='text' placeholder='Description'  class='form-control input-md'></td><td><select class='selectpicker form-control' name='claimItems["+i+"].category'><option value='travel'>Travel</option><option value='food'>Food</option><option value='admin'>Admin</option><option value='product'>Product</option><option value='other'>Other</option></select></td><td><input  name='claimItems["+i+"].cost' type='number' placeholder='Cost'  class='form-control input-md'></td><td><input type='file' name='files[]' id='js-upload-files' multiple></td>");
+												
 												$('#item_table').append(
 														'<tr id="addr'
 																+ (i + 1)
@@ -314,9 +323,11 @@
 			var manager = document.forms["claim-form"]["manager"].value;
 			var advance = document.forms["claim-form"]["advance"].value;
 			var purpose = document.forms["claim-form"]["purpose"].value;
-			
-			if (startdate.trim() == "" || enddate.trim() == "" || manager.trim() == "" || advance.trim() == "" || purpose.trim() == "") {
-			     document.getElementById("error").innerHTML ="All fields are mandatory! Kindly fill.";
+
+			if (startdate.trim() == "" || enddate.trim() == ""
+					|| manager.trim() == "" || advance.trim() == ""
+					|| purpose.trim() == "") {
+				document.getElementById("error").innerHTML = "All fields are mandatory! Kindly fill.";
 				return false;
 			}
 		}

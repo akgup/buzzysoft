@@ -26,7 +26,6 @@ public class CalendarController {
 	@GetMapping("/home")
 	public String showCalendar(HttpServletRequest request, int userid) {
 		List<Calendar> dataArray = calendarRepo.findCalendarByUserId(userid);
-
 		ObjectMapper mapper = new ObjectMapper();
 
 		try {
@@ -43,14 +42,12 @@ public class CalendarController {
 
 	@PostMapping("/calendar-data")
 	@ResponseBody
-	public String insertCalDatar(@ModelAttribute Calendar calendar, BindingResult bindingResult,
+	public Calendar insertCalDatar(@ModelAttribute Calendar calendar, BindingResult bindingResult,
 			HttpServletRequest request) {
-
-		calendarRepo.save(calendar);
-		//return "redirect:calendar?userid="+calendar.getUserId();
-		return "success";
+		Calendar caldata = calendarRepo.save(calendar);
+		return caldata;
 	}
-	
+
 	@GetMapping("/calendar-data-remove")
 	@ResponseBody
 	public String removeCalData(int id) {

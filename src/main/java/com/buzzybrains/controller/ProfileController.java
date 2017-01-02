@@ -27,7 +27,6 @@ public class ProfileController {
 	@GetMapping("/myProfile")
 	public String displayProfile(HttpServletRequest request, int userid) {
 		request.setAttribute("userProfile", userProfileRepo.findByUserId(userid));
-
 		request.setAttribute("mode", "MODE_PROFILE");
 		return "profile";
 	}
