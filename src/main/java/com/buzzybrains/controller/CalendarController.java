@@ -33,7 +33,7 @@ public class CalendarController {
 
 			request.setAttribute("caldata", calData);
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 
