@@ -52,6 +52,8 @@ public class ClaimController {
 		request.setAttribute("mode", "MODE_HISTORY");
 		return "claim";
 	}
+	
+
 
 	@PostMapping("/create-claim")
 	public String submitClaim(@ModelAttribute Claim claim, BindingResult bindingResult, HttpServletRequest request) {

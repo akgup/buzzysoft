@@ -35,7 +35,7 @@ function save_row(no, userid) {
 	var comment_val = document.getElementById("comment_text" + no).value;
 	var status_val = document.getElementById("status_text" + no).value;
 	var date_val = document.getElementById("date_text" + no).value;
-	alert("date_text" + no+">>>>>>>"+date_val);
+	
 
 	document.getElementById("name_row" + no).innerHTML = name_val;
 	document.getElementById("desc_row" + no).innerHTML = description_val;

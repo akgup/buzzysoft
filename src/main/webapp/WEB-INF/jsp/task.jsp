@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<%@ page isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -62,7 +63,8 @@
 					</div>
 
 					<div class="form-group">
-						<select class="selectpicker form-control" name="status" id="task-status">
+						<select class="selectpicker form-control" name="status"
+							id="task-status">
 							<option value="Not Started">Not Started</option>
 							<option value="In Progress">In Progress</option>
 							<option value="Done">Done</option>
@@ -133,23 +135,22 @@
 									</td>
 
 									<td>
-									
-									<button  type="button"
-											id="save_button${task.id}"
+
+										<button type="button" id="save_button${task.id}"
 											onclick="save_row('${task.id}',<%=userId%>)"
-											class="btn btn-success"    style="display: none;" >
+											class="btn btn-success" style="display: none;">
 											<span class="glyphicon  glyphicon-floppy-disk"></span>
 										</button>
-										
+
 										<button type="button" id="edit_button${task.id}"
 											onclick="edit_row('${task.id}')" class="btn btn-info">
 											<span class="glyphicon glyphicon-pencil"> </span>
-										</button>									
-										
+										</button>
+
 									</td>
 
 								</tr>
-								
+
 							</c:forEach>
 
 						</tbody>
@@ -195,8 +196,8 @@
 	
 	
 	</script>
-	
-	
+
+
 
 	<script>
 	
@@ -229,14 +230,13 @@
 		   $('#task-history tr:first').after(
 				  "<tr id=row"+id+"><td > "+id+"</td><td id=name_row"+id+">"+res.name+"</td><td id=desc_row"+id+">"+res.description+"</td><td><p id=date_row"+id+">"+task_date+"</p><input style='display: none;' size=30	class='form-control new-date' id=date_text" + id +"	name='taskDate' placeholder='YYYY/MM/DD*' type='text'	value="+ task_date+" /></td><td id=status_row"+id+">"+res.status+"</td><td id=comment_row"+id+">"+res.comments+"</td><td><button  type='button'	id='delete_button" + id + "'	onclick='delete_row(" + id +","+res.userId+")'   class='btn btn-danger' ><span class='glyphicon  glyphicon-trash'></span></button> </td><td><button  type='button'	id='save_button" + id + "'	onclick='save_row(" + id +","+res.userId+")'   class='btn btn-success'   style='display: none;' >	<span class='glyphicon  glyphicon-floppy-disk'></span></button> <button  type='button'	id='edit_button" + id + "'	onclick='edit_row(" + id +","+res.userId+")'   class='btn btn-info'  >	<span class='glyphicon  glyphicon-pencil'></span></button></td></tr>"
                      )
-		    	
-		       $("#task-name").empty(); 
-		       $("#task-desc").empty();
-		       $("#task-date").empty();
-		       $("#task-status").empty();
-		    
+		    			    
 		    });
+		    
+			document.taskForm.reset();
+		       
 		   });
+		  
 		 });
 	
 	

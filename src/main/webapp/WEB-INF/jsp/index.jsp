@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+   <%@ page isELIgnored="false"%>
 <%@ include file="header.jsp"%>
 
 <html>
@@ -114,9 +115,15 @@
 					<div class="form-group">
 						<label class="control-label col-md-3">Date*</label>
 						<div class="col-md-5">
-							<input class="form-control" id="date" name="taskDate"
+							<%-- <input class="form-control" id="date" name="taskDate"
 								placeholder="YYYY/MM/DD*" type="date"
-								value="<fmt:formatDate pattern="yyyy-MM-dd" value="${task.taskDate}" />" />
+								value="<fmt:formatDate pattern="yyyy-MM-dd" value="${task.taskDate}" />" /> --%>
+
+
+
+               <input class="form-control" id="date" name="taskDate"
+								placeholder="YYYY/MM/DD*" type="date"
+								 value="${task.taskDate}" />
 
 						</div>
 

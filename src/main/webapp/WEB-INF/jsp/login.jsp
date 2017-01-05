@@ -1,9 +1,10 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE HTML>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+   <%@ page isELIgnored="false"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<%-- <c:set var="contextPath" value="${pageContext.request.contextPath}" /> --%>
 
 <html>
 <head>
@@ -24,9 +25,6 @@
 	<![endif]-->
 </head>
 <body>
-
-	<c:choose>
-		<c:when test="${mode == 'MODE_LOGIN'}">
 			<div
 				class="container col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4">
 				<br />
@@ -40,7 +38,7 @@
 								<div class="input-group">
 									<span class="input-group-addon"> <i
 										class="glyphicon glyphicon-user" style="width: auto"></i>
-									</span> <input id="txtUsername" type="text" value="${user.userName}"
+									</span> <input id="txtUsername" type="text" 
 										class="form-control" name="userName" placeholder="Username"
 										required />
 								</div>
@@ -49,7 +47,7 @@
 								<div class="input-group">
 									<span class="input-group-addon"> <i
 										class="glyphicon glyphicon-lock" style="width: auto"></i>
-									</span> <input id="txtpasswd" type="password" value="${user.password}"
+									</span> <input id="txtpasswd" type="password"
 										class="form-control" name="password" placeholder="Password"
 										required />
 								</div>
@@ -65,12 +63,7 @@
 					</form>
 				</div>
 			</div>
-		</c:when>
 
-
-
-
-	</c:choose>
 	<script src="static/js/jquery-1.11.1.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
 </body>

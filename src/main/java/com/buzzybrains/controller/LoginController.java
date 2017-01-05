@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.buzzybrains.dao.UserCredentialsRepository;
 import com.buzzybrains.model.UserCredentials;
@@ -20,6 +22,11 @@ public class LoginController {
 
 	@Autowired
 	UserCredentialsRepository userCredentialsRepository;
+	
+    @RequestMapping("/hi")
+    public @ResponseBody String hiThere(){
+        return "hello world!";
+    }
 
 	@GetMapping("/")
 	public String home(HttpServletRequest request) {
@@ -41,13 +48,15 @@ public class LoginController {
 			}
 		if (uname != null) {
 			redirect = "redirect:home?userid=" + uid;
-		} else {
-			request.setAttribute("mode", "MODE_LOGIN");
-
-		}
+		} 
 
 		return redirect;
 	}
+	
+/*	@GetMapping("/")
+	public String home(HttpServletRequest request) {
+		return "test";
+	}*/
 
 	@PostMapping("/validate")
 	public String validateLoginDetails(@ModelAttribute UserCredentials userCredentials, BindingResult bindingResult,

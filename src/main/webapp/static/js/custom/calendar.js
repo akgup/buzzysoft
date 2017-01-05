@@ -18,9 +18,7 @@ function addTask()
  }
  
 
-	var intime=document.getElementById("timepicker1").value;
-	
-
+var intime=document.getElementById("timepicker1").value;
 
 var removingeventid=0;
 function removeEvent() 
@@ -49,17 +47,6 @@ function validateForm() {
 		return false;
 	}
 }
-
-$("#taskForm").submit(function(event) {
-	event.preventDefault();
-	var $form = $(this), url = $form.attr('action');
-	var posting = $.post(url, $("#taskForm").serialize());
-
-	posting.done(function(data) {
-		alert('success');
-	});
-});
-
 
 
        

@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<%@ page isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="header.jsp"%>
@@ -56,13 +57,14 @@ body {
 }
 </style>
 </head>
-<body  onload="myTasks()">
-	<c:set var="cal-data" value="${caldata}" />
+
+<body onload="myTasks()">
+
 	<%
-		String d1 = (String) pageContext.getAttribute("cal-data");
+		String d1 = (String) request.getAttribute("caldata");
 	%>
 	<div id='calendar'></div>
-	
+
 	<!--Primary Modal -->
 	<div class="modal fade" id="primaryModal" role="dialog">
 		<div class="modal-dialog modal-sm-4">
@@ -132,8 +134,8 @@ body {
 					</div>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" name="taskForm" action="save-task"
-						onsubmit="return validateForm()" method="post">
+					<form class="form-horizontal" name="taskForm" id="taskForm"
+						action="save-task" onsubmit="return validateForm()" method="post">
 						<input type="hidden" name="id" value="${task.id}" /> <input
 							type="hidden" name="userId" value="<%=userId%>" />
 						<div class="form-group">
@@ -187,7 +189,8 @@ body {
 						</div>
 
 						<div class="form-group">
-							<input type="submit" class="btn btn-primary" value="Save" />
+							<input type="button" onclick="submitTask()" class="btn btn-primary"
+								value="Save" />
 
 						</div>
 					</form>
@@ -201,7 +204,7 @@ body {
 
 
 
-<!--  Task Details Modal -->
+	<!--  Task Details Modal -->
 	<div class="modal fade" id="taskDetailsModal" role="dialog">
 		<div class="modal-dialog ">
 
@@ -210,31 +213,32 @@ body {
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title" id="task_title"></h4>
-								
+
 				</div>
 				<div class="modal-body">
-					<table class="table table-stripped table-bordered text-left  table2excel"
+					<table
+						class="table table-stripped table-bordered text-left  table2excel"
 						id="task-history">
 
 						<col width="300">
 						<col width="100">
 						<col width="200">
-					
+
 						<thead>
 							<tr>
 								<th>Description</th>
 								<th>Status</th>
 								<th>Comments</th>
-								
+
 							</tr>
 						</thead>
 						<tbody>
 
-								<tr id="${task.id}">
-									<td id="task_desc"></td>
-									<td id="task_status"></td>
-									<td id="task_comment"></td>							
-								</tr>
+							<tr id="${task.id}">
+								<td id="task_desc"></td>
+								<td id="task_status"></td>
+								<td id="task_comment"></td>
+							</tr>
 						</tbody>
 
 					</table>
@@ -311,7 +315,9 @@ body {
 			url : "task-list",
 			data : "userid="+"<%=userId%>",
 			success : function(data) {
-				var json = JSON.parse(data);				
+			
+				var json = JSON.parse(data);		
+			
 				for( x in json)
 				{			
 					var date = new Date(json[x]["taskDate"]);					
@@ -344,7 +350,7 @@ body {
 		
 	}
 	
-	function putCalData(type, userid) {
+function putCalData(type, userid) {
 		
 		var intime = document.getElementById("timepicker1").value;
 		var data = null;
@@ -411,5 +417,49 @@ body {
 					autoclose : true,
 				})
 			})
+
+			
+/* add task from calendar */			
+/* $("#taskForm").submit(function(event) { */
+	
+function submitTask(){	
+	  $('#taskModal').modal('hide'); 
+	//event.preventDefault();	
+		
+	$.ajax({
+		type : "POST",
+		url : "save-task",
+		data :  $("#taskForm").serialize(),
+		success : function(data) {
+			var json = JSON.parse(data);	
+						
+			var date = new Date(json["taskDate"]);					
+			var title = json["name"];
+			var id = json["id"];
+			
+			var newdata = {
+				"start" : date,
+				"title" : title,
+				"userId" : "<%=userId%>",
+				"id" : id ,
+				"description" : json["description"] ,
+				"status" : json["status"] ,
+				"comments" : json["comments"],
+				"type":"task"
+			};
+			
+			calObject.fullCalendar('renderEvent', newdata, true);
+		},
+		dataType : "html",
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader('Content-Type',
+					'application/x-www-form-urlencoded');
+		},
+	});
+	
+	  
+
+}
+
 </script>
 </html>
