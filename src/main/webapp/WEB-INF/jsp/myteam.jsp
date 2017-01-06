@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-   <%@ page isELIgnored="false"%>
+<%@ page isELIgnored="false"%>
 <%@ include file="header.jsp"%>
 <html>
 <head>
@@ -15,7 +15,8 @@
 
 <link href="static/css/searchbox.css" rel="stylesheet">
 <link href='static/css/fullcalendar.min.css' rel='stylesheet' />
-<link href='static/css/fullcalendar.print.min.css' rel='stylesheet'	media='print' />
+<link href='static/css/fullcalendar.print.min.css' rel='stylesheet'
+	media='print' />
 <script src='static/js/lib/moment.min.js'></script>
 <script src='static/js/fullcalendar.min.js'></script>
 <script src='static/js/custom/calendar.js'></script>
@@ -23,28 +24,27 @@
 
 </head>
 <body>
-<c:choose>
+	<c:choose>
 		<c:when test="${mode == 'MODE_TEAM'}">
 			<div class="container text-center" id="tasksDiv">
 				<h4>My Team</h4>
 				<hr>
-				
-<div class="container">
-	<div class="row">
-        <div class="col-sm-5 pull-right">
-                <div id="custom-search-input">
-                <div class="input-group col-md-12">
-                    <input type="text" class="form-control input-lg" placeholder="Search By Name or Employee Id to Add..." />
-                    <span class="input-group-btn">
-                        <button class="btn btn-info btn-lg" type="button">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>
-                    </span>
-                </div>
-            </div>
-        </div>
-	</div>
-</div>
+
+				<div class="container">
+					<div class="row">
+						<div id="custom-search-input">
+							<div class="input-group col-md-3 pull-right">
+								<input type="text" class="  search-query form-control"
+									placeholder="Search by name or id to add..." /> <span
+									class="input-group-btn">
+									<button class="btn btn-danger" type="button">
+										<span class=" glyphicon glyphicon-search"></span>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<br>
 				<div class="table-responsive">
@@ -63,20 +63,20 @@
 						<col width="120">
 						<col width="30">
 						<col width="60">
-					
+
 						<thead>
 							<tr>
-								<th style="font-size:12px" >Emp Id</th>
-								<th style="font-size:12px">Name</th>
-								<th style="font-size:12px">Phone</th>
-								<th style="font-size:12px">Emergency Ph.</th>
-								<th style="font-size:12px">Email</th>
-								<th style="font-size:12px">Current Address</th>
-								<th style="font-size:12px">DOB</th>
-								<th style="font-size:12px">DOJ</th>
-								<th style="font-size:12px">Blood Group</th>
-								<th style="font-size:12px">PAN</th>
-								<th style="font-size:12px">Calendar</th>
+								<th style="font-size: 12px">Emp Id</th>
+								<th style="font-size: 12px">Name</th>
+								<th style="font-size: 12px">Phone</th>
+								<th style="font-size: 12px">Emergency Ph.</th>
+								<th style="font-size: 12px">Email</th>
+								<th style="font-size: 12px">Current Address</th>
+								<th style="font-size: 12px">DOB</th>
+								<th style="font-size: 12px">DOJ</th>
+								<th style="font-size: 12px">Blood Group</th>
+								<th style="font-size: 12px">PAN</th>
+								<th style="font-size: 12px">Calendar</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -85,15 +85,15 @@
 							<c:forEach var="member" items="${teamlist}">
 								<tr id="row${member.userId}">
 									<td>${member.employeeId}</td>
-									<td >${member.employeeName}</td>
-									<td >${member.employeePhone}</td>
-									<td >${member.emergencyContact}</td>										
-									<td >${member.employeeMail}</td>
-				                     <td>${member.currentAddress}</td>
-									<td >${member.dateOfBirth}</td>
-									<td >${member.dateOfJoining}</td>
-									<td >${member.bloodGroup}</td>
-									<td >${member.panNumber}</td>
+									<td>${member.employeeName}</td>
+									<td>${member.employeePhone}</td>
+									<td>${member.emergencyContact}</td>
+									<td>${member.employeeMail}</td>
+									<td>${member.currentAddress}</td>
+									<td>${member.dateOfBirth}</td>
+									<td>${member.dateOfJoining}</td>
+									<td>${member.bloodGroup}</td>
+									<td>${member.panNumber}</td>
 									<td>
 										<button type="button" id="calendar_button${member.userId}"
 											onclick="viewCalendar(${member.userId},'${member.employeeName}')"
@@ -116,7 +116,7 @@
 		</c:when>
 
 	</c:choose>
-	
+
 	<div class="modal fade" id="calendarModal" role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -124,14 +124,14 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title" id="cal-title-name">Employee Calendar</h4>
 				</div>
-				<div class="modal-body">			
-					
-						<div id='calendar'></div>
+				<div class="modal-body">
+
+					<div id='calendar'></div>
 				</div>
 			</div>
 
 		</div>
-	</div> 
+	</div>
 
 	<!--  Task Details Modal -->
 	<div class="modal fade" id="taskDetailsModal" role="dialog">
