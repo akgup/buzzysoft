@@ -88,7 +88,7 @@
 						<col width="60">
 						<col width="150">
 						<col width="300">
-						<col width="130">
+						<col width="160">
 						<col width="100">
 						<col width="200">
 						<col width="60">
@@ -118,7 +118,7 @@
 										</p> <input style="display: none;" size=30
 										class='form-control new-date' id="date_text${task.id}"
 										name='taskDate' placeholder='YYYY/MM/DD*' type='text'
-										value="<fmt:formatDate pattern="yyyy-MM-dd" value="${task.taskDate}" />" /></td>
+										value=<fmt:formatDate pattern="yyyy-MM-dd" value="${task.taskDate}" /> /></td>
 
 
 									<td id="status_row${task.id}">${task.status}</td>
