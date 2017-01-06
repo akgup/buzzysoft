@@ -207,25 +207,26 @@ var calObject = $('#calendar');
 function viewCalendar(userid,username)
 {
 	document.getElementById("cal-title-name").innerHTML = "Name: "+username;
+	$('#calendarModal').modal();
+	$('#calendarModal').on('shown.bs.modal', function() {
+		$.ajax({
+			type : "GET",
+			url : "get-attendance-data",
+			data : "userid="+userid,
+			success : function(data) {	
+			openCalModel(data);
+			employeeTasks(userid);
+				},
+			dataType : "html"
 		
-	$.ajax({
-		type : "GET",
-		url : "get-attendance-data",
-		data : "userid="+userid,
-		success : function(data) {	
-		openCalModel(data);
-		employeeTasks(userid);
-			},
-		dataType : "html"
-	
-	});
-	
-	
+		});
+	})
 }
 
 
 function openCalModel(data)
 {
+	
 	
 	calObject.fullCalendar({
 		height : 550,	
@@ -265,9 +266,7 @@ function openCalModel(data)
 		
 
 	});
-	
-	$('#calendarModal').modal();
-	
+
 	
 	}
 	
