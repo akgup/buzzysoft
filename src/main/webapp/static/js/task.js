@@ -9,14 +9,19 @@ function edit_row(no) {
 	var comment = document.getElementById("comment_row" + no);
 	var status = document.getElementById("status_row" + no);
 	var date = document.getElementById("date_row" + no);
+	
+
 
 	var name_data = name.innerHTML;
 	var description_data = description.innerHTML;
 	var comment_data = comment.innerHTML;
 	var status_data = status.innerHTML;
-	
-	
 	var date_data = date.innerHTML;
+	
+	var d = new Date(date_data),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
 
 	name.innerHTML = "<input type='text' id='name_text" + no + "' value='"
 			+ name_data + "'>";
@@ -52,12 +57,16 @@ function save_row(no, userid) {
 	var status_val = document.getElementById("status_text" + no).value;
 	var date_val = document.getElementById("date_text" + no).value;
 	
+	var d = new Date(date_val),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
 
 	document.getElementById("name_row" + no).innerHTML = name_val;
 	document.getElementById("desc_row" + no).innerHTML = description_val;
 	document.getElementById("comment_row" + no).innerHTML = comment_val;
 	document.getElementById("status_row" + no).innerHTML = status_val;
-	document.getElementById("date_row" + no).innerHTML = date_val;
+	document.getElementById("date_row" + no).innerHTML = year+"-"+month+"-"+day;	
 
 	document.getElementById("edit_button" + no).style.display = "block";
 	document.getElementById("save_button" + no).style.display = "none";

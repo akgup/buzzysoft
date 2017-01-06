@@ -118,7 +118,7 @@
 										</p> <input style="display: none;" size=30
 										class='form-control new-date' id="date_text${task.id}"
 										name='taskDate' placeholder='YYYY/MM/DD*' type='text'
-										value="${task.taskDate}" /></td>
+										value="<fmt:formatDate pattern="yyyy-MM-dd" value="${task.taskDate}" />" /></td>
 
 
 									<td id="status_row${task.id}">${task.status}</td>
