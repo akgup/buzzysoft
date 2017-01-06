@@ -18,8 +18,7 @@
 <link href="static/css/bootstrap.min.css" rel="stylesheet">
 <link href="static/css/style.css" rel="stylesheet">
 
-<link rel="stylesheet"
-	href="https://formden.com/static/cdn/bootstrap-iso.css" />
+<link rel="stylesheet"	href='static/bootstrap/css/bootstrap-iso.css' />
 </head>
 <body>
 

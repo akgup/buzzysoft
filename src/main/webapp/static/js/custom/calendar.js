@@ -1,6 +1,9 @@
 function addTask()
  {
+	
 		$('#taskModal').modal();
+		document.getElementById("task_date").defaultValue = (inDate.getMonth() + 1) + '/' + inDate.getDate() + '/' +  inDate.getFullYear();
+	
  }
  
  function createTask()

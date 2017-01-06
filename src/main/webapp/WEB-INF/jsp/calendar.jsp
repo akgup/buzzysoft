@@ -14,17 +14,12 @@
 
 <title>My Calendar</title>
 
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script
-	src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+<script	src='static/bootstrap/js/jquery.min.js'></script>
+<script src='static/bootstrap/js/bootstrap.min.js'></script>
+<link rel="stylesheet" type="text/css" href='static/bootstrap/css/bootstrap.min.css' />
 
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+<script type="text/javascript"src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
+<link rel="stylesheet" href='static/bootstrap/css/bootstrap-datepicker3.css'/>
 <link href='static/css/fullcalendar.min.css' rel='stylesheet' />
 
 <link href='static/css/bootstrap-timepicker.css' rel='stylesheet' />
@@ -157,13 +152,14 @@ body {
 						</div>
 
 						<div class="form-group">
-							<label class="control-label col-md-3">Date*</label>
+							
+							<label class="control-label col-md-3">Date</label>
 							<div class="col-md-5">
-								<input class="form-control" id="date" name="taskDate"
-									placeholder="YYYY/MM/DD*" type="text"
-									value="<fmt:formatDate pattern="yyyy-MM-dd" value="${task.taskDate}" />" />
-
+								<!-- <p id="task_date" name="taskDate"></p> -->
+							
+								 <input  name="taskDate" id="task_date" class="form-control" readonly />
 							</div>
+							
 
 						</div>
 
@@ -269,8 +265,9 @@ body {
 		
 		dayClick : function(date, jsEvent, view) {
 			oldeventid = getEvents(date);
-
+			
 			inDate = new Date(date.format());
+			
 			// change the day's background color just for fun
 			//$(this).css('background-color', 'gray');
 			jQuery.noConflict();
@@ -298,7 +295,7 @@ body {
 				document.getElementById("task_desc").innerHTML = calEvent.description;
 				document.getElementById("task_status").innerHTML = calEvent.status;
 				document.getElementById("task_comment").innerHTML = calEvent.comments;
-				
+					
 				}
 			else
 				{
@@ -424,19 +421,6 @@ function putCalData(type, userid) {
 		});
 	}
 
-	$(document).ready(
-			function() {
-				var date_input = $('input[name="taskDate"]'); //our date input has the name "date"
-				var container = $('.bootstrap-iso form').length > 0 ? $(
-						'.bootstrap-iso form').parent() : "body";
-				date_input.datepicker({
-					format : 'yyyy/MM/dd',
-					container : container,
-					todayHighlight : true,
-					autoclose : true,
-				})
-			})
-
 			
 /* add task from calendar */			
 /* $("#taskForm").submit(function(event) { */
@@ -444,11 +428,14 @@ function putCalData(type, userid) {
 function submitTask(){	
 	  $('#taskModal').modal('hide'); 
 	//event.preventDefault();	
+	
+	//alert( $("#taskForm").serialize());
 		
 	$.ajax({
 		type : "POST",
 		url : "save-task",
 		data :  $("#taskForm").serialize(),
+		
 		success : function(data) {
 			var json = JSON.parse(data);	
 						

@@ -16,22 +16,26 @@
 <title>Task Manager | Home</title>
 
 <!-- Include Date Range Picker -->
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+<script type="text/javascript" src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
+<link rel="stylesheet"	href='static/bootstrap/css/bootstrap-datepicker3.css'/>
 <link href="static/css/bootstrap.min.css" rel="stylesheet">
 <link href="static/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="static/css/style.css" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://formden.com/static/cdn/bootstrap-iso.css" />
+<link rel="stylesheet" href='static/bootstrap/css/bootstrap-iso.css'/>
 
 <script type="text/javascript" src="static/js/tableExport.js"></script>
 <script type="text/javascript" src="static/js/jquery.base64.js"></script>
+<script src='static/js/html2canvas.js'></script>
+<script type="text/javascript" src='static/js/sprintf.js'></script>
+<script type="text/javascript" src='static/js/jspdf.js'></script>
+<script type="text/javascript" src='static/js/base64.js'></script>
+
+
 
 <script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
 <script src="static/js/bootstrap.min.js"></script>
 <script src='static/js/task.js'></script>
+
 
 </head>
 <body>
@@ -76,7 +80,22 @@
 							name="comments" placeholder="Comments">
 					</div>
 					<button type="submit" class="btn btn-primary">Add New</button>
+					
+					
+					<ul class="nav navbar-nav pull-right">
+					<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Export<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						
+						<li><a class="export-excel" >Excel</a></li>
+						
+						<li><a class="export-csv">CSV</a></li>
+					</ul></li>
+					</ul>
+					
+					<!-- 
 					<button type="button" class="export-btn btn btn-link btn-md">Export</button>
+<<<<<<< HEAD
 					<div class="dropdown">
   <button class="dropbtn export-btn btn btn-link btn-md">Export</button>
   <div class="dropdown-content">
@@ -84,6 +103,9 @@
     <a href="#">CSV</a>
   </div>
 </div>
+=======
+					 -->
+>>>>>>> f3403a823cd976e8acaf05106714d61cc3e5b965
 				</form>
 
 				<br> <br>
@@ -195,11 +217,20 @@
 	</script>
 
 	<script>
-	$(".export-btn").click(function(){
+	$(".export-excel").click(function(){
+		 $('.table2excel').tableExport({type:'excel',escape:'false'});
+		 
+	});
 
-		 $(".table2excel").tableExport({type:'excel',tableName:'TaskSummary',escape:'false'});
+	$(".export-pdf").click(function(){
+		 $('.table2excel').tableExport({type:'pdf', pdfFontSize:'8',escape:'false'});
+		 
 	});
 	
+	$(".export-csv").click(function(){
+		 $('.table2excel').tableExport({type:'csv',escape:'false'});
+		 
+	});
 	
 	</script>
 
