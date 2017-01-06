@@ -25,7 +25,7 @@ function edit_row(no) {
 
 	status.innerHTML = "<select class='selectpicker form-control' name='status' id='status_text"
 			+ no
-			+ "'>	<option value='Not Started'>Not Started</option><option value='In Progress'>In Progress</option><option value='Done'>Done</option></select>";
+			+ "'><option value='Not Started '>Not Started</option><option value='In Progress'>In Progress</option><option value='Done'>Done</option></select>";
 }
 
 function save_row(no, userid) {

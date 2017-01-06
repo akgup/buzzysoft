@@ -28,7 +28,7 @@ THE SOFTWARE.*/
 						ignoreColumn: [],
 						tableName:'yourTableName',
 						type:'csv',
-						pdfFontSize:14,
+						pdfFontSize:7,
 						pdfLeftMargin:20,
 						escape:'true',
 						htmlContent:'false',
@@ -298,7 +298,7 @@ THE SOFTWARE.*/
 						$(this).filter(':visible').find('th').each(function(index,data) {
 							if ($(this).css('display') != 'none'){					
 								if(defaults.ignoreColumn.indexOf(index) == -1){
-									var colPosition = startColPosition+ (index * 50);									
+									var colPosition = startColPosition+ (index * 70);									
 									doc.text(colPosition,20, parseString($(this)));
 								}
 							}
@@ -321,7 +321,7 @@ THE SOFTWARE.*/
 						$(this).filter(':visible').find('td').each(function(index,data) {
 							if ($(this).css('display') != 'none'){	
 								if(defaults.ignoreColumn.indexOf(index) == -1){
-									var colPosition = startColPosition+ (index * 50);									
+									var colPosition = startColPosition+ (index * 70);									
 									doc.text(colPosition,rowPosition, parseString($(this)));
 								}
 							}

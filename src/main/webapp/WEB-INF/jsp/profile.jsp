@@ -15,7 +15,6 @@
 
 <title>My Profile</title>
 
-
 <link href="static/css/style.css" rel="stylesheet">
 
 </head> 
@@ -207,9 +206,8 @@
 	</script>
 	<!-- Include Date Range Picker -->
 	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+		src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
+	<link rel="stylesheet"	href='static/bootstrap/css/bootstrap-datepicker3.css' />
 
 
 </body>

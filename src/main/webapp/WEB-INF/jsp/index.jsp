@@ -17,11 +17,9 @@
 
 <link href="static/css/bootstrap.min.css" rel="stylesheet">
 <link href="static/css/style.css" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+<link rel="stylesheet"	href='static/bootstrap/css/bootstrap-datepicker3.css' />
 <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
-<link rel="stylesheet"
-	href="https://formden.com/static/cdn/bootstrap-iso.css" />
+<link rel="stylesheet" href='static/bootstrap/css/bootstrap-iso.css' />
 <!--[if lt IE 9]>
 		<script src="static/js/html5shiv.min.js"></script>
 		<script src="static/js/respond.min.js"></script>
@@ -165,13 +163,11 @@
 
 	<!-- Include jQuery -->
 	<script type="text/javascript"
-		src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+		src='static/bootstrap/js/jquery-1.11.3.min.js'></script>
 
 	<!-- Include Date Range Picker -->
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+	<script type="text/javascript" src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
+	<link rel="stylesheet" href='static/bootstrap/css/bootstrap-datepicker3.css' />
 
 	<script>
 		$(document).ready(
