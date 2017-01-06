@@ -32,19 +32,40 @@
 
 				<div class="container">
 					<div class="row">
-						<div id="custom-search-input">
-							<div class="input-group col-md-3 pull-right">
-								<input type="text" class="  search-query form-control"
-									placeholder="Search by name or id to add..." /> <span
-									class="input-group-btn">
-									<button class="btn btn-danger" type="button">
-										<span class=" glyphicon glyphicon-search"></span>
-									</button>
-								</span>
-							</div>
+						<div class="input-group col-md-4 pull-right">
+							<form id="form_search" name="form_search" method="get" action=""
+								class="form-inline">
+								<div class="form-group">
+									<div class="input-group">
+										<input class="form-control" 
+											placeholder="Name or Id to add..." type="text">
+										<span class="input-group-btn">
+											<button class="btn btn-info" type="button">Search!</button>
+										</span>
+									</div>
+
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
+				<!-- <div class="container">
+	<div class="row">
+           <div id="custom-search-input">
+                <div class="input-group col-md-4 pull-right">
+                    <input type="text" class="  search-query form-control" placeholder="Search by name or id to add.." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-danger" type="button">
+                            <span class=" glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                     <button class="btn btn-danger" type="button">
+                            <span class=" glyphicon glyphicon-search"></span>
+                            </button>
+                </div>
+            </div>
+	</div>
+</div> -->
 
 				<br>
 				<div class="table-responsive">

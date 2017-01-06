@@ -14,6 +14,8 @@ function edit_row(no) {
 	var description_data = description.innerHTML;
 	var comment_data = comment.innerHTML;
 	var status_data = status.innerHTML;
+	
+	
 	var date_data = date.innerHTML;
 
 	name.innerHTML = "<input type='text' id='name_text" + no + "' value='"
@@ -26,6 +28,20 @@ function edit_row(no) {
 	status.innerHTML = "<select class='selectpicker form-control' name='status' id='status_text"
 			+ no
 			+ "'>	<option value='Not Started'>Not Started</option><option value='In Progress'>In Progress</option><option value='Done'>Done</option></select>";
+
+
+	if(status_data==="In Progress")
+	{
+		
+		$("select option[value='In Progress']").attr("selected","selected");
+	}
+	else if(status_data==="Done")
+		{
+		$("select option[value='Done']").attr("selected","selected");
+		}
+
+	
+
 }
 
 function save_row(no, userid) {

@@ -8,7 +8,7 @@
  
     #custom-search-input .search-query {
         padding-right: 3px;
-        padding-right: 4px;
+        padding-right: 4px ;
         padding-left: 3px;
         padding-left: 4px ;
         /* IE7-8 doesn't have border-radius, so don't indent the padding */
