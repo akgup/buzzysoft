@@ -109,7 +109,6 @@
 
 
 							<c:forEach var="task" items="${tasks}">
-
 								<tr id="row${task.id}">
 									<td>${task.id}</td>
 									<td id="name_row${task.id}">${task.name}</td>

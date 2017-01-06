@@ -30,7 +30,6 @@ public class CalendarController {
 
 		try {
 			String calData = mapper.writeValueAsString(dataArray);
-
 			request.setAttribute("caldata", calData);
 		} catch (JsonProcessingException e) {
 		

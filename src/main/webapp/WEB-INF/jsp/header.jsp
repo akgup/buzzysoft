@@ -64,6 +64,8 @@
 						<li><a href="/claim-list?userid=<%=userId%>">Claim
 								History</a></li>
 					</ul></li>
+					
+					<li><a href="/direct-report?userid=<%=userId%>">My Team</a></li>
 
 			</ul>
 

@@ -74,6 +74,7 @@ body {
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">In Time</h4>
+					
 				</div>
 				<div class="modal-body">
 
@@ -100,11 +101,11 @@ body {
 	</div>
 
 
-	<!-- remove Modal -->
+<!-- 	<!-- remove Modal -->
 	<div class="modal fade" id="removeModal" role="dialog">
 		<div class="modal-dialog modal-sm">
 
-			<!-- Modal content-->
+			Modal content
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -117,7 +118,7 @@ body {
 			</div>
 
 		</div>
-	</div>
+	</div> -->
 
 	<!-- Add Task Modal -->
 	<div class="modal fade" id="taskModal" role="dialog">
@@ -355,24 +356,42 @@ function putCalData(type, userid) {
 		var intime = document.getElementById("timepicker1").value;
 		var data = null;
 		var calid = null;
+		
+		
+		var currentDate=((new Date()).setHours(0, 0, 0, 0, 0));
+		var inTime=inDate.setHours(0, 0, 0, 0, 0);
+			
+				if( inTime >  currentDate && type != "Leave" )
+					{
+					
+					alert("Future dates not allowed!");
+					
+					}
+				
+				else{
+					
+					if (type == "Leave") {
+						data = {
+							"start" : inDate,
+							"title" : "Leave",
+							"userId" : userid,
+							"id" : oldeventid
+						};
 
-		if (type == "Leave") {
-			data = {
-				"start" : inDate,
-				"title" : "Leave",
-				"userId" : userid,
-				"id" : oldeventid
-			};
+					} else {
+						data = {
+							"start" : inDate,
+							"title" : intime,
+							"userId" : userid,
+							"id" : oldeventid
+						};
 
-		} else {
-			data = {
-				"start" : inDate,
-				"title" : intime,
-				"userId" : userid,
-				"id" : oldeventid
-			};
+					}
+					
+				}
+		
 
-		}
+	
 
 		if (oldeventid != 0) {
 			calObject.fullCalendar('removeEvents', oldeventid)

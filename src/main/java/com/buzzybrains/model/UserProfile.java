@@ -29,6 +29,15 @@ public class UserProfile {
 	private String emergencyContact;
 	private String panNumber;
 	private String currentAddress;
+	private int supervisorId;
+	
+	public int getSupervisorId() {
+		return supervisorId;
+	}
+
+	public void setSupervisorId(int supervisorId) {
+		this.supervisorId = supervisorId;
+	}
 
 	public String getEmployeeName() {
 		return employeeName;
