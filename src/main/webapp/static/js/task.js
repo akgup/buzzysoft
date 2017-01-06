@@ -30,28 +30,25 @@ function edit_row(no) {
 	comment.innerHTML = "<input type='text' id='comment_text" + no
 			+ "' value='" + comment_data + "'>";
 
-	status.innerHTML = "<select class='selectpicker form-control' name='status' id='status_text"
-			+ no
-<<<<<<< HEAD
-			+ "'>	<option value='Not Started'>Not Started</option><option value='In Progress'>In Progress</option><option value='Done'>Done</option></select>";
+	status.innerHTML = "<select class='selectpicker form-control' name='status' id='status_text"+ no
+			+ "'>	<option value='Not Started' id=option1"+no+">Not Started</option><option value='In Progress' id=option2"+no+">In Progress</option><option value='Done' id=option3"+no+">Done</option></select>";
 
 
 	if(status_data==="In Progress")
 	{
 		
-		$("select option[value='In Progress']").attr("selected","selected");
+		/*$("select option[value='In Progress']").attr("selected","selected");*/
+		$("select option[id=option2"+no+"]").attr("selected","selected");
 	}
 	else if(status_data==="Done")
 		{
-		$("select option[value='Done']").attr("selected","selected");
+		/*$("select option[value='Done']").attr("selected","selected");*/
+		$("select option[id=option3"+no+"]").attr("selected","selected");
 		}
 
-	
 
-=======
-			+ "'><option value='Not Started '>Not Started</option><option value='In Progress'>In Progress</option><option value='Done'>Done</option></select>";
->>>>>>> f3403a823cd976e8acaf05106714d61cc3e5b965
 }
+
 
 function save_row(no, userid) {
 

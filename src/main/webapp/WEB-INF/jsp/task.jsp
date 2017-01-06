@@ -93,19 +93,7 @@
 					</ul></li>
 					</ul>
 					
-					<!-- 
-					<button type="button" class="export-btn btn btn-link btn-md">Export</button>
-<<<<<<< HEAD
-					<div class="dropdown">
-  <button class="dropbtn export-btn btn btn-link btn-md">Export</button>
-  <div class="dropdown-content">
-    <a href="#">Excel</a>
-    <a href="#">CSV</a>
-  </div>
-</div>
-=======
-					 -->
->>>>>>> f3403a823cd976e8acaf05106714d61cc3e5b965
+
 				</form>
 
 				<br> <br>
