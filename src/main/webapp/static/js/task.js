@@ -31,24 +31,18 @@ function edit_row(no) {
 			+ "' value='" + comment_data + "'>";
 
 	status.innerHTML = "<select class='selectpicker form-control' name='status' id='status_text"+ no
-			+ "'>	<option value='Not Started' id=option1"+no+">Not Started</option><option value='In Progress' id=option2"+no+">In Progress</option><option value='Done' id=option3"+no+">Done</option></select>";
-
+			+ "'><option value='Not Started '  id=option0"+no+">Not Started</option><option id=option1"+no+" value='In Progress'>In Progress</option><option id=option2"+no+" value='Done'>Done</option></select>";
 
 	if(status_data==="In Progress")
 	{
 		
-		/*$("select option[value='In Progress']").attr("selected","selected");*/
-		$("select option[id=option2"+no+"]").attr("selected","selected");
+		$("select option[id=option1"+no+"]").attr("selected","selected");
 	}
 	else if(status_data==="Done")
 		{
-		/*$("select option[value='Done']").attr("selected","selected");*/
-		$("select option[id=option3"+no+"]").attr("selected","selected");
+		$("select option[id=option2"+no+"]").attr("selected","selected");
 		}
-
-
 }
-
 
 function save_row(no, userid) {
 

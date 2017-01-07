@@ -26,10 +26,9 @@
 <body>
 	<c:choose>
 		<c:when test="${mode == 'MODE_TEAM'}">
+
 			<div class="container text-center" id="tasksDiv">
 				<h4>My Team</h4>
-				<hr>
-
 				<div class="container">
 					<div class="row">
 						<div class="input-group col-md-4 pull-right">
@@ -37,9 +36,8 @@
 								class="form-inline">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" 
-											placeholder="Name or Id to add..." type="text">
-										<span class="input-group-btn">
+										<input class="form-control" placeholder="Name or Id to add..."
+											type="text"> <span class="input-group-btn">
 											<button class="btn btn-info" type="button">Search!</button>
 										</span>
 									</div>
@@ -49,110 +47,28 @@
 						</div>
 					</div>
 				</div>
-				<!-- <div class="container">
-	<div class="row">
-           <div id="custom-search-input">
-                <div class="input-group col-md-4 pull-right">
-                    <input type="text" class="  search-query form-control" placeholder="Search by name or id to add.." />
-                    <span class="input-group-btn">
-                        <button class="btn btn-danger" type="button">
-                            <span class=" glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-                     <button class="btn btn-danger" type="button">
-                            <span class=" glyphicon glyphicon-search"></span>
-                            </button>
-                </div>
-            </div>
-	</div>
-</div> -->
-
-				<br>
-				<div class="table-responsive">
-					<table
-						class="table table-stripped table-bordered text-left  table2excel"
-						id="team-members">
-
-						<col width="60">
-						<col width="150">
-						<col width="100">
-						<col width="130">
-						<col width="100">
-						<col width="200">
-						<col width="30">
-						<col width="30">
-						<col width="120">
-						<col width="30">
-						<col width="60">
-
-						<thead>
-							<tr>
-								<th style="font-size: 12px">Emp Id</th>
-								<th style="font-size: 12px">Name</th>
-								<th style="font-size: 12px">Phone</th>
-								<th style="font-size: 12px">Emergency Ph.</th>
-								<th style="font-size: 12px">Email</th>
-								<th style="font-size: 12px">Current Address</th>
-								<th style="font-size: 12px">DOB</th>
-								<th style="font-size: 12px">DOJ</th>
-								<th style="font-size: 12px">Blood Group</th>
-								<th style="font-size: 12px">PAN</th>
-								<th style="font-size: 12px">Calendar</th>
-							</tr>
-						</thead>
-						<tbody>
-
-
-							<c:forEach var="member" items="${teamlist}">
-								<tr id="row${member.userId}">
-									<td>${member.employeeId}</td>
-									<td>${member.employeeName}</td>
-									<td>${member.employeePhone}</td>
-									<td>${member.emergencyContact}</td>
-									<td>${member.employeeMail}</td>
-									<td>${member.currentAddress}</td>
-									<td>${member.dateOfBirth}</td>
-									<td>${member.dateOfJoining}</td>
-									<td>${member.bloodGroup}</td>
-									<td>${member.panNumber}</td>
-									<td>
-										<button type="button" id="calendar_button${member.userId}"
-											onclick="viewCalendar(${member.userId},'${member.employeeName}')"
-											class="btn btn-info">
-											<span class="glyphicon glyphicon-calendar"></span>
-										</button>
-									</td>
-
-								</tr>
-
-							</c:forEach>
-
-						</tbody>
-
-					</table>
-				</div>
-
-
+				<hr>
 			</div>
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-2">
+						<c:forEach var="member" items="${teamlist}">
+							<button type="button" id="btn-employee-${member.userId}"
+								onclick='viewCalendar(${member.userId})'
+								class='list-group-item list-group-item-action'>${member.employeeName}-(${member.employeeId})</button>
+
+						</c:forEach>
+					</div>
+					<div class="col-xs-10">
+						<div id='calendar'></div>
+					</div>
+				</div>
+			</div>
+
 		</c:when>
 
 	</c:choose>
-
-	<div class="modal fade" id="calendarModal" role="dialog">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" id="cal-title-name">Employee Calendar</h4>
-				</div>
-				<div class="modal-body">
-
-					<div id='calendar'></div>
-				</div>
-			</div>
-
-		</div>
-	</div>
 
 	<!--  Task Details Modal -->
 	<div class="modal fade" id="taskDetailsModal" role="dialog">
@@ -202,37 +118,17 @@
 </body>
 
 <script>
-
 var calObject = $('#calendar');	
-function viewCalendar(userid,username)
-{
-	document.getElementById("cal-title-name").innerHTML = "Name: "+username;
-	$('#calendarModal').modal();
-	$('#calendarModal').on('shown.bs.modal', function() {
-		$.ajax({
-			type : "GET",
-			url : "get-attendance-data",
-			data : "userid="+userid,
-			success : function(data) {	
-			openCalModel(data);
-			employeeTasks(userid);
-				},
-			dataType : "html"
-		
-		});
-	})
-}
 
-
-function openCalModel(data)
-{
-	
+function viewCalendar(userid)
+{	
+	calObject.fullCalendar('removeEvents');
 	
 	calObject.fullCalendar({
 		height : 550,	
 		editable : true,
 		eventLimit : false, // allow "more" link when too many events
-		events : JSON.parse(data),
+		events : null,
 		displayEventTime: false,
 		
 		eventRender : function(event, element) {
@@ -255,61 +151,63 @@ function openCalModel(data)
 				document.getElementById("task_desc").innerHTML = calEvent.description;
 				document.getElementById("task_status").innerHTML = calEvent.status;
 				document.getElementById("task_comment").innerHTML = calEvent.comments;
-				
 				}
-			else
-				{
-			//$('#removeModal').modal();
-				}
-
+			
 		}
 		
 
-	});
-
+	});	
 	
-	}
-	
-	
-function  employeeTasks(userid)
-{	
-	$.ajax({
-		type : "GET",
-		url : "task-list",
-		data : "userid="+userid,
-		success : function(data) {
-		
-			var json = JSON.parse(data);		
-		
-			for( x in json)
-			{			
-				var date = new Date(json[x]["taskDate"]);					
-				var title = json[x]["name"];
-				var id = json[x]["id"];
-							
-				var newdata = {
-					"start" : date,
-					"title" : title,
-					"userId" : "<%=userId%>",
-					"id" : id ,
-					"description" : json[x]["description"] ,
-					"status" : json[x]["status"] ,
-					"comments" : json[x]["comments"],
-					"type":"task"
-				};
-				
-				calObject.fullCalendar('renderEvent', newdata, true);
-			}
+		$.ajax({
+			type : "GET",
+			url : "get-attendance-data",
+			data : "userid="+userid,
+			success : function(data) {					
+				calObject.fullCalendar('renderEvents', JSON.parse(data), true);
 			
-		},
-		dataType : "html",
-		beforeSend : function(xhr) {
-			xhr.setRequestHeader('Content-Type',
-					'application/x-www-form-urlencoded');
-		},
-	});
-	
-	
+				},
+			dataType : "html"
+		
+		});
+		
+		$.ajax({
+			type : "GET",
+			url : "task-list",
+			data : "userid="+userid,
+			success : function(data) {
+			
+				var json = JSON.parse(data);		
+			
+				for( x in json)
+				{			
+					var date = new Date(json[x]["taskDate"]);					
+					var title = json[x]["name"];
+					var id = json[x]["id"];
+					var user_id = json[x]["userId"];
+								
+					var newdata = {
+						"start" : date,
+						"title" : title,
+						"userId" : user_id,
+							"id" : id,
+							"description" : json[x]["description"],
+							"status" : json[x]["status"],
+							"comments" : json[x]["comments"],
+							"type" : "task"
+						};
+
+						calObject.fullCalendar('renderEvent', newdata, true);
+					}
+
+				},
+				dataType : "html",
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader('Content-Type',
+							'application/x-www-form-urlencoded');
+				},
+			});
 }
+
+
 </script>
 </html>

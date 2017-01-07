@@ -16,7 +16,10 @@
 <title>My Profile</title>
 
 <link href="static/css/style.css" rel="stylesheet">
-
+<!-- Include Date Range Picker -->
+	<script type="text/javascript"
+		src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
+	<link rel="stylesheet"	href='static/bootstrap/css/bootstrap-datepicker3.css'/>
 </head> 
 <body>
 
@@ -85,12 +88,11 @@
 						</div>
 					</div>
 
-
-					<div class="dropdown form-group">
+					<div class="form-group">
 						<label class="control-label col-md-3">Blood Group</label>
 						<div class="col-md-5">
 							<select class="selectpicker form-control" id="bloodgroup"
-								name="bloodGroup" onload="myFunction(this)">
+								name="bloodGroup" >
 								<option value="A+" id="A+">A+</option>
 								<option value="A-" id="A-">A-</option>
 								<option value="B+" id="B-">B+</option>
@@ -204,10 +206,7 @@
 	
 	$('select[name="bloodGroup"]').val('<%=blood%>');
 	</script>
-	<!-- Include Date Range Picker -->
-	<script type="text/javascript"
-		src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
-	<link rel="stylesheet"	href='static/bootstrap/css/bootstrap-datepicker3.css' />
+	
 
 
 </body>
