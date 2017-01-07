@@ -20,7 +20,19 @@
 <script src='static/js/lib/moment.min.js'></script>
 <script src='static/js/fullcalendar.min.js'></script>
 <script src='static/js/custom/calendar.js'></script>
+<style>
+body {
+	padding: 0;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+	font-size: 14px;
+}
 
+#calendar {
+	max-width: 1000px;
+	margin: 0 auto;
+	 margin-bottom: 50px;
+}
+</style>
 
 </head>
 <body>
@@ -125,7 +137,7 @@ function viewCalendar(userid)
 	calObject.fullCalendar('removeEvents');
 	
 	calObject.fullCalendar({
-		height : 550,	
+		height : 500,	
 		editable : true,
 		eventLimit : false, // allow "more" link when too many events
 		events : null,
