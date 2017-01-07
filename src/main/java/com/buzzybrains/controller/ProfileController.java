@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.buzzybrains.dao.UserCredentialsRepository;
 import com.buzzybrains.dao.UserProfileRepo;
@@ -31,6 +32,13 @@ public class ProfileController {
 		return "profile";
 	}
 	
+	
+	@GetMapping("/get-profile")
+	@ResponseBody
+	public UserProfile getProfile(int userid) {
+	
+		return  userProfileRepo.findByUserId(userid);
+	}
 
 	@PostMapping("/saveProfile")
 	public String saveProfile(@ModelAttribute UserProfile userProfile, BindingResult bindingResult,HttpServletRequest request) {

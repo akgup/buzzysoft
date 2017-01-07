@@ -47,11 +47,5 @@ public class CalendarController {
 		return caldata;
 	}
 
-	@GetMapping("/calendar-data-remove")
-	@ResponseBody
-	public String removeCalData(int id) {
-		calendarRepo.delete(calendarRepo.findOne(id));
-		return "success";
-	}
 
 }

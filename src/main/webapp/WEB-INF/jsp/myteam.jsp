@@ -30,7 +30,7 @@ body {
 #calendar {
 	max-width: 1000px;
 	margin: 0 auto;
-	 margin-bottom: 50px;
+	margin-bottom: 50px;
 }
 </style>
 
@@ -40,10 +40,13 @@ body {
 		<c:when test="${mode == 'MODE_TEAM'}">
 
 			<div class="container text-center" id="tasksDiv">
-				<h4>My Team</h4>
-				<div class="container">
-					<div class="row">
-						<div class="input-group col-md-4 pull-right">
+			<div class="col-xs-9">
+				<h4><b>My Team</b></h4>
+				</div>
+				
+				<div class="col-xs-3">
+					
+						<div class="input-group">
 							<form id="form_search" name="form_search" method="get" action=""
 								class="form-inline">
 								<div class="form-group">
@@ -56,11 +59,12 @@ body {
 
 								</div>
 							</form>
-						</div>
-					</div>
-				</div>
-				<hr>
+						</div>					
+				
+				</div>				
 			</div>
+			<hr>
+			
 
 			<div class="container-fluid">
 				<div class="row">
@@ -72,7 +76,49 @@ body {
 
 						</c:forEach>
 					</div>
-					<div class="col-xs-10">
+					<div class="col-xs-3">
+
+						<div class="table-responsive" id="user-profile" style="display:none">
+							<table class="table table-stripped table-bordered text-left"
+								>
+
+								<tr>
+									<th>Name:</th>
+									<td id="employee-name"></td>
+								</tr>
+								<tr>
+									<th>Phone:</th>
+									<td id="employee-phone">  </td>
+								</tr>
+								<tr>
+									<th>Mail:</th>
+									<td id="employee-mail"></td>
+								</tr>
+								<tr>
+									<th>Emergency Ph:</th>
+									<td id="employee-emer-phone"></td>
+								</tr>
+								<tr>
+									<th>Address:</th>
+									<td id="employee-address"> </td>
+								</tr>
+								<tr>
+									<th>Birth Date:</th>
+									<td id="employee-dob"></td>
+								</tr>
+								<tr>
+									<th>Joining Date:</th>
+									<td id="employee-doj"></td>
+								</tr>
+								<tr>
+									<th>Blood Group:</th>
+									<td id="employee-bg"></td>
+								</tr>
+							</table>
+						</div>
+
+					</div>
+					<div class="col-xs-7">
 						<div id='calendar'></div>
 					</div>
 				</div>
@@ -218,6 +264,29 @@ function viewCalendar(userid)
 							'application/x-www-form-urlencoded');
 				},
 			});
+		
+
+		$.ajax({
+			type : "GET",
+			url : "get-profile",
+			data : "userid="+userid,
+			success : function(data) {	
+				var profile=JSON.parse(data);		
+				document.getElementById('user-profile').style.display = "block";
+				
+				$('#employee-name').text(profile["employeeName"]);
+				$('#employee-phone').text(profile["employeePhone"]);
+				$('#employee-mail').text(profile["employeeMail"]);
+				$('#employee-emer-phone').text(profile["emergencyContact"]);
+				$('#employee-address').text(profile["currentAddress"]);
+				$('#employee-dob').text(profile["dateOfBirth"]);
+				$('#employee-doj').text(profile["dateOfJoining"]);
+				$('#employee-bg').text(profile["bloodGroup"]);
+				
+				},
+			dataType : "html"
+		
+		});
 }
 
 
