@@ -14,12 +14,15 @@
 
 <title>My Calendar</title>
 
-<script	src='static/bootstrap/js/jquery.min.js'></script>
+<script src='static/bootstrap/js/jquery.min.js'></script>
 <script src='static/bootstrap/js/bootstrap.min.js'></script>
-<link rel="stylesheet" type="text/css" href='static/bootstrap/css/bootstrap.min.css' />
+<link rel="stylesheet" type="text/css"
+	href='static/bootstrap/css/bootstrap.min.css' />
 
-<script type="text/javascript"src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
-<link rel="stylesheet" href='static/bootstrap/css/bootstrap-datepicker3.css'/>
+<script type="text/javascript"
+	src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
+<link rel="stylesheet"
+	href='static/bootstrap/css/bootstrap-datepicker3.css' />
 <link href='static/css/fullcalendar.min.css' rel='stylesheet' />
 
 <link href='static/css/bootstrap-timepicker.css' rel='stylesheet' />
@@ -53,12 +56,45 @@ body {
 </style>
 </head>
 
-<body onload="myTasks()">
+<body onload="myTasks(<%=userId%>)">
 
 	<%
 		String d1 = (String) request.getAttribute("caldata");
 	%>
-	<div id='calendar'></div>
+
+	<div class="container-fluid" id="tasksDiv">
+		<div class="col-xs-3">
+			<br> <br> <br> <br> <br>
+			<div class="table-responsive" id="user-leave-status">
+				<table class="table table-stripped table-bordered text-left">
+					<col width="60">
+					<col width="120">
+					<thead>
+						<tr>
+							<th>Year</th>
+							<th>Total Leaves</th>
+							<th>Availed</th>
+							<th>Balance</th>
+
+						</tr>
+					</thead>
+
+					<tr>
+						<td id="leave-year">2017</td>
+						<td id="leave-total">24</td>
+						<td id="leave-availed">${leaveAvailed}</td>
+						<td id="leave-balance"></td>
+					</tr>
+
+
+				</table>
+			</div>
+
+		</div>
+		<div class="col-xs-9">
+			<div id='calendar'></div>
+		</div>
+	</div>
 
 	<!--Primary Modal -->
 	<div class="modal fade" id="primaryModal" role="dialog">
@@ -69,7 +105,7 @@ body {
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">In Time</h4>
-					
+
 				</div>
 				<div class="modal-body">
 
@@ -94,26 +130,6 @@ body {
 
 		</div>
 	</div>
-
-
-<!-- 	<!-- remove Modal -->
-	<div class="modal fade" id="removeModal" role="dialog">
-		<div class="modal-dialog modal-sm">
-
-			Modal content
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Remove Entry</h4>
-				</div>
-				<div class="modal-body">
-					<button type="button" class="btn btn-default" data-dismiss="modal"
-						onclick="removeEvent()">Remove</button>
-				</div>
-			</div>
-
-		</div>
-	</div> -->
 
 	<!-- Add Task Modal -->
 	<div class="modal fade" id="taskModal" role="dialog">
@@ -152,14 +168,15 @@ body {
 						</div>
 
 						<div class="form-group">
-							
+
 							<label class="control-label col-md-3">Date</label>
 							<div class="col-md-5">
 								<!-- <p id="task_date" name="taskDate"></p> -->
-							
-								 <input  name="taskDate" id="task_date" class="form-control" readonly />
+
+								<input name="taskDate" id="task_date" class="form-control"
+									readonly />
 							</div>
-							
+
 
 						</div>
 
@@ -185,8 +202,8 @@ body {
 						</div>
 
 						<div class="form-group">
-							<input type="button" onclick="submitTask()" class="btn btn-primary"
-								value="Save" />
+							<input type="button" onclick="submitTask()"
+								class="btn btn-primary" value="Save" />
 
 						</div>
 					</form>
@@ -248,10 +265,13 @@ body {
 </body>
 
 <script>
+
+var leave_balance=24-${leaveAvailed};
+$('#leave-balance').text(leave_balance);
+
 	var inDate;
 	var oldevent;
 	var initialEvents =<%=d1%>;
-	
 	var calObject = $('#calendar');
 
 	calObject.fullCalendar({
@@ -261,13 +281,12 @@ body {
 		eventLimit : false, // allow "more" link when too many events
 		events : initialEvents,
 		displayEventTime: false,
+		ignoreTimezone :false,
 		
 		dayClick : function(date, jsEvent, view) {
-			oldeventid = getEvents(date);
 			
 			inDate = new Date(date.format());
-			
-			// change the day's background color just for fun
+            // change the day's background color just for fun
 			//$(this).css('background-color', 'gray');
 			jQuery.noConflict();
 			$('#primaryModal').modal();
@@ -303,168 +322,5 @@ body {
 
 		}
 	});
-
-
-	function  myTasks()
-	{	
-		$.ajax({
-			type : "GET",
-			url : "task-list",
-			data : "userid="+"<%=userId%>",
-			success : function(data) {
-			
-				var json = JSON.parse(data);		
-			
-				for( x in json)
-				{			
-					var date = new Date(json[x]["taskDate"]);					
-					var title = json[x]["name"];
-					var id = json[x]["id"];
-								
-					var newdata = {
-						"start" : date,
-						"title" : title,
-						"userId" : "<%=userId%>",
-						"id" : id ,
-						"description" : json[x]["description"] ,
-						"status" : json[x]["status"] ,
-						"comments" : json[x]["comments"],
-						"type":"task"
-					};
-					
-					calObject.fullCalendar('renderEvent', newdata, true);
-					
-					}
-				
-			},
-			dataType : "html",
-			beforeSend : function(xhr) {
-				xhr.setRequestHeader('Content-Type',
-						'application/x-www-form-urlencoded');
-			},
-		});
-		
-		
-	}
-	
-function putCalData(type, userid) {
-		
-		var intime = document.getElementById("timepicker1").value;
-		var data = null;
-		var calid = null;
-		
-		
-		var currentDate=((new Date()).setHours(0, 0, 0, 0, 0));
-		var inTime=inDate.setHours(0, 0, 0, 0, 0);
-			
-				if( inTime >  currentDate && type != "Leave" )
-					{
-					
-					alert("Future dates not allowed!");
-					
-					}
-				
-				else{
-					
-					if (type == "Leave") {
-						data = {
-							"start" : inDate,
-							"title" : "Leave",
-							"userId" : userid,
-							"id" : oldeventid
-						};
-
-					} else {
-						data = {
-							"start" : inDate,
-							"title" : intime,
-							"userId" : userid,
-							"id" : oldeventid
-						};
-
-					}
-					
-				}
-		
-
-	
-
-		if (oldeventid != 0) {
-			calObject.fullCalendar('removeEvents', oldeventid)
-			oldeventid = 0;
-		}
-		//calObject.fullCalendar('renderEvent', data, true);
-
-		$.ajax({
-			type : "POST",
-			url : "calendar-data",
-			data : data,
-			success : function(data) {
-				var json = JSON.parse(data);
-				var date = new Date(json["start"]);
-				var title = json["title"];
-				var id = json["id"];
-				var newdata = {
-					"start" : date,
-					"title" : title,
-					"userId" : userid,
-					"id" : id
-				};
-				calObject.fullCalendar('renderEvent', newdata, true);
-			},
-			dataType : "html",
-			beforeSend : function(xhr) {
-				xhr.setRequestHeader('Content-Type',
-						'application/x-www-form-urlencoded');
-			},
-		});
-	}
-
-			
-/* add task from calendar */			
-/* $("#taskForm").submit(function(event) { */
-	
-function submitTask(){	
-	  $('#taskModal').modal('hide'); 
-	//event.preventDefault();	
-	
-	//alert( $("#taskForm").serialize());
-		
-	$.ajax({
-		type : "POST",
-		url : "save-task",
-		data :  $("#taskForm").serialize(),
-		
-		success : function(data) {
-			var json = JSON.parse(data);	
-						
-			var date = new Date(json["taskDate"]);					
-			var title = json["name"];
-			var id = json["id"];
-			
-			var newdata = {
-				"start" : date,
-				"title" : title,
-				"userId" : "<%=userId%>",
-				"id" : id ,
-				"description" : json["description"] ,
-				"status" : json["status"] ,
-				"comments" : json["comments"],
-				"type":"task"
-			};
-			
-			calObject.fullCalendar('renderEvent', newdata, true);
-		},
-		dataType : "html",
-		beforeSend : function(xhr) {
-			xhr.setRequestHeader('Content-Type',
-					'application/x-www-form-urlencoded');
-		},
-	});
-	
-	  
-
-}
-
 </script>
 </html>

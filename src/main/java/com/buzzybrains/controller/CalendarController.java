@@ -1,5 +1,9 @@
 package com.buzzybrains.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Year;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +30,31 @@ public class CalendarController {
 	@GetMapping("/home")
 	public String showCalendar(HttpServletRequest request, int userid) {
 		List<Calendar> dataArray = calendarRepo.findCalendarByUserId(userid);
+
+		int year = Year.now().getValue();
+
+		String start = "01/01/" + year;
+		String end = "12/31/" + year;
+
+		try {
+
+			Date dateStart = new SimpleDateFormat("MM/dd/yyyy").parse(start);
+			Date dateEnd = new SimpleDateFormat("MM/dd/yyyy").parse(end);
+
+			int leave_availed = calendarRepo.findLeaveCountByUserId(userid, dateStart, dateEnd);
+			request.setAttribute("leaveAvailed", leave_availed);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		ObjectMapper mapper = new ObjectMapper();
 
 		try {
 			String calData = mapper.writeValueAsString(dataArray);
 			request.setAttribute("caldata", calData);
 		} catch (JsonProcessingException e) {
-		
+
 			e.printStackTrace();
 		}
 
@@ -46,6 +68,5 @@ public class CalendarController {
 		Calendar caldata = calendarRepo.save(calendar);
 		return caldata;
 	}
-
 
 }

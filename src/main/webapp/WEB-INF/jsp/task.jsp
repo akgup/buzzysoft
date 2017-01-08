@@ -34,7 +34,7 @@
 
 <script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
 <script src="static/js/bootstrap.min.js"></script>
-<script src='static/js/task.js'></script>
+<script src='static/js/custom/task.js'></script>
 
 
 </head>
@@ -203,17 +203,13 @@
 						autoclose : true,
 					})
 				})
-	</script>
 
-	<script type="text/javascript">
 		$(document).ready(function() {
 			// DataTable
 			var table = $('#task-history').DataTable();
 
 		});
-	</script>
 
-	<script>
 	$(".export-excel").click(function(){
 		 $('.table2excel').tableExport({type:'excel',escape:'false'});
 		 
