@@ -114,6 +114,7 @@
 	</nav>
 
 	<script src='static/js/jquery.min.js'></script>
+	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 	<script src="static/js/bootstrap.min.js"></script>
 	<script>
 $(function(){

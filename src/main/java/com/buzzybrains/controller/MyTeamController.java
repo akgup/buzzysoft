@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.buzzybrains.dao.CalendarRepo;
 import com.buzzybrains.dao.UserProfileRepo;
 import com.buzzybrains.model.Calendar;
+import com.buzzybrains.model.UserProfile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -52,5 +53,22 @@ public class MyTeamController {
 		}
 
 		return calData;
+	}
+	
+	@GetMapping("/addSupervisor")
+	@ResponseBody
+	public String addSupervisor(int supervisorid,int userid) {
+		
+		userProfileRepo.updateSupervisorId(supervisorid, userid);
+		
+		return "Success";
+	}
+	
+	@GetMapping("/search-employee")
+	@ResponseBody
+	public List<UserProfile> searchEmployee(String keyword) {
+		
+		return userProfileRepo.findEmployeeByKeyword(keyword);
+		
 	}
 }

@@ -7,7 +7,8 @@
 <%-- <c:set var="contextPath" value="${pageContext.request.contextPath}" /> --%>
 
 <html>
-<head>
+<head profile="http://www.w3.org/2005/10/profile">
+<link rel="icon" type="image/png" href="/static/image/bb-logo.png" />
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="Pragma" content="no-cache">
@@ -52,8 +53,6 @@
 										required />
 								</div>
 							</div>
-
-
 
 							<button id="btnLogin" type="submit" class="btn btn-default"
 								style="width: 100%">
