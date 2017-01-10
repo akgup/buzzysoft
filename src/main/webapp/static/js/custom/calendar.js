@@ -106,25 +106,26 @@ function myTasks(userid) {
 
 function putCalData(type, userid) {
 	
-	//getEventList(inDate);
-	//leave_balance--;
-	//alert(leave_balance);
+	// getEventList(inDate);
 
 	var intime = document.getElementById("timepicker1").value;
 	var data = null;
 	var calid = null;
-	var isAttendance=checkIfAlreadyPresent(inDate);
 	
 	var currentDate = ((new Date()).setHours(0, 0, 0, 0, 0));
 	var inTime = inDate.setHours(0, 0, 0, 0, 0);
 		if (inTime > currentDate && type != "Leave") {
-
-		alert("Future dates not allowed!");
-
+			document.getElementById("errMsg").innerHTML="Future dates not allowed!";										 
+			document.getElementById("errMsg").style.display = 'block';
 	}
+
 		else if(leave_balance<=0){
-			
+			document.getElementById("errMsg").innerHTML="Leave Balance Exhausted!";										 
+			document.getElementById("errMsg").style.display = 'block';
 			}
+
+	
+
 	else {
 	
 		if (type == "Leave") {
@@ -144,49 +145,54 @@ function putCalData(type, userid) {
 			};
 
 		}
-
-	}
-
-
-
-	$.ajax({
-		type : "POST",
-		url : "calendar-data",
-		data : data,
-		success : function(data) {
-			
-			if(data){
-			var json = JSON.parse(data);
-			var date = new Date(json["start"]);
-			var title = json["title"];
-			var id = json["id"];
-			var newdata = {
-				"start" : date,
-				"title" : title,
-				"userId" : userid,
-				"id" : id,
-				"type":"attendance"
-			};
-			calObject.fullCalendar('renderEvent', newdata, true);
-			if(title == "Leave")
+		
+		$.ajax({
+			type : "POST",
+			url : "calendar-data",
+			data : data,
+			success : function(data) {
+				
+				if(data){
+				var json = JSON.parse(data);
+				var date = new Date(json["start"]);
+				var title = json["title"];
+				var id = json["id"];
+				var newdata = {
+					"start" : date,
+					"title" : title,
+					"userId" : userid,
+					"id" : id,
+					"type":"attendance"
+				};
+				
+				jQuery.noConflict();
+				$('#primaryModal').modal("hide");
+				calObject.fullCalendar('renderEvent', newdata, true);
+				
+				if(title == "Leave")
 				{
 				
 				availleave++;
 				document.getElementById("leave-balance").innerHTML =--leave_balance;
 				document.getElementById("leave-availed").innerHTML =availleave;
 				}
-		}
-			else
-				{
-				alert("Leave or present not allowed again!");
-				}
-		},
-		dataType : "html",
-		beforeSend : function(xhr) {
-			xhr.setRequestHeader('Content-Type',
-					'application/x-www-form-urlencoded');
-		},
-	});
+			}
+				else
+					{
+					 document.getElementById("errMsg").innerHTML="Leave or present not allowed again!";										 
+					  document.getElementById("errMsg").style.display = 'block';
+			
+					}
+			},
+			dataType : "html",
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader('Content-Type',
+						'application/x-www-form-urlencoded');
+			},
+		});
+
+	}
+
 }
 
 function submitTask(){	
@@ -223,22 +229,4 @@ function submitTask(){
 					'application/x-www-form-urlencoded');
 		},
 	});
-	
-	  
-
-}
-
-
-function checkIfAlreadyPresent(date){	
-	var flag=false;
-	
-	calObject.fullCalendar('clientEvents', function(event) {
-		var d1=new Date(event['start']);
-	
-           if(d1.getTime() == date.getTime() && event.type!="task" ) {
-        	   flag=true;
-           }
-         
-       });
-	  return flag;
 }
