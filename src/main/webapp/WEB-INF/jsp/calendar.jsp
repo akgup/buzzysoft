@@ -99,9 +99,10 @@ body {
 			<div class="modal-content">
 				<div class="modal-header">
 					<!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-					<p id="errMsg" style="display: none;color:red;">Error message goes here</p>
-				<!-- 	<h4 class="modal-title">In Time</h4> -->
-				
+					<p id="errMsg" style="display: none; color: red;">Error message
+						goes here</p>
+					<!-- 	<h4 class="modal-title">In Time</h4> -->
+
 				</div>
 				<div class="modal-body">
 
@@ -115,9 +116,9 @@ body {
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal"
 						onclick="addTask()">Add Task</button>
-					<button type="button" class="btn btn-default" 
+					<button type="button" class="btn btn-default"
 						onclick="putCalData('Leave','<%=userId%>')">Leave</button>
-					<button type="button" class="btn btn-default" 
+					<button type="button" class="btn btn-default"
 						onclick="putCalData('present','<%=userId%>')">Present</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
@@ -135,11 +136,9 @@ body {
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<p id="error" style="display: none; color: red;"></p>
 					<h4 class="modal-title">New Task</h4>
-					<hr>
-					<div id="errorDiv">
-						<p id="error" style="color: red; font-size: 20px;"></p>
-					</div>
+				
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal" name="taskForm" id="taskForm"

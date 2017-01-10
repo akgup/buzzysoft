@@ -1,6 +1,7 @@
 function addTask() {
 
 	$('#taskModal').modal();
+	document.getElementById("error").style.display = 'none';
 	document.getElementById("task_date").defaultValue = (inDate.getMonth() + 1)
 			+ '/' + inDate.getDate() + '/' + inDate.getFullYear();
 
@@ -181,6 +182,7 @@ function submitTask() {
 
 	var taskname = document.forms["taskForm"]["name"].value;
 	if (taskname.trim() == "") {
+		document.getElementById("error").style.display = 'block';
 		document.getElementById("error").innerHTML = "Please fill all mandatory fields!";
 
 	} else {

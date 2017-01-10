@@ -54,7 +54,7 @@
 					<input type="hidden" name="userId" value="<%=userId%>" />
 					<div class="form-group">
 						<input type="text" class="form-control" id="task-name" name="name"
-							placeholder="Task Name">
+							placeholder="Task Name*">
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" id="task-desc"
