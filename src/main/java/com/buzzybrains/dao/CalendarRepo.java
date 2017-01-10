@@ -16,4 +16,8 @@ public interface CalendarRepo extends CrudRepository<Calendar, Integer> {
 
 	@Query(value = "select count(1) from calendar c where (c.start >= :fromDate AND c.start <= :endDate )and c.title='Leave' and c.user_id=  :userid", nativeQuery = true)
 	int findLeaveCountByUserId(@Param("userid") int userid,@Param("fromDate") Date from, @Param("endDate") Date end);
+	
+	
+	@Query(value = "SELECT count(1) FROM calendar  where start= :inDate ", nativeQuery = true)
+	int checkIfPresent(@Param("inDate") Date date);
 }

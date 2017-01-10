@@ -65,7 +65,13 @@ public class CalendarController {
 	@ResponseBody
 	public Calendar insertCalDatar(@ModelAttribute Calendar calendar, BindingResult bindingResult,
 			HttpServletRequest request) {
-		Calendar caldata = calendarRepo.save(calendar);
+		Calendar caldata=null;
+		int cnt=calendarRepo.checkIfPresent(calendar.getStart());
+		
+		if(cnt==0)
+		{
+		 caldata = calendarRepo.save(calendar);
+		}
 		return caldata;
 	}
 
