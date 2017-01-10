@@ -41,11 +41,12 @@ public class ProfileController {
 	}
 
 	@PostMapping("/saveProfile")
-	public String saveProfile(@ModelAttribute UserProfile userProfile, BindingResult bindingResult,HttpServletRequest request) {
+	@ResponseBody
+	public UserProfile saveProfile(@ModelAttribute UserProfile userProfile, BindingResult bindingResult,HttpServletRequest request) {
 		
-		userProfileRepo.save(userProfile);
+		return userProfileRepo.save(userProfile);
 
-		return "profile";
+		 
 	}
 	
 	@GetMapping("/change-password")
