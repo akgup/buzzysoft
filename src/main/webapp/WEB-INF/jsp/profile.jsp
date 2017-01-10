@@ -34,21 +34,25 @@
 
 				<h4>My Profile</h4>
 				<hr>
-				<form class="form-horizontal" method="POST" action="saveProfile">
-					<input type="hidden" name="userId" value="<%=userId%>" /> <input
-						type="hidden" name="userProfileId"
-						value="${userProfile.userProfileId}" />
+				<div style="color: green;" id="update-success"></div>
+				<form class="form-horizontal" id="profileForm" method="POST" >
+					<input type="hidden" id="u_id" name="userId" value="<%=userId%>" /> 
+					
+					<input type="hidden" id="supervisor_id" name="supervisorId" value="${userProfile.supervisorId}" /> 
+					
+					<input type="hidden" name="userProfileId" value="${userProfile.userProfileId}" />
+					
 					<div class="form-group">
 						<label class="control-label col-md-3 ">Name</label>
 						<div class="col-md-5 col-sm-6 ">
-							<input type="text" name="employeeName" class="form-control"
+							<input type="text" id="emp_name" name="employeeName" class="form-control"
 								value="${userProfile.employeeName}" />
 							</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-md-3">Employee Id</label>
 						<div class="col-md-5">
-							<input type="text" name="employeeId" class="form-control"
+							<input type="text" id="emp_id" name="employeeId" class="form-control"
 								value="${userProfile.employeeId}" />
 						</div>
 					</div>
@@ -74,7 +78,7 @@
 					<div class="form-group">
 						<label class="control-label col-md-3">Mail</label>
 						<div class="col-md-5">
-							<input type="text" name="employeeMail" class="form-control"
+							<input type="text" id="emp_mail" name="employeeMail" class="form-control"
 								value="${userProfile.employeeMail}" />
 						</div>
 					</div>
@@ -83,7 +87,7 @@
 					<div class="form-group">
 						<label class="control-label col-md-3">Phone</label>
 						<div class="col-md-5">
-							<input type="text" name="employeePhone" class="form-control"
+							<input type="text" id="emp_phone" name="employeePhone" class="form-control"
 								value="${userProfile.employeePhone}" />
 						</div>
 					</div>
@@ -109,7 +113,7 @@
 					<div class="form-group">
 						<label class="control-label col-md-3">Emergency Contact</label>
 						<div class="col-md-5">
-							<input type="text" name="emergencyContact" class="form-control"
+							<input type="text" id="emp_emergency" name="emergencyContact" class="form-control"
 								value="${userProfile.emergencyContact}" />
 						</div>
 					</div>
@@ -117,7 +121,7 @@
 					<div class="form-group">
 						<label class="control-label col-md-3">Current Address</label>
 						<div class="col-md-5">
-							<input type="text" name="currentAddress" class="form-control"
+							<input type="text" id="emp_add" name="currentAddress" class="form-control"
 								value="${userProfile.currentAddress}" />
 						</div>
 					</div>
@@ -125,19 +129,18 @@
 					<div class="form-group">
 						<label class="control-label col-md-3">PAN Number</label>
 						<div class="col-md-5">
-							<input type="text" name="panNumber" class="form-control"
+							<input type="text" id="emp_pan" name="panNumber" class="form-control"
 								value="${userProfile.panNumber}" />
 						</div>
 					</div>
 
 					<div class="form-group">
 						<div class="col-md-5">
-							<button type="submit" class="btn btn-primary" value="Submit">Update</button>
+							<button type="button" class="btn btn-primary" onclick="updateUser()">Update</button>
 						</div>
 					</div>
 				</form>
 			</div>
-
 
 		</c:when>
 		<c:when test="${mode == 'MODE_PASSWORD_CHANGE'}">
@@ -198,6 +201,34 @@
 					return false;
 				}
 				
+		}
+		
+		function updateUser(){
+			var val=$('#profileForm').serialize();
+			//alert(val);
+			$.ajax({
+				type :"POST",
+				url :"saveProfile",
+				data : val,
+				success : function(data) {
+					if(data){
+						 document.getElementById("update-success").innerHTML ="Profile Updated Successfully!";
+						 document.getElementById("update-success").style.color = "green";
+											}
+					else{
+						document.getElementById("update-success").innerHTML ="Kindly try again!";	
+						document.getElementById("update-success").style.color = "red";
+					}
+					
+				},
+				dataType : "html",
+				
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader('Content-Type',
+							'application/x-www-form-urlencoded');
+				},
+			});
+			
 		}
 	</script>
 	
