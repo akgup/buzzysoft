@@ -286,6 +286,7 @@ $('#leave-balance').text(leave_balance);
 			//$(this).css('background-color', 'gray');
 			jQuery.noConflict();
 			$('#primaryModal').modal();
+			document.getElementById("errMsg").style.display = 'none';		
 
 		},
 
@@ -318,6 +319,7 @@ $('#leave-balance').text(leave_balance);
 
 		}
 	});
+	
 
 </script>
 </html>
