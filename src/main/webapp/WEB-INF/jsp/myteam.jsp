@@ -14,6 +14,7 @@
 <title>My Team</title>
 
 <link href="static/css/searchbox.css" rel="stylesheet">
+<link href="static/css/jquery-ui.css" rel="stylesheet">
 <link href='static/css/fullcalendar.min.css' rel='stylesheet' />
 <link href='static/css/fullcalendar.print.min.css' rel='stylesheet'
 	media='print' />
@@ -21,6 +22,7 @@
 <script src='static/js/fullcalendar.min.js'></script>
 <script src='static/js/custom/calendar.js'></script>
 <script src='static/js/custom/myteam.js'></script>
+<script src='static/js/jquery-ui.js'></script>
 
 <style>
 body {
@@ -42,36 +44,38 @@ body {
 		<c:when test="${mode == 'MODE_TEAM'}">
 
 			<div class="container text-center" id="tasksDiv">
-			<div class="col-xs-9">
-				<h4><b>My Team</b></h4>
+				<div class="col-xs-10">
+					<h4>
+						<b>My Team</b>
+					</h4>
 				</div>
-				
-				<div class="col-xs-3">
-					
-						<div class="input-group">
-							<form id="form_search" name="form_search" method="get" action=""
-								class="form-inline">
-								<div class="form-group">
-									<div class="input-group">
-										<input class="form-control" placeholder="Name or Id to add..."
-											type="text"> <span class="input-group-btn">
-											<button class="btn btn-info" type="button">Search!</button>
-										</span>
-									</div>
 
+				<div class="col-xs-2">
+
+					<div class="input-group">
+						<form id="form_search" name="form_search" method="get" action=""
+							class="form-inline">
+							<div class="form-group">
+						
+								<div class="input-group">									
+									<input class="form-control" id="search-keyword"
+										placeholder="Name or Id to add..." type="text">
 								</div>
-							</form>
-						</div>					
-				
-				</div>				
+
+							</div>
+							
+						</form>
+					</div>
+
+				</div>
 			</div>
 			<hr>
-			
+
 
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-xs-2">
-						<c:forEach var="member" items="${teamlist}"  varStatus="myIndex">
+						<c:forEach var="member" items="${teamlist}" varStatus="myIndex">
 							<button type="button" id="btn-employee-${myIndex.index}"
 								onclick='viewCalendar(${member.userId})'
 								class='list-group-item list-group-item-action'>${member.employeeName}-(${member.employeeId})</button>
@@ -80,9 +84,9 @@ body {
 					</div>
 					<div class="col-xs-3">
 
-						<div class="table-responsive" id="user-profile" style="display:none">
-							<table class="table table-stripped table-bordered text-left"
-								>
+						<div class="table-responsive" id="user-profile"
+							style="display: none">
+							<table class="table table-stripped table-bordered text-left">
 
 								<tr>
 									<th>Name:</th>
@@ -90,7 +94,7 @@ body {
 								</tr>
 								<tr>
 									<th>Phone:</th>
-									<td id="employee-phone">  </td>
+									<td id="employee-phone"></td>
 								</tr>
 								<tr>
 									<th>Mail:</th>
@@ -102,7 +106,7 @@ body {
 								</tr>
 								<tr>
 									<th>Address:</th>
-									<td id="employee-address"> </td>
+									<td id="employee-address"></td>
 								</tr>
 								<tr>
 									<th>Birth Date:</th>
@@ -155,7 +159,6 @@ body {
 								<th>Description</th>
 								<th>Status</th>
 								<th>Comments</th>
-
 							</tr>
 						</thead>
 						<tbody>
@@ -177,8 +180,69 @@ body {
 	</div>
 </body>
 <script>
+
 var calObject = $('#calendar');	
 document.getElementById("btn-employee-0").click();
+var n=0;
+
+$(document).ready(function() {
+    $(function() {    	
+
+            $("#form_search").autocomplete({     
+            	
+             source : function(request, response) {
+            	
+            	var keyword=$('#search-keyword').val();
+                 $.ajax({
+                    url : "search-employee",
+                    type : "GET",
+                    data : "keyword="+keyword,
+                    dataType : "json",
+                    success : function(data) {
+                    
+                    	var empArray=[];
+                    	for (x in data)
+                    		{
+                    		//alert(data[x]["employeeName"]+"-"+data[x]["employeeId"]);
+                    		var value=data[x]["employeeName"]+"-"+data[x]["employeeId"];
+                    		var userid=data[x]["userId"]
+                    		var json='{"value":"'+value+'","userid":"'+userid+'"}';
+                    		empArray.push(JSON.parse(json));
+                    		 
+                    		}
+                         	  response(empArray);
+                         	
+                    }
+            });
+    }, 
+    
+    select: function( event, ui ) {
+    	event.preventDefault()
+      
+    	
+    	$.ajax({
+            url : "addSupervisor",
+            type : "GET",
+            data : "supervisorid="+<%=userId%>+"&userid="+ui.item.userid,
+            dataType : "json",
+            success : function(data) {
+                       	
+            }
+    });
+        
+   
+        
+        return false;
+     }
+})
+.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+                return $( "<li>" )
+                .append( "<a>"+ item.value + "</a>" )
+                .appendTo( ul );
+             };
+});
+});
+
 </script>
 
 </html>

@@ -24,7 +24,7 @@ function createTask() {
 	});
 }
 
-/*var intime=document.getElementById("timepicker1").value;*/
+
 
 var removingeventid = 0;
 function removeEvent() {
@@ -105,10 +105,13 @@ function myTasks(userid) {
 }
 
 function putCalData(type, userid) {
+	
+	//getEventList(inDate);
 
 	var intime = document.getElementById("timepicker1").value;
 	var data = null;
 	var calid = null;
+	var isAttendance=checkIfAlreadyPresent(inDate);
 	
 	var currentDate = ((new Date()).setHours(0, 0, 0, 0, 0));
 	var inTime = inDate.setHours(0, 0, 0, 0, 0);
@@ -117,6 +120,12 @@ function putCalData(type, userid) {
 		alert("Future dates not allowed!");
 
 	}
+		/*else if(isAttendance)
+			{
+			
+			alert("Leave or present not allowed again!");
+			
+			}*/
 
 	else {
 
@@ -151,6 +160,8 @@ function putCalData(type, userid) {
 		url : "calendar-data",
 		data : data,
 		success : function(data) {
+			
+			if(data){
 			var json = JSON.parse(data);
 			var date = new Date(json["start"]);
 			var title = json["title"];
@@ -159,9 +170,15 @@ function putCalData(type, userid) {
 				"start" : date,
 				"title" : title,
 				"userId" : userid,
-				"id" : id
+				"id" : id,
+				"type":"attendance"
 			};
 			calObject.fullCalendar('renderEvent', newdata, true);
+		}
+			else
+				{
+				alert("Leave or present not allowed again!");
+				}
 		},
 		dataType : "html",
 		beforeSend : function(xhr) {
@@ -208,4 +225,19 @@ function submitTask(){
 	
 	  
 
+}
+
+
+function checkIfAlreadyPresent(date){	
+	var flag=false;
+	
+	calObject.fullCalendar('clientEvents', function(event) {
+		var d1=new Date(event['start']);
+	
+           if(d1.getTime() == date.getTime() && event.type!="task" ) {
+        	   flag=true;
+           }
+         
+       });
+	  return flag;
 }

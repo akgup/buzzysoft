@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-   <%@ page isELIgnored="false"%>
+<%@ page isELIgnored="false"%>
 
 <html>
-<head>
+<head profile="http://www.w3.org/2005/10/profile">
+<link rel="icon" type="image/png" href="/static/image/bb-logo.png" />
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +19,7 @@
 <link href="static/css/bootstrap.min.css" rel="stylesheet">
 <link href="static/css/style.css" rel="stylesheet">
 
-<link rel="stylesheet"	href='static/bootstrap/css/bootstrap-iso.css' />
+<link rel="stylesheet" href='static/bootstrap/css/bootstrap-iso.css' />
 </head>
 <body>
 
@@ -43,17 +44,18 @@
 	<nav class="navbar navbar-inverse  ">
 		<div class="container-fluid ">
 			<div class="navbar-header ">
-				<a class="navbar-brand" href="/home?userid=<%=userId%>"><img src="/static/image/bb-logo.png"></img></a>
+				<a class="navbar-brand" href="/home?userid=<%=userId%>"><img
+					src="/static/image/bb-logo.png"></img></a>
 			</div>
 
 
 			<ul class="nav navbar-nav">
-					<!-- <li class="dropdown"><a class="dropdown-toggle"
+				<!-- <li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#">Task<span class="caret"></span></a> -->
-				
-						
-						<li><a href="all-tasks?userid=<%=userId%>">Work Log</a></li>
-				
+
+
+				<li><a href="all-tasks?userid=<%=userId%>">Work Log</a></li>
+
 
 
 				<li class="dropdown"><a class="dropdown-toggle"
@@ -63,8 +65,8 @@
 						<li><a href="/claim-list?userid=<%=userId%>">Claim
 								History</a></li>
 					</ul></li>
-					
-					<li><a href="/direct-report?userid=<%=userId%>">My Team</a></li>
+
+				<li><a href="/direct-report?userid=<%=userId%>">My Team</a></li>
 
 			</ul>
 
@@ -79,14 +81,16 @@
 							<div class="navbar-login">
 								<div class="row">
 									<div class="col-lg-5">
-									<p>
-											<a href="/myProfile?userid=<%=userId%>" class="btn btn-primary btn-block">My Profile</a>
+										<p>
+											<a href="/myProfile?userid=<%=userId%>"
+												class="btn btn-primary btn-block">My Profile</a>
 										</p>
 									</div>
-									
-										<div class="col-lg-7">
-									<p>
-											<a href="/change-password" class="btn btn-info btn-block">Change Password</a>
+
+									<div class="col-lg-7">
+										<p>
+											<a href="/change-password" class="btn btn-info btn-block">Change
+												Password</a>
 										</p>
 									</div>
 								</div>
@@ -110,8 +114,9 @@
 	</nav>
 
 	<script src='static/js/jquery.min.js'></script>
+	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 	<script src="static/js/bootstrap.min.js"></script>
-<script>
+	<script>
 $(function(){
     $(".dropdown").hover(            
             function() {
