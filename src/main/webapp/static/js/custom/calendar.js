@@ -110,7 +110,6 @@ function putCalData(type, userid) {
 	var intime = document.getElementById("timepicker1").value;
 	var data = null;
 	var calid = null;
-	var isAttendance=checkIfAlreadyPresent(inDate);
 	
 	var currentDate = ((new Date()).setHours(0, 0, 0, 0, 0));
 	var inTime = inDate.setHours(0, 0, 0, 0, 0);
@@ -118,7 +117,7 @@ function putCalData(type, userid) {
 			document.getElementById("errMsg").innerHTML="Future dates not allowed!";										 
 			document.getElementById("errMsg").style.display = 'block';
 	}
-		
+	
 	else {
 
 		if (type == "Leave") {
@@ -216,25 +215,4 @@ function submitTask(){
 					'application/x-www-form-urlencoded');
 		},
 	});
-	
-	  
-
 }
-
-
-function checkIfAlreadyPresent(date){	
-	var flag=false;
-	
-	calObject.fullCalendar('clientEvents', function(event) {
-		var d1=new Date(event['start']);
-	
-           if(d1.getTime() == date.getTime() && event.type!="task" ) {
-        	   flag=true;
-           }
-         
-       });
-	  return flag;
-}
-
-
-

@@ -5,7 +5,7 @@
 
 <html>
 <head profile="http://www.w3.org/2005/10/profile">
-<link rel="icon" type="image/png" href="/static/image/bb-logo.png" />
+<link rel="icon" type="image/png" href="/static/image/favicon.png" />
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
