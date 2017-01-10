@@ -107,6 +107,8 @@ function myTasks(userid) {
 function putCalData(type, userid) {
 	
 	//getEventList(inDate);
+	//leave_balance--;
+	//alert(leave_balance);
 
 	var intime = document.getElementById("timepicker1").value;
 	var data = null;
@@ -120,15 +122,11 @@ function putCalData(type, userid) {
 		alert("Future dates not allowed!");
 
 	}
-		/*else if(isAttendance)
-			{
+		else if(leave_balance<=0){
 			
-			alert("Leave or present not allowed again!");
-			
-			}*/
-
+			}
 	else {
-
+	
 		if (type == "Leave") {
 			data = {
 				"start" : inDate,
@@ -149,11 +147,7 @@ function putCalData(type, userid) {
 
 	}
 
-/*	if (oldeventid != 0) {
-		calObject.fullCalendar('removeEvents', oldeventid)
-		oldeventid = 0;
-	}*/
-	//calObject.fullCalendar('renderEvent', data, true);
+
 
 	$.ajax({
 		type : "POST",
@@ -174,6 +168,13 @@ function putCalData(type, userid) {
 				"type":"attendance"
 			};
 			calObject.fullCalendar('renderEvent', newdata, true);
+			if(title == "Leave")
+				{
+				
+				availleave++;
+				document.getElementById("leave-balance").innerHTML =--leave_balance;
+				document.getElementById("leave-availed").innerHTML =availleave;
+				}
 		}
 			else
 				{
