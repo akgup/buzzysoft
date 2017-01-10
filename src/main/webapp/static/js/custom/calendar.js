@@ -1,5 +1,3 @@
-
-
 function addTask() {
 
 	$('#taskModal').modal();
@@ -171,7 +169,6 @@ function putCalData(type, userid) {
 				
 				if(title == "Leave")
 				{
-				
 				availleave++;
 				document.getElementById("leave-balance").innerHTML =--leave_balance;
 				document.getElementById("leave-availed").innerHTML =availleave;

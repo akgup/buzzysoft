@@ -261,7 +261,7 @@ body {
 </body>
 
 <script>
-
+var availleave=${leaveAvailed};
 var leave_balance=24-${leaveAvailed};
 $('#leave-balance').text(leave_balance);
 
