@@ -16,7 +16,6 @@
 <link rel="stylesheet" href="static/css/bootstrap.min.css">
 <script src="static/js/jquery.min.js"></script>
 <script src="static/js/bootstrap.min.js"></script>
-<link href="static/css/bootstrap.min.css" rel="stylesheet">
 <link href="static/css/style.css" rel="stylesheet">
 
 <link rel="stylesheet" href='static/bootstrap/css/bootstrap-iso.css' />

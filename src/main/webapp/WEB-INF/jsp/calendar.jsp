@@ -14,11 +14,6 @@
 
 <title>My Calendar</title>
 
-<script src='static/bootstrap/js/jquery.min.js'></script>
-<script src='static/bootstrap/js/bootstrap.min.js'></script>
-<link rel="stylesheet" type="text/css"
-	href='static/bootstrap/css/bootstrap.min.css' />
-
 <script type="text/javascript"
 	src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
 <link rel="stylesheet"
@@ -103,9 +98,10 @@ body {
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">In Time</h4>
-
+					<!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+					<p id="errMsg" style="display: none;color:red;">Error message goes here</p>
+				<!-- 	<h4 class="modal-title">In Time</h4> -->
+				
 				</div>
 				<div class="modal-body">
 
@@ -119,9 +115,9 @@ body {
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal"
 						onclick="addTask()">Add Task</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal"
+					<button type="button" class="btn btn-default" 
 						onclick="putCalData('Leave','<%=userId%>')">Leave</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal"
+					<button type="button" class="btn btn-default" 
 						onclick="putCalData('present','<%=userId%>')">Present</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
@@ -322,5 +318,6 @@ $('#leave-balance').text(leave_balance);
 
 		}
 	});
+
 </script>
 </html>
