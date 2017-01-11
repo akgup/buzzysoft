@@ -64,6 +64,7 @@ function getEvents(date) {
 }
 
 function myTasks(userid) {
+	
 	$.ajax({
 		type : "GET",
 		url : "task-list",
@@ -102,10 +103,10 @@ function myTasks(userid) {
 
 }
 
+
 function putCalData(type, userid) {
 	
-	// getEventList(inDate);
-
+	//getEventList(inDate);
 	var intime = document.getElementById("timepicker1").value;
 	var data = null;
 	var calid = null;
@@ -115,6 +116,7 @@ function putCalData(type, userid) {
 		if (inTime > currentDate && type != "Leave") {
 			document.getElementById("errMsg").innerHTML="Future dates not allowed!";										 
 			document.getElementById("errMsg").style.display = 'block';
+			
 	}
 
 		else if(leave_balance<=0){
@@ -122,9 +124,9 @@ function putCalData(type, userid) {
 			document.getElementById("errMsg").style.display = 'block';
 			}
 
-	
-
 	else {
+		
+		
 	
 		if (type == "Leave") {
 			data = {
@@ -166,7 +168,7 @@ function putCalData(type, userid) {
 				jQuery.noConflict();
 				$('#primaryModal').modal("hide");
 				calObject.fullCalendar('renderEvent', newdata, true);
-				
+					
 				if(title == "Leave")
 				{
 				availleave++;

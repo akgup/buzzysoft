@@ -6,6 +6,7 @@
 <html>
 <head profile="http://www.w3.org/2005/10/profile">
 <link rel="icon" type="image/png" href="/static/image/favicon.png" />
+<%@ page session="false" %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,24 +23,15 @@
 </head>
 <body>
 
-	<%
-		String userName = null;
-		String userId = null;
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("username"))
-					userName = cookie.getValue();
-				if (cookie.getName().equals("userid"))
-					userId = cookie.getValue();
-			}
-		}
-		if (userName == null)
-			response.sendRedirect("/");
-	%>
+<% HttpSession session = request.getSession();
+	String userName=(String)session.getAttribute("SessionUsername");
+	String userId=(String)session.getAttribute("SessionUserid");
+	if (userName == null)
+	response.sendRedirect("/");
+	
+%>
 
-
-
+	
 	<nav class="navbar navbar-inverse  ">
 		<div class="container-fluid ">
 			<div class="navbar-header ">

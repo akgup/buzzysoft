@@ -1,6 +1,4 @@
 package com.buzzybrains.controller;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -31,32 +29,21 @@ public class LoginController {
 	@GetMapping("/")
 	public String home(HttpServletRequest request) {
 
-		String redirect = "login";
-		int uid = 0;
-		String uname = null;
-
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null)
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("username"))
-					uname = cookie.getValue();
-				if (cookie.getName().equals("userid")) {
-					uid = Integer.parseInt(cookie.getValue());
-
-				}
-
-			}
-		if (uname != null) {
-			redirect = "redirect:home?userid=" + uid;
-		} 
-
+		String redirect = "";
+		HttpSession session = request.getSession();
+		
+		//check for browser back button is pressed
+		if(session.getAttribute("SessionUsername") == null && session.getAttribute("SessionUserid") == null){
+			 redirect = "login";
+			 }
+		else{
+			String userId=(String) session.getAttribute("SessionUserid");
+			request.setAttribute("mode", "MODE_HOME");
+			redirect = "redirect:home?userid=" + userId;
+		}
+		
 		return redirect;
 	}
-	
-/*	@GetMapping("/")
-	public String home(HttpServletRequest request) {
-		return "test";
-	}*/
 
 	@PostMapping("/validate")
 	public String validateLoginDetails(@ModelAttribute UserCredentials userCredentials, BindingResult bindingResult,
@@ -72,13 +59,9 @@ public class LoginController {
 
 				// creating a session
 				HttpSession session = request.getSession();
-				session.setAttribute("username", username);
-				session.setAttribute("userid", Integer.toString(userObject.getUserId()));
-
-				Cookie usernameCookie = new Cookie("username", username);
-				Cookie useridCookie = new Cookie("userid", Integer.toString(userObject.getUserId()));
-				response.addCookie(usernameCookie);
-				response.addCookie(useridCookie);
+				session.setAttribute("SessionUsername", username);
+				session.setAttribute("SessionUserid", Integer.toString(userObject.getUserId()));
+				
 				request.setAttribute("mode", "MODE_HOME");
 				redirect = "redirect:" + "/home?userid=" + userObject.getUserId();
 			}
@@ -97,17 +80,9 @@ public class LoginController {
 	private String eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
 
 		HttpSession session = req.getSession();
+		if(session!=null){
 		session.invalidate();
-
-		Cookie[] cookies = req.getCookies();
-		if (cookies != null)
-			for (int i = 0; i < cookies.length; i++) {
-				cookies[i].setValue("");
-				cookies[i].setPath("/");
-				cookies[i].setMaxAge(0);
-				resp.addCookie(cookies[i]);
-			}
-
+		}
 		return "redirect:" + "/";
 	}
 
