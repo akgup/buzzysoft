@@ -20,10 +20,14 @@
 <link href="static/css/bootstrap.min.css" rel="stylesheet">
 <link href="static/css/style.css" rel="stylesheet">
 
-<!--[if lt IE 9]>
-		<script src="static/js/html5shiv.min.js"></script>
-		<script src="static/js/respond.min.js"></script>
-	<![endif]-->
+<script>
+     if (sessionStorage.getItem("calenderPageVisited")) {
+          sessionStorage.removeItem("calenderPageVisited");
+          window.location.reload(true); // force refresh page1
+     }
+</script>
+
+
 </head>
 <body>
 			<div

@@ -53,6 +53,7 @@ function getEvents(date) {
 }
 
 function myTasks(userid) {
+	
 	$.ajax({
 		type : "GET",
 		url : "task-list",
@@ -91,9 +92,8 @@ function myTasks(userid) {
 
 }
 
-function putCalData(type, userid) {
 
-	// getEventList(inDate);
+function putCalData(type, userid) {
 
 	var intime = document.getElementById("timepicker1").value;
 	var data = null;
@@ -101,6 +101,7 @@ function putCalData(type, userid) {
 
 	var currentDate = ((new Date()).setHours(0, 0, 0, 0, 0));
 	var inTime = inDate.setHours(0, 0, 0, 0, 0);
+
 	if (inTime > currentDate && type != "Leave") {
 		document.getElementById("errMsg").innerHTML = "Future dates not allowed!";
 		document.getElementById("errMsg").style.display = 'block';
@@ -112,6 +113,7 @@ function putCalData(type, userid) {
 	}
 
 	else {
+
 
 		if (type == "Leave") {
 			data = {
@@ -213,6 +215,7 @@ function submitTask() {
 				};
 
 				calObject.fullCalendar('renderEvent', newdata, true);
+
 			},
 			dataType : "html",
 			beforeSend : function(xhr) {
