@@ -26,8 +26,8 @@
 <% HttpSession session = request.getSession();
 	String userName=(String)session.getAttribute("SessionUsername");
 	String userId=(String)session.getAttribute("SessionUserid");
-	if (userName == null)
-	response.sendRedirect("/");
+	/* if (userName == null)
+	response.sendRedirect("/"); */
 	
 %>
 

@@ -1,4 +1,5 @@
 package com.buzzybrains.controller;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,28 +21,45 @@ public class LoginController {
 
 	@Autowired
 	UserCredentialsRepository userCredentialsRepository;
-	
-    @RequestMapping("/hi")
-    public @ResponseBody String hiThere(){
-        return "hello world!";
-    }
 
-	@GetMapping("/")
+	@RequestMapping("/hi")
+	public @ResponseBody String hiThere() {
+		return "hello world!";
+	}
+
+	@GetMapping("/login")
 	public String home(HttpServletRequest request) {
 
 		String redirect = "";
 		HttpSession session = request.getSession();
-		
-		//check for browser back button is pressed
-		if(session.getAttribute("SessionUsername") == null && session.getAttribute("SessionUserid") == null){
-			 redirect = "login";
-			 }
-		else{
-			String userId=(String) session.getAttribute("SessionUserid");
+
+		// check for browser back button is pressed
+		if (session.getAttribute("SessionUsername") == null && session.getAttribute("SessionUserid") == null) {
+			redirect = "login";
+		} else {
+			String userId = (String) session.getAttribute("SessionUserid");
 			request.setAttribute("mode", "MODE_HOME");
 			redirect = "redirect:home?userid=" + userId;
 		}
-		
+
+		return redirect;
+	}
+
+	@GetMapping("/")
+	public String redirectToValidPage(HttpServletRequest request) {
+
+		String redirect = "";
+		HttpSession session = request.getSession();
+
+		// check for browser back button is pressed
+		if (session.getAttribute("SessionUsername") == null) {
+			redirect = "login";
+		} else {
+			String userId = (String) session.getAttribute("SessionUserid");
+			request.setAttribute("mode", "MODE_HOME");
+			redirect = "redirect:home?userid=" + userId;
+		}
+
 		return redirect;
 	}
 
@@ -51,7 +69,7 @@ public class LoginController {
 		String username = userCredentials.getUserName();
 		String password = userCredentials.getPassword();
 		String redirect = "";
-
+		
 		UserCredentials userObject = userCredentialsRepository.findByUserName(username);
 
 		if (userObject != null) {
@@ -61,16 +79,17 @@ public class LoginController {
 				HttpSession session = request.getSession();
 				session.setAttribute("SessionUsername", username);
 				session.setAttribute("SessionUserid", Integer.toString(userObject.getUserId()));
-				
+
 				request.setAttribute("mode", "MODE_HOME");
+
 				redirect = "redirect:" + "/home?userid=" + userObject.getUserId();
 			}
 
 			else {
-				redirect = "redirect:/";
+				redirect = "redirect:/login";
 			}
 		} else {
-			redirect = "redirect:/";
+			redirect = "redirect:/login";
 
 		}
 		return redirect;
@@ -79,11 +98,14 @@ public class LoginController {
 	@GetMapping("/logout")
 	private String eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
 
-		HttpSession session = req.getSession();
-		if(session!=null){
-		session.invalidate();
+		HttpSession session = req.getSession(false);
+		if (session != null) {
+			session.removeAttribute("SessionUserid");
+			session.removeAttribute("SessionUsername");
+			session.invalidate();
+
 		}
-		return "redirect:" + "/";
+		return "redirect:" + "/login";
 	}
 
 }
