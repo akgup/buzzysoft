@@ -13,6 +13,7 @@
 
 <title>My Team</title>
 
+
 <link href="static/css/searchbox.css" rel="stylesheet">
 <link href="static/css/jquery-ui.css" rel="stylesheet">
 <link href='static/css/fullcalendar.min.css' rel='stylesheet' />
@@ -40,99 +41,136 @@ body {
 
 </head>
 <body>
-	<c:choose>
-		<c:when test="${mode == 'MODE_TEAM'}">
-
-			<div class="container text-center" id="tasksDiv">
-				<div class="col-xs-10">
-					<h4>
-						<b>My Team</b>
-					</h4>
-				</div>
-
-				<div class="col-xs-2">
+	<!-- begin #sidebar -->
+	<div id="sidebar" class="sidebar">
+		<!-- begin sidebar nav -->
+		<ul class="nav" id="leftNavList">
+			<li class="has-sub"><div class="col-xs-12">
 
 					<div class="input-group">
 						<form id="form_search" name="form_search" method="get" action=""
-							class="form-inline">
+							>
 							<div class="form-group">
-						
-								<div class="input-group">									
+
+								<div class="input-group">
 									<input class="form-control" id="search-keyword"
 										placeholder="Name or Id to add..." type="text">
 								</div>
 
 							</div>
-							
+
 						</form>
 					</div>
 
-				</div>
-			</div>
-			<hr>
+				</div></li>
+			<c:forEach var="member" items="${teamlist}" varStatus="myIndex">
+				<li class="has-sub">
+					<button type="button" id="btn-employee-${myIndex.index}"
+						onclick='viewCalendar(${member.userId})'
+						class='list-group-item list-group-item-action'>${member.employeeName}-(${member.employeeId})</button>
+
+				</li>
+			</c:forEach>
+		</ul>
+
+	</div>
+	<!-- end #sidebar -->
+	<div id="content" class="content" >
+
+		<c:choose>
+			<c:when test="${mode == 'MODE_TEAM'}">
+
+				<!-- begin row -->
+				<div class="row" id="myteam">
+					<!-- begin col-6 -->
+					<div class="col-md-5">
+
+						<!-- begin panel -->
+						<div class="panel panel-inverse" id="memberDetailPanel">
+							<div class="panel-heading">
+								<h4 class="panel-title">Details</h4>
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive" id="user-profile"
+									style="display: none">
+									<table class="table table-bordered">
+
+										<tbody>
+
+											<tr>
+												<th>Name:</th>
+												<td id="employee-name"></td>
+											</tr>
+
+											<tr>
+												<th>Phone:</th>
+												<td id="employee-phone"></td>
+											</tr>
+
+											<tr>
+												<th>Mail:</th>
+												<td id="employee-mail"></td>
+											</tr>
+
+											<tr>
+												<th>Emergency Ph:</th>
+												<td id="employee-emer-phone"></td>
+											</tr>
+
+											<tr>
+												<th>Address:</th>
+												<td id="employee-address"></td>
+											</tr>
+
+											<tr>
+												<th>Birth Date:</th>
+												<td id="employee-dob"></td>
+											</tr>
+
+											<tr>
+												<th>Joining Date:</th>
+												<td id="employee-doj"></td>
+											</tr>
+
+											<tr>
+												<th>Blood Group:</th>
+												<td id="employee-bg"></td>
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
 
 
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-xs-2">
-						<c:forEach var="member" items="${teamlist}" varStatus="myIndex">
-							<button type="button" id="btn-employee-${myIndex.index}"
-								onclick='viewCalendar(${member.userId})'
-								class='list-group-item list-group-item-action'>${member.employeeName}-(${member.employeeId})</button>
-
-						</c:forEach>
-					</div>
-					<div class="col-xs-3">
-
-						<div class="table-responsive" id="user-profile"
-							style="display: none">
-							<table class="table table-stripped table-bordered text-left">
-
-								<tr>
-									<th>Name:</th>
-									<td id="employee-name"></td>
-								</tr>
-								<tr>
-									<th>Phone:</th>
-									<td id="employee-phone"></td>
-								</tr>
-								<tr>
-									<th>Mail:</th>
-									<td id="employee-mail"></td>
-								</tr>
-								<tr>
-									<th>Emergency Ph:</th>
-									<td id="employee-emer-phone"></td>
-								</tr>
-								<tr>
-									<th>Address:</th>
-									<td id="employee-address"></td>
-								</tr>
-								<tr>
-									<th>Birth Date:</th>
-									<td id="employee-dob"></td>
-								</tr>
-								<tr>
-									<th>Joining Date:</th>
-									<td id="employee-doj"></td>
-								</tr>
-								<tr>
-									<th>Blood Group:</th>
-									<td id="employee-bg"></td>
-								</tr>
-							</table>
+							</div>
 						</div>
+					</div>
+					<!-- end panel -->
+					<div class="col-md-7">
+						<!-- begin panel -->
+						<div class="panel panel-inverse">
+							<div class="panel-heading">
+								<h4 class="panel-title">Calendar</h4>
+							</div>
+							<div class="panel-body">
+								<div class="container-fluid" id="tasksDiv">
 
+									<div>
+										<div id='calendar'></div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- end panel -->
 					</div>
-					<div class="col-xs-7">
-						<div id='calendar'></div>
-					</div>
+
 				</div>
-			</div>
 
-		</c:when>
+			</c:when>
 
-	</c:choose>
+		</c:choose>
+	</div>
 
 	<!--  Task Details Modal -->
 	<div class="modal fade" id="taskDetailsModal" role="dialog">
@@ -179,6 +217,7 @@ body {
 		</div>
 	</div>
 </body>
+
 <script>
 
 var calObject = $('#calendar');	

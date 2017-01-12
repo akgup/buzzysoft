@@ -14,8 +14,11 @@
 
 <title>My Calendar</title>
 
+
+
 <script type="text/javascript"
 	src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
+	<script src='static/js/bootstrap-timepicker.js'></script>
 <link rel="stylesheet"
 	href='static/bootstrap/css/bootstrap-datepicker3.css' />
 <link href='static/css/fullcalendar.min.css' rel='stylesheet' />
@@ -24,9 +27,7 @@
 <link href='static/css/fullcalendar.print.min.css' rel='stylesheet'
 	media='print' />
 <script src='static/js/lib/moment.min.js'></script>
-
 <script src='static/js/fullcalendar.min.js'></script>
-<script src='static/js/bootstrap-timepicker.js'></script>
 <script src='static/js/custom/calendar.js'></script>
 
 <script>
@@ -62,39 +63,69 @@ body {
 		String d1 = (String) request.getAttribute("caldata");
 	%>
 
-	<div class="container-fluid" id="tasksDiv">
-		<div class="col-xs-3">
-			<br> <br> <br> <br> <br>
-			<div class="table-responsive" id="user-leave-status">
-				<table class="table table-stripped table-bordered text-left">
-					<col width="60">
-					<col width="120">
-					<thead>
-						<tr>
-							<th>Year</th>
-							<th>Total Leaves</th>
-							<th>Availed</th>
-							<th>Balance</th>
+	<!-- begin #sidebar -->
+	<div id="sidebar" class="sidebar">
+		<!-- begin sidebar nav -->
+		<ul class="nav" id="leftNavList">
 
-						</tr>
-					</thead>
+			<li class="has-sub"><a href="javascript:;" onclick="openCalendar()"> <span> Calendar </span></a></li>
+			
+			<li class="has-sub"><a href="javascript:;" onclick="openLeaveDetails()"> <span> Leave Details</span> </a></li>
+		</ul>
 
-					<tr>
-						<td id="leave-year">2017</td>
-						<td id="leave-total">24</td>
-						<td id="leave-availed">${leaveAvailed}</td>
-						<td id="leave-balance"></td>
-					</tr>
+	</div>
+	<!-- end #sidebar -->
 
 
-				</table>
-				
+
+	<div id="content" class="content">
+		<!-- begin panel -->
+		<div class="panel panel-inverse collapse" id="leavePanel">
+			<div class="panel-heading">
+				<h4 class="panel-title">Leave Details</h4>
+
 			</div>
+			<div class="panel-body">
+				<div class="table-responsive" id="user-leave-status">
+					<table class="table table-stripped table-bordered text-left">
+						<col width="60">
+						<col width="120">
+						<thead>
+							<tr>
+								<th>Year</th>
+								<th>Total Leaves</th>
+								<th>Availed</th>
+								<th>Balance</th>
+							</tr>
+						</thead>
+						<tr>
+							<td id="leave-year">2017</td>
+							<td id="leave-total">24</td>
+							<td id="leave-availed">${leaveAvailed}</td>
+							<td id="leave-balance"></td>
+						</tr>
+					</table>
+				</div>
 
+			</div>
 		</div>
-		<div class="col-xs-9">
-			<div id='calendar'></div>
+		<!-- end panel -->
+		<!-- begin panel -->
+		<div class="panel panel-inverse" id="calendarPanel">
+			<div class="panel-heading">
+				<h4 class="panel-title">Calendar</h4>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid" id="tasksDiv">
+
+					<div>
+						<div id='calendar'></div>
+					</div>
+				</div>
+
+			</div>
 		</div>
+		<!-- end panel -->
 	</div>
 
 	<!--Primary Modal -->
@@ -147,7 +178,7 @@ body {
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<p id="error" style="display: none; color: red;"></p>
 					<h4 class="modal-title">New Task</h4>
-				
+
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal" name="taskForm" id="taskForm"
@@ -331,5 +362,20 @@ $('#leave-balance').text(leave_balance);
 	});
 	
 
+	function openCalendar()
+	{
+		document.getElementById("calendarPanel").style.display="block";
+		document.getElementById("leavePanel").style.display="none";
+	}
+
+	function openLeaveDetails()
+	{
+		document.getElementById("calendarPanel").style.display="none";
+		document.getElementById("leavePanel").style.display="block";
+	}
+
+
 </script>
+<script src="static/js/jquery.min.js"></script>
+<script src='static/js/bootstrap-timepicker.js'></script>
 </html>
