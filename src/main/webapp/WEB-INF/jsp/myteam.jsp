@@ -278,7 +278,7 @@ $(document).ready(function() {
 })
 .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
             	
-            
+            	
                 return $( "<li>" )
                 .append( "<a>"+ item.value + "</a>" )
                 .appendTo( ul );
@@ -287,6 +287,5 @@ $(document).ready(function() {
 });
 
 </script>
-<script src="static/js/jquery.min.js"></script>
 
 </html>
