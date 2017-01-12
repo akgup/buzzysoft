@@ -69,7 +69,7 @@ public class LoginController {
 		String username = userCredentials.getUserName();
 		String password = userCredentials.getPassword();
 		String redirect = "";
-		
+
 		UserCredentials userObject = userCredentialsRepository.findByUserName(username);
 
 		if (userObject != null) {
@@ -106,6 +106,20 @@ public class LoginController {
 
 		}
 		return "redirect:" + "/login";
+	}
+
+	@GetMapping("/app/validate")
+	@ResponseBody
+	public Boolean validateLoginDetailsApp(String username, String password) {
+
+		UserCredentials userObject = userCredentialsRepository.findByUserName(username);
+		boolean flag = false;
+		if (userObject != null) {
+			if (userObject.getPassword().equals(password)) {
+				flag = true;
+			}
+		}
+		return flag;
 	}
 
 }

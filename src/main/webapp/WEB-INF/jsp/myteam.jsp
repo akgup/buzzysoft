@@ -48,21 +48,21 @@ body {
 			<li class="has-sub"><div class="col-xs-12">
 
 					<div class="input-group">
-						<form id="form_search" name="form_search" method="get" action=""
-							>
+						<form id="form_search" name="form_search" method="get" action="">
 							<div class="form-group">
 
 								<div class="input-group">
 									<input class="form-control" id="search-keyword"
 										placeholder="Name or Id to add..." type="text">
 								</div>
-
-							</div>
+								
+													</div>
 
 						</form>
 					</div>
 
-				</div></li>
+				</div>	<br><br></li>
+			
 			<c:forEach var="member" items="${teamlist}" varStatus="myIndex">
 				<li class="has-sub">
 					<button type="button" id="btn-employee-${myIndex.index}"
@@ -249,6 +249,8 @@ $(document).ready(function() {
                     		empArray.push(JSON.parse(json));
                     		 
                     		}
+                    	
+                   
                          	  response(empArray);
                          	
                     }
@@ -275,6 +277,8 @@ $(document).ready(function() {
      }
 })
 .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+            	
+            
                 return $( "<li>" )
                 .append( "<a>"+ item.value + "</a>" )
                 .appendTo( ul );
@@ -283,5 +287,6 @@ $(document).ready(function() {
 });
 
 </script>
+<script src="static/js/jquery.min.js"></script>
 
 </html>
