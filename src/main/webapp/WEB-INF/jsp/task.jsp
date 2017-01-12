@@ -16,12 +16,12 @@
 <title>Task Manager | Home</title>
 
 <!-- Include Date Range Picker -->
-<script type="text/javascript" src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
-<link rel="stylesheet"	href='static/bootstrap/css/bootstrap-datepicker3.css'/>
-<link href="static/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript"
+	src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
+<link rel="stylesheet"
+	href='static/bootstrap/css/bootstrap-datepicker3.css' />
 <link href="static/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="static/css/style.css" rel="stylesheet">
-<link rel="stylesheet" href='static/bootstrap/css/bootstrap-iso.css'/>
+
 
 <script type="text/javascript" src="static/js/tableExport.js"></script>
 <script type="text/javascript" src="static/js/jquery.base64.js"></script>
@@ -29,71 +29,76 @@
 <script type="text/javascript" src='static/js/sprintf.js'></script>
 <script type="text/javascript" src='static/js/jspdf.js'></script>
 <script type="text/javascript" src='static/js/base64.js'></script>
-
-
-
 <script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
-<script src="static/js/bootstrap.min.js"></script>
 <script src='static/js/custom/task.js'></script>
-
 
 </head>
 <body>
-	<c:choose>
-		<c:when test="${mode == 'MODE_TASKS'}">
-			<div class="container text-center" id="tasksDiv">
-				<h4>My Tasks</h4>
-				<hr>
-				<div id="errorDiv">
-					<p id="error" style="color: red; font-size: 20px;"></p>
-				</div>
+
+	<div id="content" class="content">
+		<h1 class="page-header1">My Tasks</h1>
+		<!-- begin panel -->
+		<div class="panel panel-inverse">
+			<div class="panel-heading">
+				<h4 class="panel-title">Task List</h4>
+			</div>
+			<div class="panel-body">
+				<c:choose>
+					<c:when test="${mode == 'MODE_TASKS'}">
+						<div id="tasksDiv">
+
+							<div id="errorDiv">
+								<p id="error" style="color: red; font-size: 20px;"></p>
+							</div>
 
 
-				<form class="form-inline" id="new-task-from" method="POST"
-					action="save-task" name="taskForm" onsubmit="return validateForm()">
-					<input type="hidden" name="userId" value="<%=userId%>" />
-					<div class="form-group">
-						<input type="text" class="form-control" id="task-name" name="name"
-							placeholder="Task Name*">
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" id="task-desc"
-							name="description" placeholder="Description">
-					</div>
+							<form class="form-inline" id="new-task-from" method="POST"
+								action="save-task" name="taskForm"
+								onsubmit="return validateForm()">
+								<input type="hidden" name="userId" value="<%=userId%>" />
+								<div class="form-group">
+									<input type="text" class="form-control" id="task-name"
+										name="name" placeholder="Task Name">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" id="task-desc"
+										name="description" placeholder="Description">
+								</div>
 
-					<div class="form-group">
-						<input class="form-control" name="taskDate" id="task-date"
-							placeholder="YYYY/MM/DD*" type="text">
-					</div>
+								<div class="form-group">
+									<input class="form-control" name="taskDate" id="task-date"
+										placeholder="YYYY/MM/DD*" type="text">
+								</div>
 
-					<div class="form-group">
-						<select class="selectpicker form-control" name="status"
-							id="task-status">
-							<option value="Not Started">Not Started</option>
-							<option value="In Progress">In Progress</option>
-							<option value="Done">Done</option>
-						</select>
-					</div>
+								<div class="form-group">
+									<select class="selectpicker form-control" name="status"
+										id="task-status">
+										<option value="Not Started">Not Started</option>
+										<option value="In Progress">In Progress</option>
+										<option value="Done">Done</option>
+									</select>
+								</div>
 
-					<div class="form-group">
-						<input type="text" class="form-control" id="task-comment"
-							name="comments" placeholder="Comments">
-					</div>
-					<button type="submit" class="btn btn-primary">Add New</button>
-					
-					
-					<ul class="nav navbar-nav pull-right">
-					<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Export<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						
-						<li><a class="export-excel" >Excel</a></li>
-						
-						<li><a class="export-csv">CSV</a></li>
-					</ul></li>
-					</ul>
-					
-					<!-- 
+								<div class="form-group">
+									<input type="text" class="form-control" id="task-comment"
+										name="comments" placeholder="Comments">
+								</div>
+								<button type="submit" class="btn btn-primary">Add New</button>
+
+
+								<ul class="nav navbar-nav pull-right">
+									<li class="dropdown"><a class="dropdown-toggle"
+										data-toggle="dropdown" href="#">Export<span class="caret"></span></a>
+										<ul class="dropdown-menu">
+
+											<li><a class="export-excel">Excel</a></li>
+
+											<li><a class="export-csv">CSV</a></li>
+										</ul></li>
+								</ul>
+
+								<!-- 
+
 					<button type="button" class="export-btn btn btn-link btn-md">Export</button>
 					<div class="dropdown">
   <button class="dropbtn export-btn btn btn-link btn-md">Export</button>
@@ -103,91 +108,96 @@
   </div>
 </div>
 					 -->
-				</form>
+							</form>
 
-				<br> <br>
-				<div class="table-responsive">
-					<table
-						class="table table-stripped table-bordered text-left  table2excel"
-						id="task-history">
+							<br> <br>
+							<div class="table-responsive">
+								<table
+									class="table table-stripped table-bordered text-left  table2excel"
+									id="task-history">
 
-						<col width="60">
-						<col width="150">
-						<col width="300">
-						<col width="160">
-						<col width="100">
-						<col width="200">
-						<col width="60">
-						<col width="60">
-						<thead>
-							<tr>
-								<th>Id</th>
-								<th>Task Name</th>
-								<th>Description</th>
-								<th>Task Date</th>
-								<th>Status</th>
-								<th>Comments</th>
-								<th></th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-
-
-							<c:forEach var="task" items="${tasks}">
-								<tr id="row${task.id}">
-									<td>${task.id}</td>
-									<td id="name_row${task.id}">${task.name}</td>
-									<td id="desc_row${task.id}">${task.description}</td>
-									<td><p id="date_row${task.id}">
-											<fmt:formatDate pattern="yyyy-MM-dd" value="${task.taskDate}" />
-										</p> <input style="display: none;" size=30
-										class='form-control new-date' id="date_text${task.id}"
-										name='taskDate' placeholder='YYYY/MM/DD*' type='text'
-										value=<fmt:formatDate pattern="yyyy-MM-dd" value="${task.taskDate}" /> /></td>
+									<col width="60">
+									<col width="150">
+									<col width="300">
+									<col width="160">
+									<col width="100">
+									<col width="200">
+									<col width="60">
+									<col width="60">
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>Task Name</th>
+											<th>Description</th>
+											<th>Task Date</th>
+											<th>Status</th>
+											<th>Comments</th>
+											<th></th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
 
 
-									<td id="status_row${task.id}">${task.status}</td>
-
-									<td id="comment_row${task.id}">${task.comments}</td>
-
-									<td>
-										<button type="button" id="delete_button${task.id}"
-											onclick="delete_row('${task.id}',<%=userId%>)"
-											class="btn btn-danger">
-											<span class="glyphicon  glyphicon-trash"></span>
-										</button>
-									</td>
-
-									<td>
-
-										<button type="button" id="save_button${task.id}"
-											onclick="save_row('${task.id}',<%=userId%>)"
-											class="btn btn-success" style="display: none;">
-											<span class="glyphicon  glyphicon-floppy-disk"></span>
-										</button>
-
-										<button type="button" id="edit_button${task.id}"
-											onclick="edit_row('${task.id}')" class="btn btn-info">
-											<span class="glyphicon glyphicon-pencil"> </span>
-										</button>
-
-									</td>
-
-								</tr>
-
-							</c:forEach>
-
-						</tbody>
-
-					</table>
-				</div>
+										<c:forEach var="task" items="${tasks}">
+											<tr id="row${task.id}">
+												<td>${task.id}</td>
+												<td id="name_row${task.id}">${task.name}</td>
+												<td id="desc_row${task.id}">${task.description}</td>
+												<td><p id="date_row${task.id}">
+														<fmt:formatDate pattern="yyyy-MM-dd"
+															value="${task.taskDate}" />
+													</p> <input style="display: none;" size=30
+													class='form-control new-date' id="date_text${task.id}"
+													name='taskDate' placeholder='YYYY/MM/DD*' type='text'
+													value=<fmt:formatDate pattern="yyyy-MM-dd" value="${task.taskDate}" /> /></td>
 
 
+												<td id="status_row${task.id}">${task.status}</td>
+
+												<td id="comment_row${task.id}">${task.comments}</td>
+
+												<td>
+													<button type="button" id="delete_button${task.id}"
+														onclick="delete_row('${task.id}',<%=userId%>)"
+														class="btn btn-danger">
+														<span class="glyphicon  glyphicon-trash"></span>
+													</button>
+												</td>
+
+												<td>
+
+													<button type="button" id="save_button${task.id}"
+														onclick="save_row('${task.id}',<%=userId%>)"
+														class="btn btn-success" style="display: none;">
+														<span class="glyphicon  glyphicon-floppy-disk"></span>
+													</button>
+
+													<button type="button" id="edit_button${task.id}"
+														onclick="edit_row('${task.id}')" class="btn btn-info">
+														<span class="glyphicon glyphicon-pencil"> </span>
+													</button>
+
+												</td>
+
+											</tr>
+
+										</c:forEach>
+
+									</tbody>
+
+								</table>
+							</div>
+
+
+						</div>
+					</c:when>
+
+				</c:choose>
 			</div>
-		</c:when>
-
-	</c:choose>
+			<!-- begin end -->
+		</div>
+	</div>
 	<script>
 		$(document).ready(
 				function() {
