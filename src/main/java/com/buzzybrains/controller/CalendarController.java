@@ -66,7 +66,8 @@ public class CalendarController {
 	public Calendar insertCalDatar(@ModelAttribute Calendar calendar, BindingResult bindingResult,
 			HttpServletRequest request) {
 		Calendar caldata=null;
-		int cnt=calendarRepo.checkIfPresent(calendar.getStart());
+		int cnt=calendarRepo.checkIfPresent(calendar.getStart(),calendar.getUserId());
+		
 		
 		if(cnt==0)
 		{
