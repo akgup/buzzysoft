@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-   <%@ page isELIgnored="false"%>
+<%@ page isELIgnored="false"%>
 <%@ include file="header.jsp"%>
 <html>
 <head>
@@ -13,212 +13,198 @@
 
 <title>Claim</title>
 
-<link href="static/css/bootstrap.min.css" rel="stylesheet">
-<link href="static/css/style.css" rel="stylesheet">
-<link rel="stylesheet" href='static/bootstrap/css/bootstrap-datepicker3.css' />
-<!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
-<link rel="stylesheet" href='static/bootstrap/css/bootstrap-iso.css' />
+<link rel="stylesheet"
+	href='static/bootstrap/css/bootstrap-datepicker3.css' />
+
+<link rel="stylesheet"
+	href='static/bootstrap/css/bootstrap-datepicker3.css' />
+<script src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
+
 </head>
 <body>
-	<c:choose>
-		<c:when test="${mode == 'MODE_NEW' || mode == 'MODE_UPDATE'}">
-			<div class="container text-center">
+	<div id="content" class="content">
+		<c:choose>
+			<c:when test="${mode == 'MODE_NEW' || mode == 'MODE_UPDATE'}">
 
-				<h4>Expense Reimbursement</h4>
-				<hr>
-				<div id="errorDiv">
-					<p id="error" style="color: red; font-size: 20px;"></p>
+				<h1 class="page-header1">Expense Reimbursement</h1>
+
+				<!-- begin panel -->
+				<div class="panel panel-inverse">
+					<div class="panel-heading">
+						<h4 class="panel-title">Claim</h4>
+					</div>
+					<div class="panel-body">
+						<form class="form-horizontal" method="POST" action="create-claim"
+							id="claim-form" onsubmit="return validateForm()">
+
+							<div class="formStart">
+								<input type="hidden" name="id" value="${claim.claimId}" /> <input
+									type="hidden" name="userId" value="<%=userId%>" />
+
+								<div class="form-group">
+									<div class="col-sm-6">
+										<label>From Date</label> <input class="form-control"
+											id="start-date" name="start" placeholder="MM/DD/YYY"
+											type="text"
+											value="<fmt:formatDate pattern="yyyy-MM-dd"
+																						value="${claim.start}" />" />
+									</div>
+									<div class="col-sm-6">
+										<label>End Date</label><input class="form-control"
+											id="end-date" name="end" placeholder="MM/DD/YYY" type="text"
+											value="<fmt:formatDate pattern="yyyy-MM-dd"
+																						value="${claim.end}" />" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-6">
+										<label>Manager</label> <input type="text" name="manager"
+											id="manager" class="form-control" value="${claim.manager}" />
+									</div>
+									<div class="col-sm-6">
+										<label>Business Purpose</label><input type="text"
+											name="purpose" id="purpose" class="form-control"
+											value="${claim.purpose}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-6">
+										<label>Advance</label><input type="number" name="advance"
+											id="advance" class="form-control" value="${claim.advance}" />
+									</div>
+									<div class="col-sm-6">
+										<label>Department</label><select
+											class="selectpicker form-control" name="department">
+											<option value="Engineering">Engineering</option>
+											<option value="HR">HR</option>
+											<option value="Finance">Finance</option>
+											<option value="Admin">Admin</option>
+										</select>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="panel panel-inverse innerPanel" id="innerPanel">
+								<div class="panel-heading">
+									<div class="panel-heading-btn">
+										<a href="javascript:;" id="add_row"
+											class="btn btn-white btn-sm panelButton">Add Row</a> <a
+											href="javascript:;" id='delete_row'
+											class="btn btn-danger btn-sm m-l-5 panelButton">Delete
+											Row</a>
+									</div>
+									<h4 class="panel-title">Attachment</h4>
+								</div>
+
+								<div class="panel-body">
+									<table class="table table-bordered" id="item_table">
+
+										<col width="80">
+										<col width="120">
+										<col width="200">
+										<col width="150">
+										<col width="150">
+										<col width="100">
+										<thead>
+											<tr>
+												<th class="text-center">#</th>
+												<th class="text-center">Date</th>
+												<th class="text-center">Description</th>
+												<th class="text-center">Category</th>
+												<th class="text-center">Cost</th>
+												<th class="text-center">attachment</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr id='addr0'>
+												<td>1</td>
+												<td><input type="text" name='claimItems[0].expenseDate'
+													id='expenseDate' placeholder='Date'
+													class="form-control picker" /></td>
+												<td><input type="text" name='claimItems[0].description'
+													placeholder='Description' class="form-control" /></td>
+												<td><select class="selectpicker form-control"
+													name='claimItems[0].category'>
+														<option value="travel">Travel</option>
+														<option value="food">Food</option>
+														<option value="admin">Admin</option>
+														<option value="product">Product</option>
+														<option value="other">Other</option>
+												</select></td>
+												<td><input type="number" name='claimItems[0].cost'
+													placeholder='Cost' class="form-control" /></td>
+												<td><input type='file' name='files[]'
+													id='js-upload-files' multiple></td>
+											</tr>
+											<tr id='addr1'></tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div class="panel-footer text-right">
+								<div id="errorDiv" align="left">
+									<p id="error" style="color: red; font-size: 20px;"></p>
+								</div>
+								<a href="javascript:;" class="btn btn-white btn-sm">Cancel</a> <input
+									type="submit" class="btn btn-primary btn-sm m-l-5"
+									value="Submit" />
+							</div>
+						</form>
+					</div>
 				</div>
+				<!-- end panel -->
+			</c:when>
 
-				<form class="form-horizontal" method="POST" action="create-claim"
-					id="claim-form" onsubmit="return validateForm()">
-					<input type="hidden" name="id" value="${claim.claimId}" /> <input
-						type="hidden" name="userId" value="<%=userId%>" />
 
-					<div class="form-group">
-						<label class="control-label col-md-3">From Date</label>
-						<div class="col-md-5">
-							<input class="form-control" id="start-date" name="start"
-								placeholder="MM/DD/YYY" type="text"
-								value="<fmt:formatDate pattern="yyyy-MM-dd"
-											value="${claim.start}" />" />
+			<c:when test="${mode == 'MODE_HISTORY'}">
+				<div class="" id="tasksDiv">
+
+					<h1 class="page-header1">Claim History</h1>
+
+					<!-- begin panel -->
+					<div class="panel panel-inverse claimPanel ">
+						<div class="panel-heading">
+							<h4 class="panel-title">History</h4>
 						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="control-label col-md-3">End Date</label>
-						<div class="col-md-5">
-							<input class="form-control" id="end-date" name="end"
-								placeholder="MM/DD/YYY" type="text"
-								value="<fmt:formatDate pattern="yyyy-MM-dd"
-											value="${claim.end}" />" />
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="control-label col-md-3">Manager</label>
-						<div class="col-md-5">
-							<input type="text" name="manager" id="manager"
-								class="form-control" value="${claim.manager}" />
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="control-label col-md-3">Business Purpose</label>
-						<div class="col-md-5">
-							<input type="text" name="purpose" id="purpose"
-								class="form-control" value="${claim.purpose}" />
-						</div>
-					</div>
-
-
-					<div class="form-group">
-						<label class="control-label col-md-3">Advance</label>
-						<div class="col-md-5">
-							<input type="number" name="advance" id="advance"
-								class="form-control" value="${claim.advance}" />
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="control-label col-md-3">Department</label>
-						<div class="col-md-5">
-							<select class="selectpicker form-control" name="department">
-								<option value="Engineering">Engineering</option>
-								<option value="HR">HR</option>
-								<option value="Finance">Finance</option>
-								<option value="Admin">Admin</option>
-							</select>
-
-						</div>
-					</div>
-
-					<div class="container form-group">
-
-						<div class="row clearfix">
-							<br>
-							<div class="col-md-9 column tweaked-margin">
-								<br>
-								<table class="table table-bordered table-hover" id="item_table">
-									<col width="80">
-									<col width="120">
-									<col width="200">
-									<col width="120">
-									<col width="100">
-									<col width="150">
-
-									<thead>
-										<tr>
-											<th class="text-center">#</th>
-											<th class="text-center">Date</th>
-											<th class="text-center">Description</th>
-											<th class="text-center">Category</th>
-											<th class="text-center">Cost</th>
-											<th class="text-center">attachment</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr id='addr0'>
-											<td>1</td>
-											<td><input type="text" name='claimItems[0].expenseDate'
-												id='expenseDate' placeholder='Date'
-												class="form-control picker" /></td>
-											<td><input type="text" name='claimItems[0].description'
-												placeholder='Description' class="form-control" /></td>
-											<td><select class="selectpicker form-control"
-												name='claimItems[0].category'>
-													<option value="travel">Travel</option>
-													<option value="food">Food</option>
-													<option value="admin">Admin</option>
-													<option value="product">Product</option>
-													<option value="other">Other</option>
-											</select></td>
-											<td><input type="number" name='claimItems[0].cost'
-												placeholder='Cost' class="form-control" /></td>
-											<td><input type='file' name='files[]'
-												id='js-upload-files' multiple></td>
-										</tr>
-										<tr id='addr1'></tr>
-									</tbody>
-								</table>
-							</div>
-
-							<div class="col-md-6">
-								<div class="col-md-3"></div>
-								<div class="col-md-3">
-									<a id="add_row" class="btn btn-default ">Add Row</a>
-								</div>
-								<div class="col-md-3  ">
-									<a id='delete_row' class="btn btn-default pull-right">Delete
-										Row</a>
-								</div>
-								<div class="col-md-3"></div>
-
-							</div>
-						</div>
-
-
-					</div>
-
-					<div class="form-group">
-						<br> <input type="submit" class="btn btn-primary"
-							value="Submit" />
-					</div>
-				</form>
-			</div>
-		</c:when>
-
-
-		<c:when test="${mode == 'MODE_HISTORY'}">
-			<div class="container text-center" id="tasksDiv">
-				<h3>Claim History</h3>
-				<hr>
-				<div class="table-responsive">
-					<div class="col-md-7">
-						<table class="table table-stripped table-bordered text-center">
-							<col width="100">
-							<col width="200">
-							<col width="100">
-							<thead>
-								<tr>
-									<th class="text-center">Claim Id</th>
-									<th class="text-center">Period</th>
-									<th class="text-center">Download</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="claim" items="${claimList}">
+						<div class="panel-body">
+							<table class="table table-bordered">
+								<thead>
 									<tr>
-										<td>${claim.claimId}</td>
-										<td><fmt:formatDate pattern="yyyy-MM-dd"
-												value="${claim.start}" /> to <fmt:formatDate
-												pattern="yyyy-MM-dd" value="${claim.end}" /></td>
-										<td><a href="/claim-download?claimid=${claim.claimId}"><span
-												class="glyphicon glyphicon-download"></span></a></td>
-
+										<th class="text-center">Claim Id</th>
+										<th class="text-center">Period</th>
+										<th class="text-center">Download</th>
 
 									</tr>
-
-
-								</c:forEach>
-							</tbody>
-
-						</table>
+								</thead>
+								<tbody>
+									<c:forEach var="claim" items="${claimList}">
+										<tr>
+											<td class="text-center">${claim.claimId}</td>
+											<td class="text-center"><fmt:formatDate
+													pattern="yyyy-MM-dd" value="${claim.start}" /> to <fmt:formatDate
+													pattern="yyyy-MM-dd" value="${claim.end}" /></td>
+											<td class="text-center"><a
+												href="/claim-download?claimid=${claim.claimId}"><span
+													class="glyphicon glyphicon-download"></span></a></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
 					</div>
+					<!-- end panel -->
 				</div>
+			</c:when>
+		</c:choose>
+	</div>
 
 
-			</div>
-		</c:when>
 
-	</c:choose>
 
-	<script src="static/js/bootstrap.min.js"></script>
-
-	<!-- Include Date Range Picker -->
-	<script type="text/javascript"
-		src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
-	<link rel="stylesheet"	href='static/bootstrap/css/bootstrap-datepicker3.css' />
 
 	<script>
 		$(document).ready(
@@ -256,14 +242,17 @@
 				.ready(
 						function() {
 							var i = 1;
-							$("#add_row").click(function() {
+							$("#add_row")
+									.click(
+											function() {
 												$('#addr' + i)
-														.html("<td>"
+														.html(
+																"<td>"
 																		+ (i + 1)
 																		+ "</td><td><input name='claimItems["
 																		+ i
 																		+ "].expenseDate' type='text' placeholder='Date' class='form-control input-md picker' onblur='showDatePicker(this)'  /> </td><td><input  name='claimItems["+i+"].description' type='text' placeholder='Description'  class='form-control input-md'></td><td><select class='selectpicker form-control' name='claimItems["+i+"].category'><option value='travel'>Travel</option><option value='food'>Food</option><option value='admin'>Admin</option><option value='product'>Product</option><option value='other'>Other</option></select></td><td><input  name='claimItems["+i+"].cost' type='number' placeholder='Cost'  class='form-control input-md'></td><td><input type='file' name='files[]' id='js-upload-files' multiple></td>");
-												
+
 												$('#item_table').append(
 														'<tr id="addr'
 																+ (i + 1)
