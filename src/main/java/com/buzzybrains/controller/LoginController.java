@@ -29,10 +29,10 @@ public class LoginController {
 
 	@GetMapping("/login")
 	public String home(HttpServletRequest request) {
-
+		
 		String redirect = "";
 		HttpSession session = request.getSession();
-
+		
 		// check for browser back button is pressed
 		if (session.getAttribute("SessionUsername") == null && session.getAttribute("SessionUserid") == null) {
 			redirect = "login";

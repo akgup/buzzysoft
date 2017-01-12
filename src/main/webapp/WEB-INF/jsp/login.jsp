@@ -3,7 +3,6 @@
    <%@ page isELIgnored="false"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
 <%-- <c:set var="contextPath" value="${pageContext.request.contextPath}" /> --%>
 
 <html>
@@ -26,7 +25,6 @@
           window.location.reload(true); // force refresh page1
      }
 </script>
-
 
 </head>
 <body>

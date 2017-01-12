@@ -31,6 +31,10 @@ public class ErrorHandleFilter implements Filter {
 		String[] restricted = { "/validate", "/WEB-INF/jsp/login.jsp", "/static", "/login" };
 
 		String loginURL = req.getContextPath() + "/login";
+
+       /* String url = ((HttpServletRequest) request).getRequestURL().toString();
+        System.out.println("@@@@@@@@@@@@@@@"+url);
+		*/
 		try {
 
 			if ((session != null && session.getAttribute("SessionUsername") != null)
@@ -38,9 +42,9 @@ public class ErrorHandleFilter implements Filter {
 
 				chain.doFilter(request, response);
 			}
-
+			
 			else {
-
+				
 				res.sendRedirect(loginURL);
 
 			}
