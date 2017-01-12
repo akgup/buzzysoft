@@ -34,6 +34,7 @@
 
 </head>
 <body>
+
 	<div id="content" class="content">
 		<h1 class="page-header1">My Tasks</h1>
 		<!-- begin panel -->
@@ -96,16 +97,6 @@
 										</ul></li>
 								</ul>
 
-								<!-- 
-					<button type="button" class="export-btn btn btn-link btn-md">Export</button>
-					<div class="dropdown">
-  <button class="dropbtn export-btn btn btn-link btn-md">Export</button>
-  <div class="dropdown-content">
-    <a href="#">Excel</a>
-    <a href="#">CSV</a>
-  </div>
-</div>
-					 -->
 							</form>
 
 							<br> <br>

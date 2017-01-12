@@ -15,6 +15,7 @@ public interface CalendarRepo extends CrudRepository<Calendar, Integer> {
 	List<Calendar> findCalendarByUserId(int userid);
 
 	@Query(value = "select count(1) from calendar c where (c.start >= :fromDate AND c.start <= :endDate )and c.title='Leave' and c.user_id=  :userid", nativeQuery = true)
+<<<<<<< HEAD
 	int findLeaveCountByUserId(@Param("userid") int userid, @Param("fromDate") Date from, @Param("endDate") Date end);
 
 	@Query(value = "SELECT count(1) FROM calendar  where start= :inDate ", nativeQuery = true)
@@ -22,4 +23,11 @@ public interface CalendarRepo extends CrudRepository<Calendar, Integer> {
 
 	@Query(value = "SELECT count(1) FROM calendar  where start= :inDate and user_id=:userId", nativeQuery = true)
 	int checkIfPresent(@Param("inDate") Date date, @Param("userId") int userid);
+=======
+	int findLeaveCountByUserId(@Param("userid") int userid,@Param("fromDate") Date from, @Param("endDate") Date end);
+	
+	
+	@Query(value = "SELECT count(1) FROM calendar  where start= :inDate and user_id=:userId", nativeQuery = true)
+	int checkIfPresent(@Param("inDate") Date date,@Param("userId") int userid);
+>>>>>>> b9ac895c88b5203552924daa189b0f5981c43311
 }

@@ -27,6 +27,16 @@
 	<!-- ================== END BASE CSS STYLE ================== -->
 
 
+
+<script>
+     if (sessionStorage.getItem("calenderPageVisited")) {
+          sessionStorage.removeItem("calenderPageVisited");
+          window.location.reload(true); // force refresh page1
+     }
+</script>
+
+
+
 </head>
 <body class="pace-top">
 	<!-- begin #page-loader -->

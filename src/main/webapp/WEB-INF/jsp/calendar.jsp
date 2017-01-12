@@ -18,6 +18,7 @@
 
 <script type="text/javascript"
 	src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
+	<script src='static/js/bootstrap-timepicker.js'></script>
 <link rel="stylesheet"
 	href='static/bootstrap/css/bootstrap-datepicker3.css' />
 <link href='static/css/fullcalendar.min.css' rel='stylesheet' />
@@ -26,10 +27,13 @@
 <link href='static/css/fullcalendar.print.min.css' rel='stylesheet'
 	media='print' />
 <script src='static/js/lib/moment.min.js'></script>
-
 <script src='static/js/fullcalendar.min.js'></script>
-<script src='static/js/bootstrap-timepicker.js'></script>
 <script src='static/js/custom/calendar.js'></script>
+
+<script>
+     sessionStorage.setItem("calenderPageVisited", "True");
+</script>
+
 
 <script type="text/javascript">
 	$(function() {
@@ -64,13 +68,14 @@ body {
 		<!-- begin sidebar nav -->
 		<ul class="nav" id="leftNavList">
 
-			<li class="has-sub"><a href="javascript:;" onclick="openCalendar()"> <span> Calendar </a></li>
+			<li class="has-sub"><a href="javascript:;" onclick="openCalendar()"> <span> Calendar </span></a></li>
 			
-			<li class="has-sub"><a href="javascript:;" onclick="openLeaveDetails()"> <span> Leave Details </a></li>
+			<li class="has-sub"><a href="javascript:;" onclick="openLeaveDetails()"> <span> Leave Details</span> </a></li>
 		</ul>
 
 	</div>
 	<!-- end #sidebar -->
+
 
 
 	<div id="content" class="content">
@@ -78,6 +83,7 @@ body {
 		<div class="panel panel-inverse collapse" id="leavePanel">
 			<div class="panel-heading">
 				<h4 class="panel-title">Leave Details</h4>
+
 			</div>
 			<div class="panel-body">
 				<div class="table-responsive" id="user-leave-status">
@@ -123,16 +129,17 @@ body {
 	</div>
 
 	<!--Primary Modal -->
-	<div class="modal fade" id="primaryModal" role="dialog">
+	<div class="modal fade myddmodel" id="primaryModal" role="dialog">
 		<div class="modal-dialog modal-sm-4">
 
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
 					<!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-					<p id="errMsg" style="display: none; color: red;">Error message
-						goes here</p>
+
+					<p id="errMsg" style="display: none; color: red;">Error message	goes here</p>
 					<!-- 	<h4 class="modal-title">In Time</h4> -->
+
 
 				</div>
 				<div class="modal-body">
@@ -143,6 +150,8 @@ body {
 							class="input-group-addon"><i
 							class="glyphicon glyphicon-time"></i></span>
 					</div>
+			                    
+              
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal"
@@ -310,6 +319,7 @@ $('#leave-balance').text(leave_balance);
 		ignoreTimezone :false,
 		
 		dayClick : function(date, jsEvent, view) {
+			document.getElementById("errMsg").style.display = 'none';
 			
 			inDate = new Date(date.format());
             // change the day's background color just for fun
@@ -333,6 +343,7 @@ $('#leave-balance').text(leave_balance);
 		eventClick : function(calEvent, jsEvent, view) {
 			removingeventid = calEvent.id;
 			jQuery.noConflict();
+			
 			if(calEvent.type=="task")
 				{
 				$('#taskDetailsModal').modal();
@@ -350,6 +361,7 @@ $('#leave-balance').text(leave_balance);
 		}
 	});
 	
+
 	function openCalendar()
 	{
 		document.getElementById("calendarPanel").style.display="block";
@@ -362,6 +374,8 @@ $('#leave-balance').text(leave_balance);
 		document.getElementById("leavePanel").style.display="block";
 	}
 
+
 </script>
 <script src="static/js/jquery.min.js"></script>
+<script src='static/js/bootstrap-timepicker.js'></script>
 </html>

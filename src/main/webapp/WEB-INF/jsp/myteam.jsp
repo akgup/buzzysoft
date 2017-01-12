@@ -55,10 +55,21 @@ body {
 									<input class="form-control" id="search-keyword"
 										placeholder="Name or Id to add..." type="text">
 								</div>
+<<<<<<< HEAD
 							</div>
 						</form>
 					</div>
 				</div></li>
+=======
+								
+													</div>
+
+						</form>
+					</div>
+
+				</div>	<br><br></li>
+			
+>>>>>>> b9ac895c88b5203552924daa189b0f5981c43311
 			<c:forEach var="member" items="${teamlist}" varStatus="myIndex">
 				<li class="has-sub">
 					<button type="button" id="btn-employee-${myIndex.index}"
@@ -244,6 +255,8 @@ $(document).ready(function() {
                     		empArray.push(JSON.parse(json));
                     		 
                     		}
+                    	
+                   
                          	  response(empArray);
                          	
                     }
@@ -265,7 +278,14 @@ $(document).ready(function() {
     });
         return false;
      }
+<<<<<<< HEAD
 }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+=======
+})
+.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+            	
+            
+>>>>>>> b9ac895c88b5203552924daa189b0f5981c43311
                 return $( "<li>" )
                 .append( "<a>"+ item.value + "</a>" )
                 .appendTo( ul );
@@ -274,5 +294,6 @@ $(document).ready(function() {
 });
 
 </script>
+<script src="static/js/jquery.min.js"></script>
 
 </html>

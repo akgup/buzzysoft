@@ -4,7 +4,11 @@
 <%@ page isELIgnored="false"%>
 
 <html>
-<head>
+
+<head profile="http://www.w3.org/2005/10/profile">
+<link rel="icon" type="image/png" href="/static/image/favicon.png" />
+<%@ page session="false" %>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,8 +16,8 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Expires" content="Sat, 01 Dec 2001 00:00:00 GMT">
 
+
     <script src="static/js/jquery.min.js"></script>
-	<script src="static/js/bootstrap.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
 
@@ -45,25 +49,17 @@
 
 <!-- ================== END BASE CSS STYLE ================== -->
 
+
 </head>
 <body>
 
-	<%
-		String userName = null;
-		String userId = null;
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("username"))
-					userName = cookie.getValue();
-				if (cookie.getName().equals("userid"))
-					userId = cookie.getValue();
-			}
-		}
-		if (userName == null)
-			response.sendRedirect("/");
-	%>
-
+<% HttpSession session = request.getSession();
+	String userName=(String)session.getAttribute("SessionUsername");
+	String userId=(String)session.getAttribute("SessionUserid");
+	/* if (userName == null)
+	response.sendRedirect("/"); */
+	
+%>
 
 
 	<!-- begin #header -->
@@ -90,6 +86,7 @@
 				</ul>
 				<a href="/direct-report?userid=<%=userId%>" class="navbar-brand1">My
 					Team</a>
+
 			</div>
 			<!-- end mobile sidebar expand / collapse button -->
 
