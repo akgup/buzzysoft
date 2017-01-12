@@ -18,6 +18,7 @@
 
 <script type="text/javascript"
 	src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
+	<script src='static/js/bootstrap-timepicker.js'></script>
 <link rel="stylesheet"
 	href='static/bootstrap/css/bootstrap-datepicker3.css' />
 <link href='static/css/fullcalendar.min.css' rel='stylesheet' />
@@ -26,9 +27,7 @@
 <link href='static/css/fullcalendar.print.min.css' rel='stylesheet'
 	media='print' />
 <script src='static/js/lib/moment.min.js'></script>
-
 <script src='static/js/fullcalendar.min.js'></script>
-<script src='static/js/bootstrap-timepicker.js'></script>
 <script src='static/js/custom/calendar.js'></script>
 
 <script>
@@ -378,4 +377,5 @@ $('#leave-balance').text(leave_balance);
 
 </script>
 <script src="static/js/jquery.min.js"></script>
+<script src='static/js/bootstrap-timepicker.js'></script>
 </html>
