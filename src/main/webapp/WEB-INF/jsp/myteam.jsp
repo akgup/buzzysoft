@@ -44,24 +44,20 @@ body {
 	<!-- begin #sidebar -->
 	<div id="sidebar" class="sidebar">
 		<!-- begin sidebar nav -->
+		
 		<ul class="nav" id="leftNavList">
-			<li class="has-sub"><div class="col-xs-12">
+			<li class="has-sub"> <div class="col-xs-12">
 
 					<div class="input-group">
-						<form id="form_search" name="form_search" method="get" action=""
-							>
+						<form id="form_search" name="form_search" method="get" action="">
 							<div class="form-group">
-
 								<div class="input-group">
 									<input class="form-control" id="search-keyword"
 										placeholder="Name or Id to add..." type="text">
 								</div>
-
 							</div>
-
 						</form>
 					</div>
-
 				</div></li>
 			<c:forEach var="member" items="${teamlist}" varStatus="myIndex">
 				<li class="has-sub">
@@ -72,10 +68,9 @@ body {
 				</li>
 			</c:forEach>
 		</ul>
-
 	</div>
 	<!-- end #sidebar -->
-	<div id="content" class="content" >
+	<div id="content" class="content">
 
 		<c:choose>
 			<c:when test="${mode == 'MODE_TEAM'}">
@@ -268,13 +263,9 @@ $(document).ready(function() {
                        	
             }
     });
-        
-   
-        
         return false;
      }
-})
-.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+}).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
                 return $( "<li>" )
                 .append( "<a>"+ item.value + "</a>" )
                 .appendTo( ul );
