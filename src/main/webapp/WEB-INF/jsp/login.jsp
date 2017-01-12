@@ -7,7 +7,8 @@
 <%-- <c:set var="contextPath" value="${pageContext.request.contextPath}" /> --%>
 
 <html>
-<head>
+<head profile="http://www.w3.org/2005/10/profile">
+<link rel="icon" type="image/png" href="/static/image/favicon.png" />
 	<meta charset="utf-8" />
 	<title>Task Manager | Home</title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
