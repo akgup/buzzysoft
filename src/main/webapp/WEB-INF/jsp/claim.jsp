@@ -26,12 +26,12 @@
 		<c:choose>
 			<c:when test="${mode == 'MODE_NEW' || mode == 'MODE_UPDATE'}">
 
-				<h1 class="page-header1">Expense Reimbursement</h1>
+
 
 				<!-- begin panel -->
-				<div class="panel panel-inverse">
+				<div class="panel panel-inverse" id="claimform">
 					<div class="panel-heading">
-						<h4 class="panel-title">Claim</h4>
+						<h4 class="panel-title">Claim Form</h4>
 					</div>
 					<div class="panel-body">
 						<form class="form-horizontal" method="POST" action="create-claim"
@@ -87,7 +87,7 @@
 
 							</div>
 
-							<div class="panel panel-inverse innerPanel" id="innerPanel">
+							<div class="panel panel-inverse" id="claimInnerPanel">
 								<div class="panel-heading">
 									<div class="panel-heading-btn">
 										<a href="javascript:;" id="add_row"
@@ -105,9 +105,9 @@
 										<col width="80">
 										<col width="120">
 										<col width="200">
-										<col width="150">
-										<col width="150">
-										<col width="100">
+										<col width="130">
+										<col width="130">
+										<col width="200">
 										<thead>
 											<tr>
 												<th class="text-center">#</th>
@@ -120,7 +120,7 @@
 										</thead>
 										<tbody>
 											<tr id='addr0'>
-												<td>1</td>
+												<td class="text-center">1</td>
 												<td><input type="text" name='claimItems[0].expenseDate'
 													id='expenseDate' placeholder='Date'
 													class="form-control picker" /></td>
@@ -136,8 +136,9 @@
 												</select></td>
 												<td><input type="number" name='claimItems[0].cost'
 													placeholder='Cost' class="form-control" /></td>
-												<td><input type='file' name='files[]'
-													id='js-upload-files' multiple></td>
+												<td><input type="file" name='files[0]'
+													id='js-upload-files' class="myfile1" multiple></td>
+
 											</tr>
 											<tr id='addr1'></tr>
 										</tbody>
@@ -163,12 +164,12 @@
 			<c:when test="${mode == 'MODE_HISTORY'}">
 				<div class="" id="tasksDiv">
 
-					<h1 class="page-header1">Claim History</h1>
+
 
 					<!-- begin panel -->
-					<div class="panel panel-inverse claimPanel ">
+					<div class="panel panel-inverse" id="claimHistory">
 						<div class="panel-heading">
-							<h4 class="panel-title">History</h4>
+							<h4 class="panel-title">Claim History</h4>
 						</div>
 						<div class="panel-body">
 							<table class="table table-bordered">
@@ -201,9 +202,6 @@
 			</c:when>
 		</c:choose>
 	</div>
-
-
-
 
 
 	<script>
@@ -251,7 +249,7 @@
 																		+ (i + 1)
 																		+ "</td><td><input name='claimItems["
 																		+ i
-																		+ "].expenseDate' type='text' placeholder='Date' class='form-control input-md picker' onblur='showDatePicker(this)'  /> </td><td><input  name='claimItems["+i+"].description' type='text' placeholder='Description'  class='form-control input-md'></td><td><select class='selectpicker form-control' name='claimItems["+i+"].category'><option value='travel'>Travel</option><option value='food'>Food</option><option value='admin'>Admin</option><option value='product'>Product</option><option value='other'>Other</option></select></td><td><input  name='claimItems["+i+"].cost' type='number' placeholder='Cost'  class='form-control input-md'></td><td><input type='file' name='files[]' id='js-upload-files' multiple></td>");
+																		+ "].expenseDate' type='text' placeholder='Date' class='form-control input-md picker' onblur='showDatePicker(this)'/> </td><td><input name='claimItems["+i+"].description' type='text' placeholder='Description'  class='form-control input-md'></td><td><select class='selectpicker form-control' name='claimItems["+i+"].category'><option value='travel'>Travel</option><option value='food'>Food</option><option value='admin'>Admin</option><option value='product'>Product</option><option value='other'>Other</option></select></td><td><input  name='claimItems["+i+"].cost' type='number' placeholder='Cost'  class='form-control input-md'></td><td><input type='file' name='files[0]'id='js-upload-files' class='myfile1' multiple></td>");
 
 												$('#item_table').append(
 														'<tr id="addr'

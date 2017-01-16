@@ -71,12 +71,14 @@ public class CalendarController {
 			HttpServletRequest request) {
 
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT+05:30"));
+
 		Calendar caldata = null;
 
 		int cnt = calendarRepo.checkIfPresent(calendar.getStart(), calendar.getUserId());
 
 		if (cnt == 0) {
 			caldata = calendarRepo.save(calendar);
+
 		}
 
 		return caldata;
