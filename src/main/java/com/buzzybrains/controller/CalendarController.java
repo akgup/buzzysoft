@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -68,11 +69,16 @@ public class CalendarController {
 	@ResponseBody
 	public Calendar insertCalDatar(@ModelAttribute Calendar calendar, BindingResult bindingResult,
 			HttpServletRequest request) {
+
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT+05:30"));
 		Calendar caldata = null;
+
 		int cnt = calendarRepo.checkIfPresent(calendar.getStart(), calendar.getUserId());
+
 		if (cnt == 0) {
 			caldata = calendarRepo.save(calendar);
 		}
+
 		return caldata;
 	}
 
