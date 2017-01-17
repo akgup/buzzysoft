@@ -57,7 +57,7 @@ public class ClaimController {
 
 	@PostMapping("/create-claim")
 	public String submitClaim(@ModelAttribute Claim claim, BindingResult bindingResult, HttpServletRequest request) {
-		System.out.println("claim11111111111111111111111");
+	
 		claimRepo.save(claim);
 		int claimId = claim.getClaimId();
 

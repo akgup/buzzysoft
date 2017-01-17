@@ -7,7 +7,7 @@
 
 <head profile="http://www.w3.org/2005/10/profile">
 <link rel="icon" type="image/png" href="/static/image/favicon.png" />
-<%@ page session="false" %>
+<%@ page session="false"%>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,13 +17,14 @@
 <meta http-equiv="Expires" content="Sat, 01 Dec 2001 00:00:00 GMT">
 
 
-    <script src="static/js/jquery.min.js"></script>
-	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-	<script src="static/js/bootstrap.min.js"></script>
+<script src="static/js/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
 
-	<link rel="stylesheet" href="static/css/bootstrap.min.css">
-	<link href="static/css/style.css" rel="stylesheet">
-	<link rel="stylesheet" href='static/bootstrap/css/bootstrap-iso.css' />
+<link rel="stylesheet" href="static/css/bootstrap.min.css">
+<link href="static/css/style.css" rel="stylesheet">
+<link href="static/css/bb-styles.css" rel="stylesheet">
+<link rel="stylesheet" href='static/bootstrap/css/bootstrap-iso.css' />
 <!-- ================== BEGIN BASE CSS STYLE ================== -->
 <link
 	href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
@@ -53,24 +54,22 @@
 </head>
 <body>
 
-<% HttpSession session = request.getSession();
+	<% HttpSession session = request.getSession();
 	String userName=(String)session.getAttribute("SessionUsername");
 	String userId=(String)session.getAttribute("SessionUserid");
-	/* if (userName == null)
-	response.sendRedirect("/"); */
-	
+
 %>
-
-
 	<!-- begin #header -->
 	<div id="header" class="header navbar navbar-default navbar-fixed-top">
 		<!-- begin container-fluid -->
 		<div class="container-fluid">
 			<!-- begin mobile sidebar expand / collapse button -->
 			<div class="navbar-header">
-				<a href="/home?userid=<%=userId%>" class="navbar-brand"><img
-					src="static/image/bb-logo.png"></img></a> <a
-					href="all-tasks?userid=<%=userId%>" class="navbar-brand1">Work
+				
+					<a href="/home?userid=<%=userId%>" class="navbar-brand"><img height="70" width="70"
+						src="static/image/bb-logo.png"></img></a>							
+				
+				<a href="all-tasks?userid=<%=userId%>" class="navbar-brand1">Work
 					Log</a>
 				<ul class="nav navbar-nav">
 					<li class="dropdown navbar-user"><a href="javascript:;"

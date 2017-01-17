@@ -47,7 +47,7 @@
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade">
 	    <!-- begin login -->
-	    <img src="static/image/bb-logo.png"></img>
+	    <img height="70" width="70" src="static/image/bb-logo.png"></img>
         <div class="login bg-black animated fadeInDown">
             <!-- begin brand -->
             <div class="login-header">
