@@ -66,12 +66,17 @@
 			<!-- begin mobile sidebar expand / collapse button -->
 			<div class="navbar-header">
 				
-					<a href="/home?userid=<%=userId%>" class="navbar-brand"><img height="70" width="70"
-						src="static/image/bb-logo.png"></img></a>							
+					<a href="/home?userid=<%=userId%>" class="navbar-brand"><img height="120" width="120"
+						src="static/image/logo.png"></img></a>							
 				
+			
+					
 				<a href="all-tasks?userid=<%=userId%>" class="navbar-brand1">Work
 					Log</a>
 				<ul class="nav navbar-nav">
+				<li>	<a href="/home?userid=<%=userId%>" class="navbar-brand1">My Calendar</a></li>
+				<li><a href="/direct-report?userid=<%=userId%>" class="navbar-brand1">My
+					Team</a></li>
 					<li class="dropdown navbar-user"><a href="javascript:;"
 						class="navbar-brand1 dropdown-toggle" data-toggle="dropdown">
 							<span class="hidden-xs">Claim</span> <b class="caret"></b>
@@ -83,8 +88,7 @@
 									History</a></li>
 						</ul></li>
 				</ul>
-				<a href="/direct-report?userid=<%=userId%>" class="navbar-brand1">My
-					Team</a>
+				
 
 			</div>
 			<!-- end mobile sidebar expand / collapse button -->
