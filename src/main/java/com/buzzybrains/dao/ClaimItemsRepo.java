@@ -10,10 +10,12 @@ import com.buzzybrains.model.ClaimItems;
 public interface ClaimItemsRepo extends CrudRepository<ClaimItems, Integer> {
 
 	
-	
 
 	@Query(value="SELECT * FROM claim_items  where claim_id=?1 order by 1 desc", nativeQuery = true)
 	List<ClaimItems> findItemListByClaimId(int claimid);
+	
+	@Query(value="select claim_item_file from claim_items where claim_id=?1", nativeQuery = true)
+	List<String> getFileListForClaim(int claimid);
 	
 	
 }
