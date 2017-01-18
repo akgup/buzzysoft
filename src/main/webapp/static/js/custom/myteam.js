@@ -24,7 +24,7 @@ function viewCalendar(userid)
 		
 		eventClick : function(calEvent, jsEvent, view) {
 			removingeventid = calEvent.id;
-			jQuery.noConflict();
+		
 			if(calEvent.type=="task")
 				{
 				$('#taskDetailsModal').modal();

@@ -71,6 +71,7 @@ public class ClaimController {
 	}
 
 	@PostMapping("/create-claim")
+
 	public String submitClaim(@ModelAttribute Claim claim, BindingResult bindingResult,@RequestParam("upload_file") MultipartFile[] files,HttpServletRequest request) {
 		//System.out.println("********************Claim End Date:"+claim.getEnd());
 		

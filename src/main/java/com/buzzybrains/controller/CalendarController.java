@@ -5,15 +5,19 @@ import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.buzzybrains.dao.CalendarRepo;
@@ -65,15 +69,39 @@ public class CalendarController {
 	@ResponseBody
 	public Calendar insertCalDatar(@ModelAttribute Calendar calendar, BindingResult bindingResult,
 			HttpServletRequest request) {
-		Calendar caldata=null;
-		int cnt=calendarRepo.checkIfPresent(calendar.getStart(),calendar.getUserId());
 
-		
-		if(cnt==0)
-		{
-		 caldata = calendarRepo.save(calendar);
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT+05:30"));
+
+		Calendar caldata = null;
+
+		int cnt = calendarRepo.checkIfPresent(calendar.getStart(), calendar.getUserId());
+
+		if (cnt == 0) {
+			caldata = calendarRepo.save(calendar);
+
 		}
+
 		return caldata;
+	}
+
+	@GetMapping("/app/home")
+	@ResponseBody
+	public List<Calendar> sendAttendanceData(int userid) {
+		List<Calendar> dataArray = calendarRepo.findCalendarByUserId(userid);
+
+		return dataArray;
+	}
+
+	@PostMapping("app/calendar-data")
+	@ResponseBody
+	public ResponseEntity<Calendar> insertCalDataApp(@RequestBody Calendar calendar) {
+		Calendar caldata = null;
+		int cnt = calendarRepo.checkIfPresent(calendar.getStart(), calendar.getUserId());
+		if (cnt == 0) {
+			caldata = calendarRepo.save(calendar);
+		}
+
+		return new ResponseEntity<Calendar>(caldata, HttpStatus.OK);
 	}
 
 }

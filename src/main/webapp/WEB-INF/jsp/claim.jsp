@@ -176,7 +176,7 @@
 					<div class="col-md-7">
 						<table class="table table-stripped table-bordered text-center">
 							<col width="100">
-							<col width="250">
+							<col width="150">
 							<col width="350">
 							<col width="150">
 							<col width="100">

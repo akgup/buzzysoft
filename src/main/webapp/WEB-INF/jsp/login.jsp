@@ -6,9 +6,10 @@
 <%-- <c:set var="contextPath" value="${pageContext.request.contextPath}" /> --%>
 
 <html>
-<head>
+<head profile="http://www.w3.org/2005/10/profile">
+<link rel="icon" type="image/png" href="/static/image/favicon.png" />
 	<meta charset="utf-8" />
-	<title>Task Manager | Home</title>
+	<title>BuzzyBrains | Login</title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
@@ -44,7 +45,7 @@
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade">
 	    <!-- begin login -->
-	    <img src="static/image/bb-logo.png"></img>
+	    <img height="120" width="120" src="static/image/logo.png"></img>
         <div class="login bg-black animated fadeInDown">
             <!-- begin brand -->
             <div class="login-header">

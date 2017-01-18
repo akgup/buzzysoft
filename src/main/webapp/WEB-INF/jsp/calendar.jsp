@@ -18,7 +18,7 @@
 
 <script type="text/javascript"
 	src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
-	<script src='static/js/bootstrap-timepicker.js'></script>
+<script src='static/js/bootstrap-timepicker.js'></script>
 <link rel="stylesheet"
 	href='static/bootstrap/css/bootstrap-datepicker3.css' />
 <link href='static/css/fullcalendar.min.css' rel='stylesheet' />
@@ -68,9 +68,12 @@ body {
 		<!-- begin sidebar nav -->
 		<ul class="nav" id="leftNavList">
 
-			<li class="has-sub"><a href="javascript:;" onclick="openCalendar()"> <span> Calendar </span></a></li>
-			
-			<li class="has-sub"><a href="javascript:;" onclick="openLeaveDetails()"> <span> Leave Details</span> </a></li>
+			<li class="has-sub"><a href="javascript:;"
+				onclick="openCalendar()"> <span> Calendar </span></a></li>
+
+			<li class="has-sub"><a href="javascript:;"
+				onclick="openLeaveDetails()"> <span> Leave Details</span>
+			</a></li>
 		</ul>
 
 	</div>
@@ -137,7 +140,8 @@ body {
 				<div class="modal-header">
 					<!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
 
-					<p id="errMsg" style="display: none; color: red;">Error message	goes here</p>
+					<p id="errMsg" style="display: none; color: red;">Error message
+						goes here</p>
 					<!-- 	<h4 class="modal-title">In Time</h4> -->
 
 
@@ -150,17 +154,18 @@ body {
 							class="input-group-addon"><i
 							class="glyphicon glyphicon-time"></i></span>
 					</div>
-			                    
-              
+
+
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal"
-						onclick="addTask()">Add Task</button>
-					<button type="button" class="btn btn-default"
+					<button type="button" class="btn btn-sm btn-success"
+						data-dismiss="modal" onclick="addTask()">Add Task</button>
+					<button type="button" class="btn btn-sm btn-success"
 						onclick="putCalData('Leave','<%=userId%>')">Leave</button>
-					<button type="button" class="btn btn-default"
+					<button type="button" class="btn btn-sm btn-success"
 						onclick="putCalData('present','<%=userId%>')">Present</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-sm btn-success"
+						data-dismiss="modal">Close</button>
 				</div>
 
 			</div>
@@ -236,11 +241,12 @@ body {
 							</div>
 						</div>
 
-						<div class="form-group">
+						<div class="modal-footer">
+							<a href="javascript:;" class="btn btn-white" data-dismiss="modal">Cancel</a>
 							<input type="button" onclick="submitTask()"
 								class="btn btn-primary" value="Save" />
-
 						</div>
+
 					</form>
 
 				</div>
@@ -265,10 +271,10 @@ body {
 				</div>
 				<div class="modal-body">
 					<table
-						class="table table-stripped table-bordered text-left  table2excel"
+						class="table table-bordered""
 						id="task-history">
 
-						<col width="300">
+						<col width="200">
 						<col width="100">
 						<col width="200">
 
@@ -291,6 +297,9 @@ body {
 
 					</table>
 
+				</div>
+				<div class="modal-footer">
+					<a href="javascript:;" class="btn btn-white" data-dismiss="modal">Cancel</a>
 				</div>
 
 			</div>

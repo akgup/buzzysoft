@@ -49,7 +49,7 @@
 }
 
 .ui-front {
-	z-index: 100;
+	z-index: 1100;
 }
 
 
@@ -108,6 +108,7 @@
 	top: 0;
 	left: 0;
 	cursor: default;
+	
 }
 .ui-menu {
 	list-style: none;

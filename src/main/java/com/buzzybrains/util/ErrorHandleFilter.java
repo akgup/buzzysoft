@@ -28,7 +28,9 @@ public class ErrorHandleFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
 
-		String[] restricted = { "/validate", "/WEB-INF/jsp/login.jsp", "/static", "/login"};
+
+		String[] restricted = { "/validate", "/WEB-INF/jsp/login.jsp", "/static", "/login" ,"/app"};
+
 
 		String loginURL = req.getContextPath() + "/login";
 

@@ -45,29 +45,25 @@ body {
 	<div id="sidebar" class="sidebar">
 		<!-- begin sidebar nav -->
 		<ul class="nav" id="leftNavList">
-			<li class="has-sub"><div class="col-xs-12">
 
-					<div class="input-group">
-						<form id="form_search" name="form_search" method="get" action=""
-							>
-							<div class="form-group">
-
-								<div class="input-group">
-									<input class="form-control" id="search-keyword"
-										placeholder="Name or Id to add..." type="text">
-								</div>
-
-							</div>
-
-						</form>
+			<li>
+				<form id="form_search" class="navbar-form full-width">
+					<div class="form-group">
+						<input type="text" id="search-keyword"
+							placeholder="Name or Id to add..." class="form-control"
+							placeholder="Enter keyword" />
+						<button type="submit" class="btn btn-search">
+							<i class="fa fa-search"></i>
+						</button>
 					</div>
+				</form>
+			</li>
 
-				</div></li>
 			<c:forEach var="member" items="${teamlist}" varStatus="myIndex">
 				<li class="has-sub">
 					<button type="button" id="btn-employee-${myIndex.index}"
 						onclick='viewCalendar(${member.userId})'
-						class='list-group-item list-group-item-action'>${member.employeeName}-(${member.employeeId})</button>
+						class='list-group-item list-group-item-action member-btn'>${member.employeeName}-(${member.employeeId})</button>
 
 				</li>
 			</c:forEach>
@@ -75,7 +71,7 @@ body {
 
 	</div>
 	<!-- end #sidebar -->
-	<div id="content" class="content" >
+	<div id="content" class="content">
 
 		<c:choose>
 			<c:when test="${mode == 'MODE_TEAM'}">
@@ -83,7 +79,7 @@ body {
 				<!-- begin row -->
 				<div class="row" id="myteam">
 					<!-- begin col-6 -->
-					<div class="col-md-5">
+					<div class="col-md-4">
 
 						<!-- begin panel -->
 						<div class="panel panel-inverse" id="memberDetailPanel">
@@ -95,7 +91,7 @@ body {
 									style="display: none">
 									<table class="table table-bordered">
 
-										<tbody>
+										<tbody id="myteamDetailText1">
 
 											<tr>
 												<th>Name:</th>
@@ -146,7 +142,7 @@ body {
 						</div>
 					</div>
 					<!-- end panel -->
-					<div class="col-md-7">
+					<div class="col-md-8">
 						<!-- begin panel -->
 						<div class="panel panel-inverse">
 							<div class="panel-heading">
@@ -211,6 +207,9 @@ body {
 					</table>
 
 				</div>
+				<div class="modal-footer">
+					<a href="javascript:;" class="btn btn-white" data-dismiss="modal">Cancel</a>
+				</div>
 
 			</div>
 
@@ -219,14 +218,11 @@ body {
 </body>
 
 <script>
-
 var calObject = $('#calendar');	
 document.getElementById("btn-employee-0").click();
 var n=0;
-
 $(document).ready(function() {
     $(function() {    	
-
             $("#form_search").autocomplete({     
             	
              source : function(request, response) {
@@ -249,6 +245,8 @@ $(document).ready(function() {
                     		empArray.push(JSON.parse(json));
                     		 
                     		}
+                    	
+                   
                          	  response(empArray);
                          	
                     }
@@ -275,13 +273,14 @@ $(document).ready(function() {
      }
 })
 .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+            	
+            	
                 return $( "<li>" )
                 .append( "<a>"+ item.value + "</a>" )
                 .appendTo( ul );
              };
 });
 });
-
 </script>
 
 </html>

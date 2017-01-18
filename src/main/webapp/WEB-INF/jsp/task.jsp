@@ -36,10 +36,23 @@
 <body>
 
 	<div id="content" class="content">
-		<h1 class="page-header1">My Tasks</h1>
+	
 		<!-- begin panel -->
-		<div class="panel panel-inverse">
+		<div class="panel panel-inverse" id="mytask" >
 			<div class="panel-heading">
+				<div class="btn-group pull-right">
+					<button type="button" class="btn btn-success btn-xs">Export</button>
+					<button type="button"
+						class="btn btn-success btn-xs dropdown-toggle"
+						data-toggle="dropdown">
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li><a class="export-excel">Excel</a></li>
+						<li class="divider"></li>
+						<li><a class="export-csv">CSV</a></li>
+					</ul>
+				</div>
 				<h4 class="panel-title">Task List</h4>
 			</div>
 			<div class="panel-body">
@@ -85,21 +98,10 @@
 								</div>
 								<button type="submit" class="btn btn-primary">Add New</button>
 
-
-								<ul class="nav navbar-nav pull-right">
-									<li class="dropdown"><a class="dropdown-toggle"
-										data-toggle="dropdown" href="#">Export<span class="caret"></span></a>
-										<ul class="dropdown-menu">
-
-											<li><a class="export-excel">Excel</a></li>
-
-											<li><a class="export-csv">CSV</a></li>
-										</ul></li>
-								</ul>
-
 							</form>
 
 							<br> <br>
+							
 							<div class="table-responsive">
 								<table
 									class="table table-stripped table-bordered text-left  table2excel"
