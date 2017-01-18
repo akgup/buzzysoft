@@ -3,6 +3,7 @@ package com.buzzybrains.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,6 +34,20 @@ public class Claim {
 	private int userId;
 	private int totalReimbursement;
 	
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "create_date", nullable = false, updatable = false, insertable = false)
+	private Date createDate;
+	
+	
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
 	public int getUserId() {
 		return userId;
 	}

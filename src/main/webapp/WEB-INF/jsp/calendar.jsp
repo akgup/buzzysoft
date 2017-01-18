@@ -31,7 +31,7 @@
 <script src='static/js/custom/calendar.js'></script>
 
 <script>
-     sessionStorage.setItem("calenderPageVisited", "True");
+     sessionStorage.setItem("calenderPageVisited","True");
 </script>
 
 

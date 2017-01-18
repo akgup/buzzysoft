@@ -34,11 +34,7 @@
      }
 </script>
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> f0d418c6bcdaae61aa78a47659f98ec25300ea24
 </head>
 <body class="pace-top">
 	<!-- begin #page-loader -->
