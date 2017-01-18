@@ -64,11 +64,14 @@ public class LoginController {
 	}
 
 	@PostMapping("/validate")
-	public String validateLoginDetails(@ModelAttribute UserCredentials userCredentials, BindingResult bindingResult,
+	@ResponseBody
+	public int validateLoginDetails(@ModelAttribute UserCredentials userCredentials, BindingResult bindingResult,
 			HttpServletRequest request, HttpServletResponse response) {
 		String username = userCredentials.getUserName();
 		String password = userCredentials.getPassword();
-		String redirect = "";
+		
+		
+		int userid = 0;
 
 		UserCredentials userObject = userCredentialsRepository.findByUserName(username);
 
@@ -82,17 +85,11 @@ public class LoginController {
 
 				request.setAttribute("mode", "MODE_HOME");
 
-				redirect = "redirect:" + "/home?userid=" + userObject.getUserId();
+				userid = userObject.getUserId();
 			}
-
-			else {
-				redirect = "redirect:/login";
-			}
-		} else {
-			redirect = "redirect:/login";
 
 		}
-		return redirect;
+		return userid;
 	}
 
 	@GetMapping("/logout")
