@@ -87,8 +87,8 @@ public class ClaimController {
 	}
 
 	public void addtoS3storage(MultipartFile multpartfile, int claimId) {
-		AWSCredentials credentials = new BasicAWSCredentials("AKIAI7VDFZTLEOFLBXXA",
-				"2/TWPnvRe2Gs3jZ/NmoM5lzdXNoAKUqOKTuXDViM");
+		AWSCredentials credentials = new BasicAWSCredentials("<>",
+				"<>");
 		AmazonS3 s3client = new AmazonS3Client(credentials);
 		String bucketName = null;
 		for (Bucket bucket : s3client.listBuckets()) {
