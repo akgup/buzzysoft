@@ -129,8 +129,8 @@ public class ClaimController {
 	public void getFileAttachment(HttpServletResponse response, Integer claimid, String file_name,
 			HttpServletRequest request) {
 		
-		AWSCredentials credentials = new BasicAWSCredentials("AKIAI7VDFZTLEOFLBXXA",
-				"2/TWPnvRe2Gs3jZ/NmoM5lzdXNoAKUqOKTuXDViM");
+		AWSCredentials credentials = new BasicAWSCredentials("",
+				"");
 		AmazonS3 s3client = new AmazonS3Client(credentials);
 		
 		String key = claimid + "/" + file_name;
