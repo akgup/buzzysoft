@@ -28,19 +28,32 @@ public class ErrorHandleFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
 
+
 		String[] restricted = { "/validate", "/WEB-INF/jsp/login.jsp", "/static", "/login" ,"/app"};
 
+
 		String loginURL = req.getContextPath() + "/login";
+
+      //String url = ((HttpServletRequest) request).getRequestURL().toString();
+        //System.out.println("@@@@@@@@@@@@@@@"+ url);
+		
 		try {
 
 			if ((session != null && session.getAttribute("SessionUsername") != null)
 					|| Arrays.stream(restricted).parallel().anyMatch(req.getRequestURI()::contains)) {
-
+				
 				chain.doFilter(request, response);
+
 			}
-
+			
+		/*	else if((session != null && session.getAttribute("SessionUsername") != null) && url.equals("/")){
+				
+				String userId = (String) session.getAttribute("SessionUserid");
+				request.setAttribute("mode", "MODE_HOME");
+				res.sendRedirect("home?userid=" + userId);
+			}*/
+			
 			else {
-
 				res.sendRedirect(loginURL);
 
 			}
@@ -48,7 +61,8 @@ public class ErrorHandleFilter implements Filter {
 
 			ex.printStackTrace();
 		}
-
+		
+		
 	}
 
 	@Override

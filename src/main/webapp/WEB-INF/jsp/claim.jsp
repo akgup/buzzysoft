@@ -26,16 +26,17 @@
 		<c:choose>
 			<c:when test="${mode == 'MODE_NEW' || mode == 'MODE_UPDATE'}">
 
-
+				<h1 class="page-header1">Expense Reimbursement</h1>
 
 				<!-- begin panel -->
-				<div class="panel panel-inverse" id="claimform">
+				<div class="panel panel-inverse">
 					<div class="panel-heading">
-						<h4 class="panel-title">Claim Form</h4>
+						<h4 class="panel-title">Claim</h4>
 					</div>
 					<div class="panel-body">
 						<form class="form-horizontal" method="POST" action="create-claim"
-							id="claim-form" onsubmit="return validateForm()">
+							enctype="multipart/form-data" id="claim-form"
+							onsubmit="return validateForm()">
 
 							<div class="formStart">
 								<input type="hidden" name="id" value="${claim.claimId}" /> <input
@@ -43,26 +44,29 @@
 
 								<div class="form-group">
 									<div class="col-sm-6">
-										<label>From Date</label> <input class="form-control"
-											id="start-date" name="start" placeholder="MM/DD/YYY"
-											type="text" required/>
+										<label>From Date</label> <input class="form-control picker"
+											id="start-date" name="start" placeholder="MM/DD/YYY"	type="text" required/>
+
+											
 									</div>
 									<div class="col-sm-6">
-										<label>End Date</label><input class="form-control"
-											id="end-date" name="end" placeholder="MM/DD/YYY" type="text"
-											required />
+										<label>End Date</label><input class="form-control picker"
+											id="end-date" name="end" placeholder="MM/DD/YYY" type="text"		required />
+
 									</div>
 								</div>
 
 								<div class="form-group">
 									<div class="col-sm-6">
 										<label>Manager</label> <input type="text" name="manager"
+
 											id="manager" class="form-control" required />
+
 									</div>
 									<div class="col-sm-6">
 										<label>Business Purpose</label><input type="text"
-											name="purpose" id="purpose" class="form-control"
-											required/>
+											name="purpose" id="purpose" class="form-control"		required/>
+
 									</div>
 								</div>
 
@@ -83,8 +87,8 @@
 								</div>
 
 							</div>
-
-							<div class="panel panel-inverse" id="claimInnerPanel">
+							<p id="errormsg" style="color: red; font-size: 20px;"></p>
+							<div class="panel panel-inverse innerPanel" id="innerPanel">
 								<div class="panel-heading">
 									<div class="panel-heading-btn">
 										<a href="javascript:;" id="add_row"
@@ -102,9 +106,9 @@
 										<col width="80">
 										<col width="120">
 										<col width="200">
-										<col width="130">
-										<col width="130">
-										<col width="200">
+										<col width="120">
+										<col width="100">
+										<col width="150">
 										<thead>
 											<tr>
 												<th class="text-center">#</th>
@@ -117,12 +121,12 @@
 										</thead>
 										<tbody>
 											<tr id='addr0'>
-												<td class="text-center">1</td>
+												<td>1</td>
 												<td><input type="text" name='claimItems[0].expenseDate'
 													id='expenseDate' placeholder='Date'
-													class="form-control picker" /></td>
+													class="form-control picker" required/></td>
 												<td><input type="text" name='claimItems[0].description'
-													placeholder='Description' class="form-control" /></td>
+													placeholder='Description' class="form-control" required /></td>
 												<td><select class="selectpicker form-control"
 													name='claimItems[0].category'>
 														<option value="travel">Travel</option>
@@ -132,10 +136,9 @@
 														<option value="other">Other</option>
 												</select></td>
 												<td><input type="number" name='claimItems[0].cost'
-													placeholder='Cost' class="form-control" /></td>
-												<td><input type="file" name='files[0]'
-													id='js-upload-files' class="myfile1" multiple></td>
-
+													placeholder='Cost' class="form-control" required/></td>
+												<td><input type='file' name='upload_file'
+													id='js-upload-files'></td>
 											</tr>
 											<tr id='addr1'></tr>
 										</tbody>
@@ -161,34 +164,50 @@
 			<c:when test="${mode == 'MODE_HISTORY'}">
 				<div class="" id="tasksDiv">
 
-
+					<h1 class="page-header1">Claim History</h1>
 
 					<!-- begin panel -->
-					<div class="panel panel-inverse" id="claimHistory">
+					<div class="panel panel-inverse claimPanel ">
 						<div class="panel-heading">
-							<h4 class="panel-title">Claim History</h4>
+							<h4 class="panel-title">History</h4>
 						</div>
 						<div class="panel-body">
 							<table class="table table-bordered">
 								<thead>
 									<tr>
 										<th class="text-center">Claim Id</th>
+										<th class="text-center">Submission Date</th>
 										<th class="text-center">Period</th>
 										<th class="text-center">Download</th>
+										<th class="text-center">List</th>
 
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach var="claim" items="${claimList}">
 										<tr>
-											<td class="text-center">${claim.claimId}</td>
-											<td class="text-center"><fmt:formatDate
-													pattern="yyyy-MM-dd" value="${claim.start}" /> to <fmt:formatDate
+											<td>${claim.claimId}</td>
+											<td><fmt:formatDate type="date"
+													value="${claim.createDate}" /></td>
+											<td><fmt:formatDate pattern="yyyy-MM-dd"
+													value="${claim.start}" /> to <fmt:formatDate
 													pattern="yyyy-MM-dd" value="${claim.end}" /></td>
-											<td class="text-center"><a
-												href="/claim-download?claimid=${claim.claimId}"><span
+											<td><a href="/claim-download?claimid=${claim.claimId}"><span
 													class="glyphicon glyphicon-download"></span></a></td>
+											
+											<td>
+												<div class="dropdown">
+													<button class="btn btn-primary" onmouseover="getAttachmentList(${claim.claimId})">Attachments</button>
+													<ul id="attachment-${claim.claimId}" onmouseleave="clearAttachmentList(${claim.claimId})" class="dropdown-menu animated fadeInLeft">
+														
+													</ul>
+
+												</div>
+
+											</td>
+
 										</tr>
+
 									</c:forEach>
 								</tbody>
 							</table>
@@ -201,53 +220,59 @@
 	</div>
 
 
-	<script>
-		$(document).ready(
-				function() {
-					var date_input = $('input[name="start"]');
-					var container = $('.bootstrap-iso form').length > 0 ? $(
-							'.bootstrap-iso form').parent() : "body";
-					date_input.datepicker({
-						format : 'mm/dd/yyyy',
-						container : container,
-						todayHighlight : true,
-						autoclose : true,
-					})
-				})
-	</script>
+	<script type="text/javascript">
+	
+	function getAttachmentList(claimid){
+		$(".file_list").remove();
+		$.ajax({
+			type : "GET",
+			url : "file-list",
+			data : "claimid=" + claimid,
+			success : function(data) {
+				
+				var json = JSON.parse(data);
+				for (x in json) {
+					var title = json[x]["claimItemFile"];
+					var claimid = json[x]["claimId"];
+					
+					 $("#attachment-"+claimid).append('<li><a class="file_list" href="/file-attachment?file_name='+title+'&claimid='+claimid+'">'+title+'</a></li>');
+				        
+				}
+				 
+			},
+			dataType : "html",
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader('Content-Type',
+						'application/x-www-form-urlencoded');
+			},
+		});
 
-	<script>
-		$(document).ready(
-				function() {
-					var date_input = $('input[name="end"]'); //our date input has the name "date"
-					var container = $('.bootstrap-iso form').length > 0 ? $(
-							'.bootstrap-iso form').parent() : "body";
-					date_input.datepicker({
-						format : 'mm/dd/yyyy',
-						container : container,
-						todayHighlight : true,
-						autoclose : true,
-					})
-				})
-	</script>
+		
+	}
 
+</script>
+
+	<script type="text/javascript">
+		$('#js-upload-files').bind('change', function() {
+		  if(this.files[0].size>1048576){
+			  document.getElementById("errormsg").innerHTML ="File size Limit 1MB!";
+		  }
+		});
+		</script>
 
 	<script>
 		$(document)
 				.ready(
 						function() {
 							var i = 1;
-							$("#add_row")
-									.click(
-											function() {
+							$("#add_row").click(function() {
 												$('#addr' + i)
-														.html(
-																"<td>"
+														.html("<td>"
 																		+ (i + 1)
 																		+ "</td><td><input name='claimItems["
 																		+ i
-																		+ "].expenseDate' type='text' placeholder='Date' class='form-control input-md picker' onblur='showDatePicker(this)'/> </td><td><input name='claimItems["+i+"].description' type='text' placeholder='Description'  class='form-control input-md'></td><td><select class='selectpicker form-control' name='claimItems["+i+"].category'><option value='travel'>Travel</option><option value='food'>Food</option><option value='admin'>Admin</option><option value='product'>Product</option><option value='other'>Other</option></select></td><td><input  name='claimItems["+i+"].cost' type='number' placeholder='Cost'  class='form-control input-md'></td><td><input type='file' name='files[0]'id='js-upload-files' class='myfile1' multiple></td>");
-
+																		+ "].expenseDate' type='text' placeholder='Date' class='form-control picker' onfocus='showDatePicker(this)'/> </td><td><input  name='claimItems["+i+"].description' type='text' placeholder='Description'  class='form-control input-md'></td><td><select class='selectpicker form-control' name='claimItems["+i+"].category'><option value='travel'>Travel</option><option value='food'>Food</option><option value='admin'>Admin</option><option value='product'>Product</option><option value='other'>Other</option></select></td><td><input  name='claimItems["+i+"].cost' type='number' placeholder='Cost'  class='form-control input-md'></td><td><input type='file' name='upload_file' id='js-upload-files' required></td>");
+												
 												$('#item_table').append(
 														'<tr id="addr'
 																+ (i + 1)
@@ -260,51 +285,28 @@
 									i--;
 								}
 							});
-
 						});
 	</script>
+	
 	<script>
-		$(document).ready(
-				function() {
-					var date_input = $('.picker');
-
-					var container = $('.bootstrap-iso form').length > 0 ? $(
-							'.bootstrap-iso form').parent() : "body";
-					date_input.datepicker({
-						format : 'mm/dd/yyyy',
-						container : container,
-						todayHighlight : true,
-						autoclose : true,
-					})
-				})
-	</script>
-
-
-	<script>
-		function showDatePicker() {
-			var date_input = $('.picker');
-
-			var container = $('.bootstrap-iso form').length > 0 ? $(
-					'.bootstrap-iso form').parent() : "body";
-			date_input.datepicker({
+		
+		$('body').on('focus',".picker", function(){
+		    $(this).datepicker({
 				format : 'mm/dd/yyyy',
-				container : container,
 				todayHighlight : true,
 				autoclose : true,
-			})
-		}
+			});
+		});
 	</script>
 
 
 	<script>
 		function validateForm() {
-
 			var startdate = document.forms["claim-form"]["start-date"].value;
 			var enddate = document.forms["claim-form"]["end-date"].value;
 			var manager = document.forms["claim-form"]["manager"].value;
 			var advance = document.forms["claim-form"]["advance"].value;
 			var purpose = document.forms["claim-form"]["purpose"].value;
-
 			if (startdate.trim() == "" || enddate.trim() == ""
 					|| manager.trim() == "" || advance.trim() == ""
 					|| purpose.trim() == "") {

@@ -14,7 +14,6 @@ public class ClaimItems {
 
 	public ClaimItems()
 	{
-				
 	}
 	
 	@Id
@@ -24,6 +23,17 @@ public class ClaimItems {
 	private String category;
 	private int cost;
 	private int claimId;
+	
+	private String claimItemFile;
+	
+	public String getClaimItemFile() {
+		return claimItemFile;
+	}
+	public void setClaimItemFile(String claimItemFile) {
+		this.claimItemFile = claimItemFile;
+	}
+	
+	
 	public int getClaimId() {
 		return claimId;
 	}
