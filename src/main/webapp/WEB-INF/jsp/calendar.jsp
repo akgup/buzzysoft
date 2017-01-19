@@ -195,7 +195,7 @@ body {
 							<div class="col-md-5">
 
 								<input type="text" name="name" class="form-control"
-									placeholder="Task Name*" value="${task.name}" />
+									placeholder="Task Name*"  required />
 							</div>
 						</div>
 						<div class="form-group">

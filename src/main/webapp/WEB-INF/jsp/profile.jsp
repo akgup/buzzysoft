@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -15,7 +14,6 @@
 
 <title>My Profile</title>
 
-<!-- Include Date Range Picker -->
 <script type="text/javascript"
 	src='static/bootstrap/js/bootstrap-datepicker.min.js'></script>
 <link rel="stylesheet"
@@ -159,13 +157,13 @@
 
 									<input type="text" id="new-password" name="password"
 										class="form-control" placeholder="New Password"
-										value="${userCredentials.password}" />
+										value="${userCredentials.password}" autocomplete="off" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3">Confirm password</label>
 								<div class="col-md-5">
-									<input type="password" name="confirm" id="confirm-password"
+									<input type="password" autocomplete="off" name="confirm" id="confirm-password"
 										placeholder="Confirm Password" class="form-control" />
 								</div>
 							</div>
@@ -237,8 +235,7 @@
 
 	<script>
 	
-	$('select[name="bloodGroup"]').val('<%=blood%>
-		');
+	$('select[name="bloodGroup"]').val('<%=blood%>');
 	</script>
 
 

@@ -45,34 +45,31 @@
 									<div class="col-sm-6">
 										<label>From Date</label> <input class="form-control"
 											id="start-date" name="start" placeholder="MM/DD/YYY"
-											type="text"
-											value="<fmt:formatDate pattern="yyyy-MM-dd"
-																						value="${claim.start}" />" />
+											type="text" required/>
 									</div>
 									<div class="col-sm-6">
 										<label>End Date</label><input class="form-control"
 											id="end-date" name="end" placeholder="MM/DD/YYY" type="text"
-											value="<fmt:formatDate pattern="yyyy-MM-dd"
-																						value="${claim.end}" />" />
+											required />
 									</div>
 								</div>
 
 								<div class="form-group">
 									<div class="col-sm-6">
 										<label>Manager</label> <input type="text" name="manager"
-											id="manager" class="form-control" value="${claim.manager}" />
+											id="manager" class="form-control" required />
 									</div>
 									<div class="col-sm-6">
 										<label>Business Purpose</label><input type="text"
 											name="purpose" id="purpose" class="form-control"
-											value="${claim.purpose}" />
+											required/>
 									</div>
 								</div>
 
 								<div class="form-group">
 									<div class="col-sm-6">
 										<label>Advance</label><input type="number" name="advance"
-											id="advance" class="form-control" value="${claim.advance}" />
+											id="advance" class="form-control" required />
 									</div>
 									<div class="col-sm-6">
 										<label>Department</label><select

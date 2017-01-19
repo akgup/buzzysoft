@@ -113,14 +113,3 @@ function delete_row(no, userid) {
 	});
 
 }
-
-function validateForm() {
-
-	var date = document.forms["taskForm"]["taskDate"].value;
-	var taskname = document.forms["taskForm"]["name"].value;
-	if (date.trim() == "" || taskname.trim() == "") {
-		document.getElementById("error").innerHTML = "Please fill all mandatory fields!";
-		return false;
-	}
-}
-

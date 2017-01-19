@@ -115,12 +115,8 @@
 	<script
 		src="static/color_theme/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 
-
-	<!-- ================== END BASE JS ================== -->
-
-	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
 	<script src="static/color_theme/assets/js/apps.min.js"></script>
-	<!-- ================== END PAGE LEVEL JS ================== -->
+
 
 	<script>
 		$(document).ready(function() {

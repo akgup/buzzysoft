@@ -60,18 +60,11 @@
 					<c:when test="${mode == 'MODE_TASKS'}">
 						<div id="tasksDiv">
 
-							<div id="errorDiv">
-								<p id="error" style="color: red; font-size: 20px;"></p>
-							</div>
-
-
-							<form class="form-inline" id="new-task-from" method="POST"
-								action="save-task" name="taskForm"
-								onsubmit="return validateForm()">
+						<form class="form-inline" id="new-task-from" method="POST"	action="save-task" name="taskForm">
 								<input type="hidden" name="userId" value="<%=userId%>" />
 								<div class="form-group">
 									<input type="text" class="form-control" id="task-name"
-										name="name" placeholder="Task Name">
+										name="name" placeholder="Task Name*" required>
 								</div>
 								<div class="form-group">
 									<input type="text" class="form-control" id="task-desc"
@@ -80,7 +73,7 @@
 
 								<div class="form-group">
 									<input class="form-control" name="taskDate" id="task-date"
-										placeholder="YYYY/MM/DD*" type="text">
+										placeholder="YYYY/MM/DD*" type="text" required>
 								</div>
 
 								<div class="form-group">
