@@ -41,7 +41,6 @@ public class ErrorHandleFilter implements Filter {
 
 			if ((session != null && session.getAttribute("SessionUsername") != null)
 					|| Arrays.stream(restricted).parallel().anyMatch(req.getRequestURI()::contains)) {
-				System.out.println("iiiiiiiiiiiiiif");
 				
 				chain.doFilter(request, response);
 
@@ -55,7 +54,6 @@ public class ErrorHandleFilter implements Filter {
 			}*/
 			
 			else {
-				System.out.println("eeeeeeeeelll");
 				res.sendRedirect(loginURL);
 
 			}
